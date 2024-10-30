@@ -3,8 +3,8 @@
 nemo = ["nemo"]
 
 def find_nemo_1(array):
-  for item in array:
-    if item == "nemo":
-      print("Found NEMO!")
+    for item in array:
+        if item == "nemo":
+            print("Found NEMO!")
 
 find_nemo_1(nemo)

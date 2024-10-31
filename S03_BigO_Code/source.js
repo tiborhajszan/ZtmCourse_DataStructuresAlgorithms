@@ -1,18 +1,12 @@
-//#1 -- For loop in Javascript.
-const fish = ['dory', 'bruce', 'marlin', 'nemo'];
-const nemo = ['nemo'];
-const everyone = ['dory', 'bruce', 'marlin', 'nemo', 'gill', 'bloat', 'nigel', 'squirt', 'darla', 'hank'];
-const large = new Array(10).fill('nemo');
+// What is the Big O of the below function? (Hint, you may want to go line by line)
+function funChallenge(input) {
+  let a = 10;
+  a = 50 + 3;
 
-function findNemo2(fish) {
-  let t0 = performance.now();
-  for (let i = 0; i < fish.length; i++) {
-    if (fish[i] === 'nemo') {
-      console.log('Found NEMO!');
-    }
+  for (let i = 0; i < input.length; i++) {
+    anotherFunction();
+    let stranger = true;
+    a++;
   }
-  let t1 = performance.now();
-  console.log("Call to find Nemo took " + (t1 - t0) + " milliseconds.");
+  return a;
 }
-
-findNemo2(everyone)

@@ -1,7 +1,7 @@
 
 ### What is the Big O of the function below? Hint: You may want to go line by line...
 
-def funChallenge(input):
+def fun_challenge(input):
   
     a = 10 # O(1)
     a = 50 + 3 # O(1)
@@ -13,4 +13,4 @@ def funChallenge(input):
     
     return a # O(1)
 
-### Big O = 1 + 1 + n + n + n + n + 1 = 3 + 4n = O(4n+3) >>> O(n)
+### Big O = 2*1 + 4n + 1 = 4n + 3 >>> O(n)

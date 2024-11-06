@@ -1,5 +1,5 @@
 
-### What is the Big O of the function below? Hint: You may want to go line by line...
+### What is the time complexity of the function below? Hint: You may want to go line by line...
 
 def fun_challenge(input):
   

@@ -1,6 +1,6 @@
 ########################################################################################################################
 ### Data Structures and Algorithms :: Section 06
-### Lesson: Implementing an Array
+### Lesson: Implementing An Array
 ########################################################################################################################
 
 ### imports
@@ -21,31 +21,31 @@ class MyArray:
     ### constructor method #############################################################################################
     def __init__(self) -> None:
         """
-        Initializes an instance of MyArray.
+        Initializes the attributes of a new MyArray object.
         """
 
-        # class attributes init
         self.length = int()
         self.data = dict()
-        # returning none
         return
     
     ### str dunder method ##############################################################################################
     def __str__(self) -> str:
         """
-        Returns the string representation of the array.
+        Defines the string representation of MyArray objects.
 
         Returns:
-        - str, string representation of array
+        - str, contents of array
         """
 
-        # returning string representation of array
         return str(list(self.data.values()))
 
     ### index verification method ######################################################################################
     def _checkIndex(self, checkIndex=int()) -> int:
         """
-        Ensures the provided index is within the valid range of the array. 
+        Ensures the provided index is within the valid range of the array:
+        - returns 0 if the index is negative;
+        - returns the last index if the index exceeds the higher limit;
+        - returns the index unchanged if the index is valid.
 
         Args:
         - checkIndex: int, index to check, defaults to 0

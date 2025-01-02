@@ -4,7 +4,7 @@
 ########################################################################################################################
 
 ### imports
-from typing import Any
+from typing import List, Any
 
 ########################################################################################################################### HashTable Class
 ########################################################################################################################
@@ -110,14 +110,34 @@ class HashTable:
         for item in self.pData[self._hash(hashKey=getKey)]:
             if item[0] == getKey: return item[1]
         raise Exception(f"Key '{getKey}' is not found...\n")
+    
+    ### keys method ####################################################################################################
+    def keys(self) -> List[str]:
+        """
+        Retrieves all keys from the hash table to create a list of keys (rKeys).
+
+        Returns:
+        - rKeys : List[str], list of keys in the hash table
+        """
+
+        rKeys: List[str] = list()
+        for bucket in self.pData:
+            for item in bucket:
+                rKeys.append(item[0])
+        return rKeys
 
 ########################################################################################################################
 ### code tests
 ########################################################################################################################
 
-myDict = HashTable(initSize=20)
+myDict = HashTable(initSize=2)
 print("\n", myDict._hash(hashKey="cardigans"))
-myDict.set(setKey="key1")
-myDict.set(setKey="key2", setValue="value2")
-myDict.set(setKey="key3", setValue="value3")
-print("\nValue of key1: ", myDict.get("key1"))
+print("\nKeys: ", myDict.keys())
+myDict.set(setKey="apple")
+myDict.set(setKey="banana", setValue="value2")
+myDict.set(setKey="orange", setValue="value3")
+myDict.set(setKey="grape", setValue="value4")
+myDict.set(setKey="peach", setValue="value5")
+print("\nValue of orange: ", myDict.get("orange"))
+print("\nKeys: ", myDict.keys())
+print()

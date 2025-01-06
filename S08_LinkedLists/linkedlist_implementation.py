@@ -52,12 +52,30 @@ class LinkedList:
         self.tail = new_node
         self.length += 1
         return
+    
+    def prepend(self, prependValue=None) -> None:
+        """
+        Args:
+        - prependValue : Any, value of new node, defaults to None
+
+        Adds a new node to the beginning of the linked list.
+        
+        Returns:
+        - None
+        """
+
+        new_node = {"value": prependValue, "next": None}
+        new_node["next"] = self.head
+        self.head = new_node
+        self.length += 1
+        return
 
 ### testing code #######################################################################################################
 
 myLiLi = LinkedList(headValue=10)
 myLiLi.append(appendValue=5)
 myLiLi.append(appendValue=16)
+myLiLi.prepend(prependValue=1)
 print()
 print("Head: ", myLiLi.head, "\n")
 print("Tail: ", myLiLi.tail, "\n")

@@ -69,6 +69,22 @@ class LinkedList:
         self.head = new_node
         self.length += 1
         return
+    
+    def print(self) -> None:
+        """
+        Prints all values stored in the linked list.
+        
+        Returns:
+        - None
+        """
+        
+        current_node = self.head
+        value_array = list()
+        while current_node is not None:
+            value_array.append(current_node["value"])
+            current_node = current_node["next"]
+        print(value_array)
+        return
 
 ### testing code #######################################################################################################
 
@@ -77,6 +93,6 @@ myLiLi.append(appendValue=5)
 myLiLi.append(appendValue=16)
 myLiLi.prepend(prependValue=1)
 print()
-print("Head: ", myLiLi.head, "\n")
-print("Tail: ", myLiLi.tail, "\n")
+myLiLi.print()
+print()
 print("Size: ", myLiLi.length, "\n")

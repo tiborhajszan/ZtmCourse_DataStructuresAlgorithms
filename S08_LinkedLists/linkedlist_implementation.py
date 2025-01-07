@@ -5,6 +5,7 @@
 
 ### imports ############################################################################################################
 
+import sys
 from typing import Dict, Any
 
 ########################################################################################################################
@@ -134,6 +135,61 @@ class LinkedList:
         ### returning none ---------------------------------------------------------------------------------------------
 
         return
+    
+    ### delete method ##################################################################################################
+    def delete(self, deleteIndex:int=None) -> None:
+        """
+        Removes a node from the linked list at the specified index.
+
+        Args:
+        - deleteIndex : int | None, index of node to be deleted, defaults to None
+
+        Raises:
+        - Error, Cannot delete: Invalid index...
+        - Error, Cannot delete: The list contains only one node...
+
+        Returns:
+        - None
+        """
+
+        ### validating index -------------------------------------------------------------------------------------------
+
+        if type(deleteIndex) is not int or deleteIndex < 0 or self.length <= deleteIndex:
+            sys.exit("Cannot delete: Invalid index...\n")
+
+        ### handling single node list ----------------------------------------------------------------------------------
+
+        if self.length == 1:
+            sys.exit("Cannot delete: The list contains only one node...\n")
+
+        ### removing head node -----------------------------------------------------------------------------------------
+
+        if deleteIndex == 0:
+            self.head = self.head["next"]
+            if self.length == 2: self.tail = self.head
+            self.length -= 1
+
+        ### removing tail node -----------------------------------------------------------------------------------------
+
+        elif deleteIndex == self.length - 1:
+            new_tail = self._traverse(traverseIndex=deleteIndex-1)
+            new_tail["next"] = None
+            self.tail = new_tail
+            if self.length == 2: self.head = self.tail
+            self.length -= 1
+
+        ### removing middle node ---------------------------------------------------------------------------------------
+
+        else:
+            previous_node = self._traverse(traverseIndex=deleteIndex-1)
+            delete_node = previous_node["next"]
+            next_node = delete_node["next"]
+            previous_node["next"] = next_node
+            self.length -= 1
+
+        ### returning none ---------------------------------------------------------------------------------------------
+
+        return
 
     ### print method ###################################################################################################
     def print(self) -> None:
@@ -162,5 +218,8 @@ myLiLi.prepend(prependValue=1)
 print()
 myLiLi.print()
 myLiLi.insert(insertIndex=2, insertValue=23)
-print("Insert(): ", "\n")
+print("Insert(2,23): ", "\n")
+myLiLi.print()
+myLiLi.delete(deleteIndex=2)
+print("Delete(2): ", "\n")
 myLiLi.print()

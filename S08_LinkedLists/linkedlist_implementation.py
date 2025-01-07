@@ -70,28 +70,25 @@ class LinkedList:
         self.length += 1
         return
     
-    ### traverse method ################################################################################################
-    def traverse(self, traverseIndex:int=None) -> Dict[str,Any]:
-
+    ### traverse private method ########################################################################################
+    def _traverse(self, traverseIndex:int) -> Dict[str,Any]:
         """
-        Args:
-        - traverseIndex : int | None, index of node to be returned, defaults to None
-
         Traverses the linked list to find the node at the specified index.
+
+        Args:
+        - traverseIndex : int, index of node to be returned
 
         Returns:
         - current_node : Dict[str,Any], node at specified index
         """
 
-        ### verifying index --------------------------------------------------------------------------------------------
+        ### setting initial conditions ---------------------------------------------------------------------------------
 
-        if type(traverseIndex) is not int or self.length <= traverseIndex: traverseIndex = self.length - 1
-        if traverseIndex < 0: traverseIndex = 0
+        counter = int(0)
+        current_node = self.head
 
         ### traversing linked list -------------------------------------------------------------------------------------
         
-        counter = int(0)
-        current_node = self.head
         while counter < traverseIndex:
             current_node = current_node["next"]
             counter += 1
@@ -99,6 +96,44 @@ class LinkedList:
         ### returning current node -------------------------------------------------------------------------------------
 
         return current_node
+    
+    ### insert method ##################################################################################################
+    def insert(self, insertIndex:int=None, insertValue:Any=None) -> None:
+        """
+        Adds a new node to the linked list at the specified index.
+
+        Args:
+        - insertIndex : int | None, index of new node, defaults to None
+        - insertValue : Any | None, value of new node, defaults to None
+
+        Returns:
+        - None
+        """
+
+        ### handling edge cases ----------------------------------------------------------------------------------------
+
+        if type(insertIndex) is not int or self.length <= insertIndex:
+            self.append(appendValue=insertValue)
+            return
+        if insertIndex <= 0:
+            self.prepend(prependValue=insertValue)
+            return
+
+        ### establishing new node sequence -----------------------------------------------------------------------------
+
+        previous_node = self._traverse(traverseIndex=insertIndex-1)
+        new_node = {"value": insertValue, "next": None}
+        next_node = previous_node["next"]
+
+        ### updating pointers and length -------------------------------------------------------------------------------
+
+        previous_node["next"] = new_node
+        new_node["next"] = next_node
+        self.length += 1
+
+        ### returning none ---------------------------------------------------------------------------------------------
+
+        return
 
     ### print method ###################################################################################################
     def print(self) -> None:
@@ -115,6 +150,7 @@ class LinkedList:
             value_array.append(current_node["value"])
             current_node = current_node["next"]
         print(value_array, "\n")
+        print("Size: ", self.length, "\n")
         return
 
 ### testing code #######################################################################################################
@@ -125,5 +161,6 @@ myLiLi.append(appendValue=16)
 myLiLi.prepend(prependValue=1)
 print()
 myLiLi.print()
-print("Size: ", myLiLi.length, "\n")
-print("Traverse(1): ", myLiLi.traverse(traverseIndex=1), "\n")
+myLiLi.insert(insertIndex=2, insertValue=23)
+print("Insert(): ", "\n")
+myLiLi.print()

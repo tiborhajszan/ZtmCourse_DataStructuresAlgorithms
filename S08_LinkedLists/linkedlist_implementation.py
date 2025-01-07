@@ -5,7 +5,7 @@
 
 ### imports ############################################################################################################
 
-###
+from typing import Dict, Any
 
 ########################################################################################################################
 ### Solution
@@ -53,6 +53,7 @@ class LinkedList:
         self.length += 1
         return
     
+    ### prepend method #################################################################################################
     def prepend(self, prependValue=None) -> None:
         """
         Args:
@@ -64,12 +65,42 @@ class LinkedList:
         - None
         """
 
-        new_node = {"value": prependValue, "next": None}
-        new_node["next"] = self.head
+        new_node = {"value": prependValue, "next": self.head}
         self.head = new_node
         self.length += 1
         return
     
+    ### traverse method ################################################################################################
+    def traverse(self, traverseIndex:int=None) -> Dict[str,Any]:
+
+        """
+        Args:
+        - traverseIndex : int | None, index of node to be returned, defaults to None
+
+        Traverses the linked list to find the node at the specified index.
+
+        Returns:
+        - current_node : Dict[str,Any], node at specified index
+        """
+
+        ### verifying index --------------------------------------------------------------------------------------------
+
+        if type(traverseIndex) is not int or self.length <= traverseIndex: traverseIndex = self.length - 1
+        if traverseIndex < 0: traverseIndex = 0
+
+        ### traversing linked list -------------------------------------------------------------------------------------
+        
+        counter = int(0)
+        current_node = self.head
+        while counter < traverseIndex:
+            current_node = current_node["next"]
+            counter += 1
+        
+        ### returning current node -------------------------------------------------------------------------------------
+
+        return current_node
+
+    ### print method ###################################################################################################
     def print(self) -> None:
         """
         Prints all values stored in the linked list.
@@ -83,7 +114,7 @@ class LinkedList:
         while current_node is not None:
             value_array.append(current_node["value"])
             current_node = current_node["next"]
-        print(value_array)
+        print(value_array, "\n")
         return
 
 ### testing code #######################################################################################################
@@ -94,5 +125,5 @@ myLiLi.append(appendValue=16)
 myLiLi.prepend(prependValue=1)
 print()
 myLiLi.print()
-print()
 print("Size: ", myLiLi.length, "\n")
+print("Traverse(1): ", myLiLi.traverse(traverseIndex=1), "\n")

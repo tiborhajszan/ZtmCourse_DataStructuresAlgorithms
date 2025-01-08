@@ -136,6 +136,48 @@ class LinkedList:
 
         return
     
+    ### reverse method #################################################################################################
+    def reverse(self) -> None:
+        """
+        Reverses the order of nodes in the singly linked list.
+
+        Returns:
+        - None
+        """
+
+        ### handling single node list ----------------------------------------------------------------------------------
+
+        if self.length == 1:
+            return
+
+        ### setting initial conditions ---------------------------------------------------------------------------------
+
+        previous_node: Dict[str,Any] = self.head
+        current_node: Dict[str,Any] = previous_node["next"]
+        next_node: Dict[str,Any] = dict()
+        
+        ### updating tail node -----------------------------------------------------------------------------------------
+
+        previous_node["next"] = None
+        self.tail = previous_node
+
+        ### traversing middle nodes to reverse order -------------------------------------------------------------------
+
+        while current_node["next"] is not None:
+            next_node = current_node["next"]
+            current_node["next"] = previous_node
+            previous_node = current_node
+            current_node = next_node
+
+        ### updating head node -----------------------------------------------------------------------------------------
+
+        current_node["next"] = previous_node
+        self.head = current_node
+
+        ### returning none ---------------------------------------------------------------------------------------------
+
+        return
+    
     ### delete method ##################################################################################################
     def delete(self, deleteIndex:int=None) -> None:
         """
@@ -205,8 +247,10 @@ class LinkedList:
         while current_node is not None:
             value_array.append(current_node["value"])
             current_node = current_node["next"]
-        print(value_array, "\n")
-        print("Size: ", self.length, "\n")
+        print("Values: ", value_array)
+        print("Head: ", self.head["value"])
+        print("Size: ", self.length)
+        print("Tail: ", self.tail["value"], "\n")
         return
 
 ### testing code #######################################################################################################
@@ -218,8 +262,11 @@ myLiLi.prepend(prependValue=1)
 print()
 myLiLi.print()
 myLiLi.insert(insertIndex=2, insertValue=23)
-print("Insert(2,23): ", "\n")
+print("Insert(2,23): ")
 myLiLi.print()
 myLiLi.delete(deleteIndex=2)
-print("Delete(2): ", "\n")
+print("Delete(2): ")
+myLiLi.print()
+myLiLi.reverse()
+print("Reverse: ")
 myLiLi.print()

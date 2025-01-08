@@ -199,19 +199,30 @@ class DoublyLinkedList:
     ### print method ###################################################################################################
     def print(self) -> None:
         """
-        Prints all values stored in the linked list.
+        Prints all values stored in the doubly linked list.
         
         Returns:
         - None
         """
         
+        ### setting initial conditions ---------------------------------------------------------------------------------
+
         current_node = self.head
-        value_array = list()
+        value_list = list()
+
+        ### traversing linked list -------------------------------------------------------------------------------------
+
         while current_node is not None:
-            value_array.append(current_node["value"])
+            value_list.append(current_node["value"])
             current_node = current_node["next"]
-        print(value_array, "\n")
+        
+        ### printing values and list size ------------------------------------------------------------------------------
+
+        print("Values: ", value_list)
         print("Size: ", self.length, "\n")
+
+        ### returning none ---------------------------------------------------------------------------------------------
+        
         return
 
 ### testing code #######################################################################################################

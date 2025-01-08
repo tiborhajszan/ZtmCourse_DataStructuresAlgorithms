@@ -41,6 +41,38 @@ class DoublyLinkedList:
 
         return
     
+    ### traverse private method ########################################################################################
+    def _traverse(self, traverseIndex:int) -> Dict[str,Any]:
+        """
+        Traverses the linked list to find the node at the specified index.
+
+        Args:
+        - traverseIndex : int, index of node to be returned
+
+        Returns:
+        - current_node : Dict[str,Any], node at specified index
+        """
+
+        ### determining traversal direction ----------------------------------------------------------------------------
+
+        forward = True
+        if int(self.length / 2) <= traverseIndex: forward = False
+
+        ### setting initial conditions ---------------------------------------------------------------------------------
+
+        counter = int(0) if forward else self.length - 1
+        current_node = self.head if forward else self.tail
+
+        ### traversing list to find node -------------------------------------------------------------------------------
+        
+        while counter != traverseIndex:
+            current_node = current_node["next"] if forward else current_node["prev"]
+            counter = counter + 1 if forward else counter - 1
+        
+        ### returning current node -------------------------------------------------------------------------------------
+
+        return current_node
+    
     ### append method ##################################################################################################
     def append(self, appendValue=None) -> None:
         """
@@ -75,33 +107,6 @@ class DoublyLinkedList:
         self.head = new_node
         self.length += 1
         return
-    
-    ### traverse private method ########################################################################################
-    def _traverse(self, traverseIndex:int) -> Dict[str,Any]:
-        """
-        Traverses the linked list to find the node at the specified index.
-
-        Args:
-        - traverseIndex : int, index of node to be returned
-
-        Returns:
-        - current_node : Dict[str,Any], node at specified index
-        """
-
-        ### setting initial conditions ---------------------------------------------------------------------------------
-
-        counter = int(0)
-        current_node = self.head
-
-        ### traversing linked list -------------------------------------------------------------------------------------
-        
-        while counter < traverseIndex:
-            current_node = current_node["next"]
-            counter += 1
-        
-        ### returning current node -------------------------------------------------------------------------------------
-
-        return current_node
     
     ### insert method ##################################################################################################
     def insert(self, insertIndex:int=None, insertValue:Any=None) -> None:
@@ -210,7 +215,7 @@ class DoublyLinkedList:
         current_node = self.head
         value_list = list()
 
-        ### traversing linked list -------------------------------------------------------------------------------------
+        ### traversing linked list to collect values -------------------------------------------------------------------
 
         while current_node is not None:
             value_list.append(current_node["value"])

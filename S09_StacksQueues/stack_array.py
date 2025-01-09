@@ -25,12 +25,7 @@ class Stack:
         - None
         """
 
-        ### initializing attributes ------------------------------------------------------------------------------------
-
         self.array: List[Any] = list()
-
-        ### returning none ---------------------------------------------------------------------------------------------
-
         return
     
     ### is empty method ################################################################################################
@@ -42,51 +37,34 @@ class Stack:
         - bool: True = stack is empty | False = stack is not empty
         """
 
-        if len(self.array) == 0: return True
-        return False
+        return len(self.array) == 0
     
     ### push method ####################################################################################################
     def push(self, pushValue:Any=None) -> None:
         """
-        Adds a new node to the top of the stack.
+        Adds a new item to the top of the stack.
 
         Args:
-        - pushValue : Any | None, value of new node, defaults to None
+        - pushValue : Any | None, value of new item, defaults to None
         
         Returns:
         - None
         """
-
-        ### establishing new node sequence -----------------------------------------------------------------------------
-
-        new_top: Dict[str,Any] = {"value": pushValue, "next": None}
-        old_top: Dict[str,Any] = self.top
-
-        ### updating pointers ------------------------------------------------------------------------------------------
-
-        new_top["next"] = old_top
-
-        ### updating attributes ----------------------------------------------------------------------------------------
-
-        self.top = new_top
-        if self.length == 0: self.bottom = new_top
-        self.length += 1
-
-        ### returning none ---------------------------------------------------------------------------------------------
         
+        self.array.append(pushValue)
         return
     
     ### peek method ####################################################################################################
     def peek(self) -> Any:
         """
-        Returns the value of the top node.
+        Returns the value of the top item.
 
         Returns:
-        - None, if stack is empty | Any, value of top node
+        - None, if stack is empty | Any, value of top item
         """
 
-        if self.length == 0: return
-        return self.top["value"]
+        if len(self.array) == 0: return
+        return self.array[-1]
     
     ### print method ###################################################################################################
     def print(self) -> None:
@@ -153,26 +131,26 @@ class Stack:
 
 myStack: Stack = Stack()
 print()
-myStack.print()
+# myStack.print()
 print("Peek: ", myStack.peek())
 print("Is Empty: ", myStack.is_empty(), "\n")
 
 myStack.push(pushValue=1)
-myStack.print()
+# myStack.print()
 myStack.push(pushValue=2)
-myStack.print()
+# myStack.print()
 myStack.push(pushValue=3)
-myStack.print()
+# myStack.print()
 print("Peek: ", myStack.peek())
 print("Is Empty: ", myStack.is_empty(), "\n")
 
-print("Pop: ", myStack.pop())
-myStack.print()
-print("Pop: ", myStack.pop())
-myStack.print()
-print("Pop: ", myStack.pop())
-myStack.print()
-print("Pop: ", myStack.pop())
-myStack.print()
-print("Peek: ", myStack.peek())
-print("Is Empty: ", myStack.is_empty(), "\n")
+# print("Pop: ", myStack.pop())
+# myStack.print()
+# print("Pop: ", myStack.pop())
+# myStack.print()
+# print("Pop: ", myStack.pop())
+# myStack.print()
+# print("Pop: ", myStack.pop())
+# myStack.print()
+# print("Peek: ", myStack.peek())
+# print("Is Empty: ", myStack.is_empty(), "\n")

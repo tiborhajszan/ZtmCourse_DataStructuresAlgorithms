@@ -1,6 +1,6 @@
 ########################################################################################################################
 ### Data Structures and Algorithms :: Section 09
-### Stack Implementation Using Linked List
+### Stack Implementation Using Array
 ########################################################################################################################
 
 ### imports ############################################################################################################
@@ -12,17 +12,6 @@ from typing import List, Dict, Any
 ########################################################################################################################
 
 class Stack:
-    """
-    Implements a basic Stack data structure on top of a linked list.
-
-    Methods:
-    - __init__ : Initializes a new empty Stack object.
-    - is_empty : Checks if the stack is empty.
-    - push : Adds a new node to the top of the stack.
-    - peek : Returns the value of the top node.
-    - print : Prints all values stored in the stack from top to bottom.
-    - pop : Removes the top node from the stack and returns its value.
-    """
 
     ### constructor method #############################################################################################
     def __init__(self) -> None:
@@ -30,9 +19,7 @@ class Stack:
         Initializes a new empty Stack object.
 
         Attributes:
-        - top : Dict[str,Any], top node of stack
-        - bottom : Dict[str,Any], bottom node of stack
-        - length : int, number of nodes in stack
+        - array : List[Any], container to store stack items
 
         Returns:
         - None
@@ -40,9 +27,7 @@ class Stack:
 
         ### initializing attributes ------------------------------------------------------------------------------------
 
-        self.top: Dict[str,Any] = None
-        self.bottom: Dict[str,Any] = None
-        self.length: int = int(0)
+        self.array: List[Any] = list()
 
         ### returning none ---------------------------------------------------------------------------------------------
 
@@ -57,7 +42,8 @@ class Stack:
         - bool: True = stack is empty | False = stack is not empty
         """
 
-        return self.length == 0
+        if len(self.array) == 0: return True
+        return False
     
     ### push method ####################################################################################################
     def push(self, pushValue:Any=None) -> None:

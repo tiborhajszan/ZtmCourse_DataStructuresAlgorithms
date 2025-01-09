@@ -5,7 +5,7 @@
 
 ### imports ############################################################################################################
 
-###
+from typing import List, Dict, Any
 
 ########################################################################################################################
 ### Stack Class
@@ -29,9 +29,42 @@ class Stack:
 
         ### initializing attributes ------------------------------------------------------------------------------------
 
-        self.top = None
-        self.bottom = None
-        self.length = 0
+        self.top: Dict[str,Any] = None
+        self.bottom: Dict[str,Any] = None
+        self.length: int = int(0)
+
+        ### returning none ---------------------------------------------------------------------------------------------
+
+        return
+    
+    ### print method ###################################################################################################
+    def print(self) -> None:
+        """
+        Prints all values stored in the stack from top to bottom.
+        
+        Returns:
+        - None
+        """
+
+        ### setting initial conditions ---------------------------------------------------------------------------------
+
+        current_node: Dict[str,Any] = self.top
+        value_list: List[Any] = list()
+
+        ### traversing stack to collect values -------------------------------------------------------------------------
+
+        while current_node is not None:
+            value_list.append(current_node["value"])
+            current_node = current_node["next"]
+
+        ### printing values and attributes -----------------------------------------------------------------------------
+
+        print("Values: ", value_list)
+        top: Any = self.top["value"] if self.top is not None else None
+        print("Top: ", top)
+        bottom: Any = self.bottom["value"] if self.bottom is not None else None
+        print("Bottom: ", bottom)
+        print("Length: ", self.length, "\n")
 
         ### returning none ---------------------------------------------------------------------------------------------
 
@@ -39,4 +72,6 @@ class Stack:
 
 ### testing code #######################################################################################################
 
+myStack: Stack = Stack()
 print()
+myStack.print()

@@ -79,6 +79,18 @@ class Stack:
         
         return
     
+    ### peek method ####################################################################################################
+    def peek(self) -> Any:
+        """
+        Returns the value of the top node.
+
+        Returns:
+        - None, if stack is empty | Any, value of top node
+        """
+
+        if self.length == 0: return
+        return self.top["value"]
+    
     ### print method ###################################################################################################
     def print(self) -> None:
         """
@@ -145,6 +157,7 @@ class Stack:
 myStack: Stack = Stack()
 print()
 myStack.print()
+print("Peek: ", myStack.peek())
 print("Is Empty: ", myStack.is_empty(), "\n")
 
 myStack.push(pushValue=1)
@@ -153,6 +166,7 @@ myStack.push(pushValue=2)
 myStack.print()
 myStack.push(pushValue=3)
 myStack.print()
+print("Peek: ", myStack.peek())
 print("Is Empty: ", myStack.is_empty(), "\n")
 
 print("Pop: ", myStack.pop())
@@ -163,4 +177,5 @@ print("Pop: ", myStack.pop())
 myStack.print()
 print("Pop: ", myStack.pop())
 myStack.print()
+print("Peek: ", myStack.peek())
 print("Is Empty: ", myStack.is_empty(), "\n")

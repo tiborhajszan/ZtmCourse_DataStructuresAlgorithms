@@ -37,6 +37,37 @@ class Stack:
 
         return
     
+    ### push method ####################################################################################################
+    def push(self, pushValue:Any=None) -> None:
+        """
+        Adds a new node to the top of the stack.
+
+        Args:
+        - pushValue : Any | None, value of new node, defaults to None
+        
+        Returns:
+        - None
+        """
+
+        ### establishing new node sequence -----------------------------------------------------------------------------
+
+        new_top: Dict[str,Any] = {"value": pushValue, "next": None}
+        old_top: Dict[str,Any] = self.top
+
+        ### updating pointers ------------------------------------------------------------------------------------------
+
+        new_top["next"] = old_top
+
+        ### updating attributes ----------------------------------------------------------------------------------------
+
+        self.top = new_top
+        if self.length == 0: self.bottom = new_top
+        self.length += 1
+
+        ### returning none ---------------------------------------------------------------------------------------------
+        
+        return
+    
     ### print method ###################################################################################################
     def print(self) -> None:
         """
@@ -74,4 +105,12 @@ class Stack:
 
 myStack: Stack = Stack()
 print()
+myStack.print()
+myStack.push(pushValue=1)
+myStack.print()
+myStack.push(pushValue=2)
+myStack.print()
+myStack.push(pushValue=3)
+myStack.print()
+myStack.push(pushValue=4)
 myStack.print()

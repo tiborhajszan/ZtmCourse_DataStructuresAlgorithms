@@ -100,17 +100,53 @@ class Stack:
         ### returning none ---------------------------------------------------------------------------------------------
 
         return
+    
+    ### pop method #####################################################################################################
+    def pop(self) -> Any:
+        """
+        Removes the top node from the stack and returns its value.
+
+        Returns:
+        - Any, value of removed node
+        """
+
+        ### handling empty stack ---------------------------------------------------------------------------------------
+
+        if self.length == 0: return
+
+        ### establishing new node sequence -----------------------------------------------------------------------------
+
+        delete_top: Dict[str,Any] = self.top
+        new_top: Dict[str,Any] = delete_top["next"]
+
+        ### updating attributes ----------------------------------------------------------------------------------------
+
+        self.top = new_top
+        if self.length <= 2: self.bottom = new_top
+        self.length -= 1
+
+        ### returning removed value ------------------------------------------------------------------------------------
+        
+        return delete_top["value"]
 
 ### testing code #######################################################################################################
 
 myStack: Stack = Stack()
 print()
 myStack.print()
+
 myStack.push(pushValue=1)
 myStack.print()
 myStack.push(pushValue=2)
 myStack.print()
 myStack.push(pushValue=3)
 myStack.print()
-myStack.push(pushValue=4)
+
+print("Pop: ", myStack.pop())
+myStack.print()
+print("Pop: ", myStack.pop())
+myStack.print()
+print("Pop: ", myStack.pop())
+myStack.print()
+print("Pop: ", myStack.pop())
 myStack.print()

@@ -37,6 +37,17 @@ class Stack:
 
         return
     
+    ### is empty method ################################################################################################
+    def is_empty(self) -> bool:
+        """
+        Checks if the stack is empty.
+
+        Returns:
+        - bool: True = stack is empty | False = stack is not empty
+        """
+
+        return self.length == 0
+    
     ### push method ####################################################################################################
     def push(self, pushValue:Any=None) -> None:
         """
@@ -134,6 +145,7 @@ class Stack:
 myStack: Stack = Stack()
 print()
 myStack.print()
+print("Is Empty: ", myStack.is_empty(), "\n")
 
 myStack.push(pushValue=1)
 myStack.print()
@@ -141,6 +153,7 @@ myStack.push(pushValue=2)
 myStack.print()
 myStack.push(pushValue=3)
 myStack.print()
+print("Is Empty: ", myStack.is_empty(), "\n")
 
 print("Pop: ", myStack.pop())
 myStack.print()
@@ -150,3 +163,4 @@ print("Pop: ", myStack.pop())
 myStack.print()
 print("Pop: ", myStack.pop())
 myStack.print()
+print("Is Empty: ", myStack.is_empty(), "\n")

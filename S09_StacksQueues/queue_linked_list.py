@@ -40,10 +40,10 @@ class Queue:
     ### is empty method ################################################################################################
     def is_empty(self) -> bool:
         """
-        Checks if the stack is empty.
+        Checks if the queue is empty.
 
         Returns:
-        - bool: True = stack is empty | False = stack is not empty
+        - bool: True = queue is empty | False = queue is not empty
         """
 
         return self.length == 0
@@ -155,10 +155,11 @@ class Queue:
 ### testing code #######################################################################################################
 
 myQueue: Queue = Queue()
+print()
 print(myQueue.front, myQueue.end, myQueue.length)
 # myStack.print()
 # print("Peek: ", myStack.peek())
-# print("Is Empty: ", myStack.is_empty(), "\n")
+print("Is Empty: ", myQueue.is_empty(), "\n")
 
 # myStack.push(pushValue=1)
 # myStack.print()

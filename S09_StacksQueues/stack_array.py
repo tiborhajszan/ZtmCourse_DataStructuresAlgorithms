@@ -75,28 +75,7 @@ class Stack:
         - None
         """
 
-        ### setting initial conditions ---------------------------------------------------------------------------------
-
-        current_node: Dict[str,Any] = self.top
-        value_list: List[Any] = list()
-
-        ### traversing stack to collect values -------------------------------------------------------------------------
-
-        while current_node is not None:
-            value_list.append(current_node["value"])
-            current_node = current_node["next"]
-
-        ### printing values and attributes -----------------------------------------------------------------------------
-
-        print("Values: ", value_list)
-        top: Any = self.top["value"] if self.top is not None else None
-        print("Top: ", top)
-        bottom: Any = self.bottom["value"] if self.bottom is not None else None
-        print("Bottom: ", bottom)
-        print("Length: ", self.length, "\n")
-
-        ### returning none ---------------------------------------------------------------------------------------------
-
+        print("Values: ", self.array[::-1], "\n")
         return
     
     ### pop method #####################################################################################################
@@ -131,16 +110,16 @@ class Stack:
 
 myStack: Stack = Stack()
 print()
-# myStack.print()
+myStack.print()
 print("Peek: ", myStack.peek())
 print("Is Empty: ", myStack.is_empty(), "\n")
 
 myStack.push(pushValue=1)
-# myStack.print()
+myStack.print()
 myStack.push(pushValue=2)
-# myStack.print()
+myStack.print()
 myStack.push(pushValue=3)
-# myStack.print()
+myStack.print()
 print("Peek: ", myStack.peek())
 print("Is Empty: ", myStack.is_empty(), "\n")
 

@@ -37,8 +37,8 @@ class Queue:
 
         return
     
-    ### is empty method ################################################################################################
-    def is_empty(self) -> bool:
+    ### empty method ###################################################################################################
+    def empty(self) -> bool:
         """
         Checks if the queue is empty.
 
@@ -51,7 +51,7 @@ class Queue:
     ### push method ####################################################################################################
     def push(self, pushValue:Any=None) -> None:
         """
-        Adds a new node to the top of the stack.
+        Adds a new node to the end of the queue.
 
         Args:
         - pushValue : Any | None, value of new node, defaults to None
@@ -62,17 +62,17 @@ class Queue:
 
         ### establishing new node sequence -----------------------------------------------------------------------------
 
-        new_top: Dict[str,Any] = {"value": pushValue, "next": None}
-        old_top: Dict[str,Any] = self.top
+        old_end: Dict[str,Any] = self.end
+        new_end: Dict[str,Any] = {"value": pushValue, "next": None}
 
         ### updating pointers ------------------------------------------------------------------------------------------
 
-        new_top["next"] = old_top
+        if not self.empty(): old_end["next"] = new_end
 
         ### updating attributes ----------------------------------------------------------------------------------------
 
-        self.top = new_top
-        if self.length == 0: self.bottom = new_top
+        if self.empty(): self.front = new_end
+        self.end = new_end
         self.length += 1
 
         ### returning none ---------------------------------------------------------------------------------------------
@@ -159,16 +159,17 @@ print()
 print(myQueue.front, myQueue.end, myQueue.length)
 # myStack.print()
 # print("Peek: ", myStack.peek())
-print("Is Empty: ", myQueue.is_empty(), "\n")
+print("Empty? ", myQueue.empty(), "\n")
 
-# myStack.push(pushValue=1)
+myQueue.push(pushValue=1)
 # myStack.print()
-# myStack.push(pushValue=2)
+myQueue.push(pushValue=2)
 # myStack.print()
-# myStack.push(pushValue=3)
+myQueue.push(pushValue=3)
+print(myQueue.front, myQueue.end, myQueue.length)
 # myStack.print()
 # print("Peek: ", myStack.peek())
-# print("Is Empty: ", myStack.is_empty(), "\n")
+print("Empty? ", myQueue.empty(), "\n")
 
 # print("Pop: ", myStack.pop())
 # myStack.print()

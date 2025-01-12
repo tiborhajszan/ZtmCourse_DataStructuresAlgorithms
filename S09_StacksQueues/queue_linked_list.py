@@ -82,14 +82,13 @@ class Queue:
     ### peek method ####################################################################################################
     def peek(self) -> Any:
         """
-        Returns the value of the top node.
+        Returns the value of the front node from the queue.
 
         Returns:
-        - None, if stack is empty | Any, value of top node
+        - None, if queue is empty | Any, value of front node
         """
 
-        if self.length == 0: return
-        return self.top["value"]
+        return None if self.empty() else self.front["value"]
     
     ### print method ###################################################################################################
     def print(self) -> None:
@@ -158,7 +157,7 @@ myQueue: Queue = Queue()
 print()
 print(myQueue.front, myQueue.end, myQueue.length)
 # myStack.print()
-# print("Peek: ", myStack.peek())
+print("Peek: ", myQueue.peek())
 print("Empty? ", myQueue.empty(), "\n")
 
 myQueue.push(pushValue=1)
@@ -168,7 +167,7 @@ myQueue.push(pushValue=2)
 myQueue.push(pushValue=3)
 print(myQueue.front, myQueue.end, myQueue.length)
 # myStack.print()
-# print("Peek: ", myStack.peek())
+print("Peek: ", myQueue.peek())
 print("Empty? ", myQueue.empty(), "\n")
 
 # print("Pop: ", myStack.pop())

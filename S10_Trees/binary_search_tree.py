@@ -17,7 +17,7 @@ class BinarySearchTree:
     ### constructor method #############################################################################################
     def __init__(self) -> None:
         """
-        Initializes a new Binary Search Tree object with a single root node.
+        Initializes a new Binary Search Tree object with an empty root node.
 
         Args:
         - None
@@ -31,6 +31,75 @@ class BinarySearchTree:
 
         self.root = None
         return
+    
+    ### print method ###################################################################################################
+    def print(self, printNode:Dict[str,Any]=None) -> None:
+        """
+        Prints all values stored in the binary search tree.
+
+        Args:
+        - printNode : Dict[str,Any] | None, node to be printed, defaults to None
+        
+        Returns:
+        - None
+        """
+
+        ### handling empty node > returning none -----------------------------------------------------------------------
+
+        if printNode is None: return
+
+        ### verifying printNode argument -------------------------------------------------------------------------------
+
+        if type(printNode) is not dict or not all(key in ["left", "value", "right"] for key in printNode.keys()):
+            sys.exit("Cannot print: Invalid node...\n")
+        
+        ### recursive printing of nodes > returning none ---------------------------------------------------------------
+
+        self.print(printNode["left"])
+        print(printNode["value"], end=" ")
+        self.print(printNode["right"])
+        return
+    
+    ### insert method ##################################################################################################
+    def insert(self, insertValue:Any=None) -> None:
+        """
+        Adds a new numeric node to the binary search tree.
+
+        Args:
+        - insertValue : int | float | None, value of new node, defaults to None
+
+        Returns:
+        - None
+        """
+
+        ### verifying insert value -------------------------------------------------------------------------------------
+
+        if insertValue is None or not isinstance(insertValue, (int, float)):
+            sys.exit("Cannot insert: Invalid value...\n")
+
+        ### creating new node ------------------------------------------------------------------------------------------
+
+        new_node: Dict[str,Any] = {"left": None, "value": insertValue, "right": None}
+
+        ### handling empty tree > returning none -----------------------------------------------------------------------
+
+        if self.root is None: self.root = new_node; return
+
+        ### traversing tree to insert new node >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+        current_node: Dict[str,Any] = self.root
+        while True:
+        
+            ### inserting left | right > returning none ----------------------------------------------------------------
+
+            if current_node["left"] is None and insertValue < current_node["value"]:
+                current_node["left"] = new_node; return
+            if current_node["right"] is None and current_node["value"] <= insertValue:
+                current_node["right"] = new_node; return
+            
+            ### traversing ---------------------------------------------------------------------------------------------
+
+            current_node = current_node["left"] if insertValue < current_node["value"] else current_node["right"]
     
     ### traverse private method ########################################################################################
     def _traverse(self, traverseIndex:int) -> Dict[str,Any]:
@@ -99,44 +168,6 @@ class BinarySearchTree:
         self.length += 1
         return
     
-    ### insert method ##################################################################################################
-    def insert(self, insertIndex:int=None, insertValue:Any=None) -> None:
-        """
-        Adds a new node to the linked list at the specified index.
-
-        Args:
-        - insertIndex : int | None, index of new node, defaults to None
-        - insertValue : Any | None, value of new node, defaults to None
-
-        Returns:
-        - None
-        """
-
-        ### handling edge cases ----------------------------------------------------------------------------------------
-
-        if type(insertIndex) is not int or self.length <= insertIndex:
-            self.append(appendValue=insertValue)
-            return
-        if insertIndex <= 0:
-            self.prepend(prependValue=insertValue)
-            return
-
-        ### establishing new node sequence -----------------------------------------------------------------------------
-
-        previous_node = self._traverse(traverseIndex=insertIndex-1)
-        new_node = {"value": insertValue, "next": None}
-        next_node = previous_node["next"]
-
-        ### updating pointers and length -------------------------------------------------------------------------------
-
-        previous_node["next"] = new_node
-        new_node["next"] = next_node
-        self.length += 1
-
-        ### returning none ---------------------------------------------------------------------------------------------
-
-        return
-    
     ### delete method ##################################################################################################
     def delete(self, deleteIndex:int=None) -> None:
         """
@@ -192,48 +223,17 @@ class BinarySearchTree:
 
         return
 
-    ### print method ###################################################################################################
-    def print(self) -> None:
-        """
-        Prints all values stored in the doubly linked list.
-        
-        Returns:
-        - None
-        """
-        
-        ### setting initial conditions ---------------------------------------------------------------------------------
-
-        current_node = self.head
-        value_list = list()
-
-        ### traversing linked list to collect values -------------------------------------------------------------------
-
-        while current_node is not None:
-            value_list.append(current_node["value"])
-            current_node = current_node["next"]
-        
-        ### printing values and list size ------------------------------------------------------------------------------
-
-        print("Values: ", value_list)
-        print("Size: ", self.length, "\n")
-
-        ### returning none ---------------------------------------------------------------------------------------------
-        
-        return
-
 ### testing code #######################################################################################################
 
-myLiLi = DoublyLinkedList(headValue=10)
+my_bst = BinarySearchTree()
 print()
-myLiLi.print()
-# myLiLi.append(appendValue=5)
-# myLiLi.append(appendValue=16)
-# myLiLi.prepend(prependValue=1)
-# print()
-# myLiLi.print()
-# myLiLi.insert(insertIndex=2, insertValue=23)
-# print("Insert(2,23): ", "\n")
-# myLiLi.print()
-# myLiLi.delete(deleteIndex=2)
-# print("Delete(2): ", "\n")
-# myLiLi.print()
+my_bst.print(printNode=my_bst.root)
+my_bst.insert(insertValue=9)
+my_bst.insert(insertValue=4)
+my_bst.insert(insertValue=20)
+my_bst.insert(insertValue=1)
+my_bst.insert(insertValue=6)
+my_bst.insert(insertValue=15)
+my_bst.insert(insertValue=170)
+my_bst.print(printNode=my_bst.root)
+print("\n")

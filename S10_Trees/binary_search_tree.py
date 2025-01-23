@@ -72,7 +72,7 @@ class BinarySearchTree:
         - None
         """
 
-        ### verifying insert value -------------------------------------------------------------------------------------
+        ### invalid insert value > error message -----------------------------------------------------------------------
 
         if insertValue is None or not isinstance(insertValue, (int, float)):
             sys.exit("Cannot insert: Invalid value...\n")
@@ -81,75 +81,54 @@ class BinarySearchTree:
 
         new_node: Dict[str,Any] = {"left": None, "value": insertValue, "right": None}
 
-        ### handling empty tree > returning none -----------------------------------------------------------------------
+        ### inserting root > returning none ----------------------------------------------------------------------------
 
         if self.root is None: self.root = new_node; return
 
-        ### traversing tree to insert new node >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        ### traversing tree to insert ----------------------------------------------------------------------------------
 
         current_node: Dict[str,Any] = self.root
         while True:
-        
-            ### inserting left | right > returning none ----------------------------------------------------------------
-
+            ### inserting left > returning none
             if current_node["left"] is None and insertValue < current_node["value"]:
                 current_node["left"] = new_node; return
+            ### inserting right > returning none
             if current_node["right"] is None and current_node["value"] <= insertValue:
                 current_node["right"] = new_node; return
-            
-            ### traversing ---------------------------------------------------------------------------------------------
-
+            ### traversing to next node
             current_node = current_node["left"] if insertValue < current_node["value"] else current_node["right"]
     
-    ### traverse private method ########################################################################################
-    def _traverse(self, traverseIndex:int) -> Dict[str,Any]:
+    ### lookup method ##################################################################################################
+    def lookup(self, lookupValue:Any=None) -> bool:
         """
-        Traverses the linked list to find the node at the specified index.
+        Searches the binary search tree for the specified value.
 
         Args:
-        - traverseIndex : int, index of node to be returned
+        - lookupValue : int | float | None, value to be searched, defaults to None
 
         Returns:
-        - current_node : Dict[str,Any], node at specified index
+        - bool, True = value is found | False = value is not found
         """
 
-        ### determining traversal direction ----------------------------------------------------------------------------
+        ### invalid lookup value > error message -----------------------------------------------------------------------
 
-        forward = True
-        if int(self.length / 2) <= traverseIndex: forward = False
+        if lookupValue is None or not isinstance(lookupValue, (int, float)):
+            sys.exit("Cannot search: Invalid lookup value...\n")
 
-        ### setting initial conditions ---------------------------------------------------------------------------------
+        ### empty tree > returning false -------------------------------------------------------------------------------
 
-        counter = int(0) if forward else self.length - 1
-        current_node = self.head if forward else self.tail
+        if self.root is None: return False
 
-        ### traversing list to find node -------------------------------------------------------------------------------
+        ### searching tree for value > returning true if found ---------------------------------------------------------
         
-        while counter != traverseIndex:
-            current_node = current_node["next"] if forward else current_node["prev"]
-            counter = counter + 1 if forward else counter - 1
+        current_node: Dict[str,Any] = self.root
+        while current_node is not None:
+            if current_node["value"] == lookupValue: return True
+            current_node = current_node["left"] if lookupValue < current_node["value"] else current_node["right"]
         
-        ### returning current node -------------------------------------------------------------------------------------
+        ### value not found > returning false --------------------------------------------------------------------------
 
-        return current_node
-    
-    ### append method ##################################################################################################
-    def append(self, appendValue=None) -> None:
-        """
-        Args:
-        - appendValue : Any, value of new node, defaults to None
-
-        Adds a new node to the end of the linked list.
-        
-        Returns:
-        - None
-        """
-
-        new_node = {"value": appendValue, "next": None}
-        self.tail["next"] = new_node
-        self.tail = new_node
-        self.length += 1
-        return
+        return False
     
     ### prepend method #################################################################################################
     def prepend(self, prependValue=None) -> None:
@@ -228,6 +207,7 @@ class BinarySearchTree:
 my_bst = BinarySearchTree()
 print()
 my_bst.print(printNode=my_bst.root)
+print("15:", my_bst.lookup(lookupValue=15), "\n")
 my_bst.insert(insertValue=9)
 my_bst.insert(insertValue=4)
 my_bst.insert(insertValue=20)
@@ -237,3 +217,4 @@ my_bst.insert(insertValue=15)
 my_bst.insert(insertValue=170)
 my_bst.print(printNode=my_bst.root)
 print("\n")
+print("15:", my_bst.lookup(lookupValue=15), "\n")

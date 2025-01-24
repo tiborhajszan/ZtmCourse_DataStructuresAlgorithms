@@ -130,84 +130,78 @@ class BinarySearchTree:
 
         return False
     
-    ### prepend method #################################################################################################
-    def prepend(self, prependValue=None) -> None:
-        """
-        Args:
-        - prependValue : Any, value of new node, defaults to None
-
-        Adds a new node to the beginning of the linked list.
-        
-        Returns:
-        - None
-        """
-
-        new_node = {"value": prependValue, "next": self.head}
-        self.head = new_node
-        self.length += 1
-        return
-    
     ### delete method ##################################################################################################
-    def delete(self, deleteIndex:int=None) -> None:
+    def delete(self, deleteValue:Any=None) -> bool:
         """
-        Removes a node from the linked list at the specified index.
+        Removes a node containing the specified value from the binary search tree.
 
         Args:
-        - deleteIndex : int | None, index of node to be deleted, defaults to None
-
-        Raises:
-        - Error, Cannot delete: Invalid index...
-        - Error, Cannot delete: The list contains only one node...
+        - deleteValue : int | float | None, value of node to be deleted, defaults to None
 
         Returns:
-        - None
+        - bool, True = node is deleted | False = node is not found
         """
 
-        ### validating index -------------------------------------------------------------------------------------------
+        ### invalid delete value | empty tree > returning false --------------------------------------------------------
 
-        if type(deleteIndex) is not int or deleteIndex < 0 or self.length <= deleteIndex:
-            sys.exit("Cannot delete: Invalid index...\n")
+        if deleteValue is None or not isinstance(deleteValue, (int, float)) or self.root is None: return False
 
-        ### handling single node list ----------------------------------------------------------------------------------
+        ### setting initial conditions ---------------------------------------------------------------------------------
 
-        if self.length == 1:
-            sys.exit("Cannot delete: The list contains only one node...\n")
+        parent_node: Dict[str,Any] = None
+        delete_node: Dict[str,Any] = self.root
+        successor_node: Dict[str,Any] = None
 
-        ### removing head node -----------------------------------------------------------------------------------------
+        ### traversing tree to find delete node ------------------------------------------------------------------------
 
-        if deleteIndex == 0:
-            self.head = self.head["next"]
-            if self.length == 2: self.tail = self.head
-            self.length -= 1
+        while delete_node is not None:
+            if delete_node["value"] == deleteValue: break
+            parent_node = delete_node
+            delete_node = delete_node["left"] if deleteValue < delete_node["value"] else delete_node["right"]
 
-        ### removing tail node -----------------------------------------------------------------------------------------
+        ### delete node not found > returning false --------------------------------------------------------------------
 
-        elif deleteIndex == self.length - 1:
-            new_tail = self._traverse(traverseIndex=deleteIndex-1)
-            new_tail["next"] = None
-            self.tail = new_tail
-            if self.length == 2: self.head = self.tail
-            self.length -= 1
+        if delete_node is None: return False
 
-        ### removing middle node ---------------------------------------------------------------------------------------
+        ### removing leaf node -----------------------------------------------------------------------------------------
+
+        if delete_node["left"] is None and delete_node["right"] is None:
+            if parent_node is None: self.root = None
+            elif parent_node["left"] == delete_node: parent_node["left"] = None
+            else: parent_node["right"] = None
+
+        ### removing single child node ---------------------------------------------------------------------------------
+
+        elif delete_node["left"] is None or delete_node["right"] is None:
+            successor_node = delete_node["left"] if delete_node["right"] is None else delete_node["right"]
+            if parent_node is None: self.root = successor_node
+            elif parent_node["left"] == delete_node: parent_node["left"] = successor_node
+            else: parent_node["right"] = successor_node
+
+        ### removing two children node ---------------------------------------------------------------------------------
 
         else:
-            previous_node = self._traverse(traverseIndex=deleteIndex-1)
-            delete_node = previous_node["next"]
-            next_node = delete_node["next"]
-            previous_node["next"] = next_node
-            self.length -= 1
+            parent_node = delete_node
+            successor_node = delete_node["right"]
+            while successor_node["left"] is not None:
+                parent_node = successor_node
+                successor_node = successor_node["left"]
+            delete_node["value"] = successor_node["value"]
+            if parent_node["right"] == successor_node: parent_node["right"] = successor_node["right"]
+            else: parent_node["left"] = successor_node["right"]
 
-        ### returning none ---------------------------------------------------------------------------------------------
+        ### returning true ---------------------------------------------------------------------------------------------
 
-        return
+        return True
 
-### testing code #######################################################################################################
+########################################################################################################################
+### testing code
+########################################################################################################################
 
 my_bst = BinarySearchTree()
-print()
-my_bst.print(printNode=my_bst.root)
-print("15:", my_bst.lookup(lookupValue=15), "\n")
+print(); my_bst.print(printNode=my_bst.root)
+print("Find 15:", my_bst.lookup(lookupValue=15), "\n")
+print("Delete 15:", my_bst.delete(deleteValue=15), "\n")
 my_bst.insert(insertValue=9)
 my_bst.insert(insertValue=4)
 my_bst.insert(insertValue=20)
@@ -215,6 +209,10 @@ my_bst.insert(insertValue=1)
 my_bst.insert(insertValue=6)
 my_bst.insert(insertValue=15)
 my_bst.insert(insertValue=170)
-my_bst.print(printNode=my_bst.root)
-print("\n")
-print("15:", my_bst.lookup(lookupValue=15), "\n")
+my_bst.insert(insertValue=16)
+# my_bst.insert(insertValue=5)
+my_bst.print(printNode=my_bst.root); print("\n")
+print("Find 15:", my_bst.lookup(lookupValue=15), "\n")
+print("Delete 9:", my_bst.delete(deleteValue=9), "\n")
+# print("Delete 15:", my_bst.delete(deleteValue=15), "\n")
+my_bst.print(printNode=my_bst.root); print("\n")

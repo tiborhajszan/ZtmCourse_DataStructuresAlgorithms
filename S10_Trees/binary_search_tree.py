@@ -98,35 +98,30 @@ class BinarySearchTree:
             ### traversing to next node
             current_node = current_node["left"] if insertValue < current_node["value"] else current_node["right"]
     
-    ### lookup method ##################################################################################################
-    def lookup(self, lookupValue:Any=None) -> bool:
+    ### search method ##################################################################################################
+    def search(self, searchValue:Any=None) -> bool:
         """
-        Searches the binary search tree for the specified value.
+        Searches the binary search tree for a node containing the specified value.
 
         Args:
-        - lookupValue : int | float | None, value to be searched, defaults to None
+        - searchValue : int | float | None, value to be searched, defaults to None
 
         Returns:
         - bool, True = value is found | False = value is not found
         """
 
-        ### invalid lookup value > error message -----------------------------------------------------------------------
+        ### invalid search value | empty tree > returning false --------------------------------------------------------
 
-        if lookupValue is None or not isinstance(lookupValue, (int, float)):
-            sys.exit("Cannot search: Invalid lookup value...\n")
+        if searchValue is None or not isinstance(searchValue, (int, float)) or self.root is None: return False
 
-        ### empty tree > returning false -------------------------------------------------------------------------------
-
-        if self.root is None: return False
-
-        ### searching tree for value > returning true if found ---------------------------------------------------------
+        ### traversing tree to find search value > returning true if found ---------------------------------------------
         
         current_node: Dict[str,Any] = self.root
         while current_node is not None:
-            if current_node["value"] == lookupValue: return True
-            current_node = current_node["left"] if lookupValue < current_node["value"] else current_node["right"]
+            if current_node["value"] == searchValue: return True
+            current_node = current_node["left"] if searchValue < current_node["value"] else current_node["right"]
         
-        ### value not found > returning false --------------------------------------------------------------------------
+        ### search value not found > returning false -------------------------------------------------------------------
 
         return False
     
@@ -170,7 +165,7 @@ class BinarySearchTree:
             elif parent_node["left"] == delete_node: parent_node["left"] = None
             else: parent_node["right"] = None
 
-        ### removing single child node ---------------------------------------------------------------------------------
+        ### removing single-child node ---------------------------------------------------------------------------------
 
         elif delete_node["left"] is None or delete_node["right"] is None:
             successor_node = delete_node["left"] if delete_node["right"] is None else delete_node["right"]
@@ -178,7 +173,7 @@ class BinarySearchTree:
             elif parent_node["left"] == delete_node: parent_node["left"] = successor_node
             else: parent_node["right"] = successor_node
 
-        ### removing two children node ---------------------------------------------------------------------------------
+        ### removing two-children node ---------------------------------------------------------------------------------
 
         else:
             parent_node = delete_node

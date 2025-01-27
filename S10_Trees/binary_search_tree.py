@@ -61,42 +61,39 @@ class BinarySearchTree:
         return
     
     ### insert method ##################################################################################################
-    def insert(self, insertValue:Any=None) -> None:
+    def insert(self, insertValue:Any=None) -> bool:
         """
-        Adds a new numeric node to the binary search tree.
+        Adds a new node containing the specified value to the binary search tree.
 
         Args:
-        - insertValue : int | float | None, value of new node, defaults to None
+        - insertValue : int | float | None, value of node to be inserted, defaults to None
 
         Returns:
-        - None
+        - bool, True = node is inserted | False = node is not inserted
         """
 
-        ### invalid insert value > error message -----------------------------------------------------------------------
+        ### invalid insert value > returning false ---------------------------------------------------------------------
 
-        if insertValue is None or not isinstance(insertValue, (int, float)):
-            sys.exit("Cannot insert: Invalid value...\n")
+        if insertValue is None or not isinstance(insertValue, (int, float)): return False
 
-        ### creating new node ------------------------------------------------------------------------------------------
+        ### setting initial conditions ---------------------------------------------------------------------------------
 
+        parent_node: Dict[str,Any] = None
+        insert_node: Dict[str,Any] = self.root
         new_node: Dict[str,Any] = {"left": None, "value": insertValue, "right": None}
 
-        ### inserting root > returning none ----------------------------------------------------------------------------
+        ### traversing tree to find insert node ------------------------------------------------------------------------
 
-        if self.root is None: self.root = new_node; return
+        while insert_node is not None:
+            parent_node = insert_node
+            insert_node = parent_node["left"] if insertValue < parent_node["value"] else parent_node["right"]
+        
+        ### inserting new node > returning true ------------------------------------------------------------------------
 
-        ### traversing tree to insert ----------------------------------------------------------------------------------
-
-        current_node: Dict[str,Any] = self.root
-        while True:
-            ### inserting left > returning none
-            if current_node["left"] is None and insertValue < current_node["value"]:
-                current_node["left"] = new_node; return
-            ### inserting right > returning none
-            if current_node["right"] is None and current_node["value"] <= insertValue:
-                current_node["right"] = new_node; return
-            ### traversing to next node
-            current_node = current_node["left"] if insertValue < current_node["value"] else current_node["right"]
+        if self.root is None: self.root = new_node
+        elif insertValue < parent_node["value"]: parent_node["left"] = new_node
+        else: parent_node["right"] = new_node
+        return True
     
     ### search method ##################################################################################################
     def search(self, searchValue:Any=None) -> bool:
@@ -114,12 +111,15 @@ class BinarySearchTree:
 
         if searchValue is None or not isinstance(searchValue, (int, float)) or self.root is None: return False
 
+        ### setting initial conditions ---------------------------------------------------------------------------------
+
+        search_node: Dict[str,Any] = self.root
+
         ### traversing tree to find search value > returning true if found ---------------------------------------------
         
-        current_node: Dict[str,Any] = self.root
-        while current_node is not None:
-            if current_node["value"] == searchValue: return True
-            current_node = current_node["left"] if searchValue < current_node["value"] else current_node["right"]
+        while search_node is not None:
+            if search_node["value"] == searchValue: return True
+            search_node = search_node["left"] if searchValue < search_node["value"] else search_node["right"]
         
         ### search value not found > returning false -------------------------------------------------------------------
 
@@ -193,21 +193,27 @@ class BinarySearchTree:
 ### testing code
 ########################################################################################################################
 
+print()
 my_bst = BinarySearchTree()
-print(); my_bst.print(printNode=my_bst.root)
-print("Find 15:", my_bst.lookup(lookupValue=15), "\n")
-print("Delete 15:", my_bst.delete(deleteValue=15), "\n")
-my_bst.insert(insertValue=9)
-my_bst.insert(insertValue=4)
-my_bst.insert(insertValue=20)
-my_bst.insert(insertValue=1)
-my_bst.insert(insertValue=6)
-my_bst.insert(insertValue=15)
-my_bst.insert(insertValue=170)
-my_bst.insert(insertValue=16)
-# my_bst.insert(insertValue=5)
-my_bst.print(printNode=my_bst.root); print("\n")
-print("Find 15:", my_bst.lookup(lookupValue=15), "\n")
-print("Delete 9:", my_bst.delete(deleteValue=9), "\n")
-# print("Delete 15:", my_bst.delete(deleteValue=15), "\n")
-my_bst.print(printNode=my_bst.root); print("\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(9.6):", my_bst.insert(insertValue=9.6), "\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(4):", my_bst.insert(insertValue=4), "\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(20):", my_bst.insert(insertValue=20), "\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(1):", my_bst.insert(insertValue=1), "\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(6):", my_bst.insert(insertValue=6), "\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(15):", my_bst.insert(insertValue=15), "\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(170):", my_bst.insert(insertValue=170), "\n")
+print("Root:", my_bst.root, "\n")
+print("Insert(16):", my_bst.insert(insertValue=16), "\n")
+print("Root:", my_bst.root, "\n")
+
+### 9
+### 4 20
+### 1 6 15 170
+### 16

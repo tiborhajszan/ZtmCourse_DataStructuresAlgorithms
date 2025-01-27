@@ -34,6 +34,23 @@ class BinarySearchTree:
         self.values: List[List[Any]] = list()
         return
     
+    ### str dunder method ##############################################################################################
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the binary search tree.
+
+        Args:
+        - None
+
+        Returns:
+        - str, string representation of binary search tree
+        """
+
+        self.level = int(0)
+        self.values = list()
+        self._traverse(traverseNode=self.root)
+        return "\n".join(" ".join(str(value) for value in level) for level in self.values) + "\n"
+    
     ### traverse private method ########################################################################################
     def _traverse(self, traverseNode:Dict[str,Any]=None) -> None:
         """
@@ -50,14 +67,15 @@ class BinarySearchTree:
 
         if traverseNode is None: return
 
-        ### incrementing level counter ---------------------------------------------------------------------------------
+        ### incrementing level counter and values list -----------------------------------------------------------------
 
         self.level += 1
+        if len(self.values) < self.level: self.values.append(list())
         
         ### traversing tree to collect values --------------------------------------------------------------------------
 
         self._traverse(traverseNode=traverseNode["left"])
-        self.values[self.level].append(traverseNode["value"])
+        self.values[self.level-1].append(traverseNode["value"])
         self._traverse(traverseNode=traverseNode["right"])
 
         ### decrementing level counter > returning none ----------------------------------------------------------------
@@ -200,23 +218,23 @@ class BinarySearchTree:
 
 print()
 my_bst = BinarySearchTree()
-print("Root:", my_bst.root, "\n")
-print("Insert(9.6):", my_bst.insert(insertValue=9.6), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
+print("Insert(9):", my_bst.insert(insertValue=9), "\n")
+print(my_bst)
 print("Insert(4):", my_bst.insert(insertValue=4), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
 print("Insert(20):", my_bst.insert(insertValue=20), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
 print("Insert(1):", my_bst.insert(insertValue=1), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
 print("Insert(6):", my_bst.insert(insertValue=6), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
 print("Insert(15):", my_bst.insert(insertValue=15), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
 print("Insert(170):", my_bst.insert(insertValue=170), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
 print("Insert(16):", my_bst.insert(insertValue=16), "\n")
-print("Root:", my_bst.root, "\n")
+print(my_bst)
 
 ### 9
 ### 4 20

@@ -6,7 +6,7 @@
 ### imports ------------------------------------------------------------------------------------------------------------
 
 import sys
-from typing import Dict, Any
+from typing import List, Dict, Any
 
 ########################################################################################################################
 ### Binary Search Tree Class
@@ -29,16 +29,18 @@ class BinarySearchTree:
         - None
         """
 
-        self.root = None
+        self.root: Dict[str,Any] = None
+        self.level: int = int(0)
+        self.values: List[List[Any]] = list()
         return
     
-    ### print method ###################################################################################################
-    def print(self, printNode:Dict[str,Any]=None) -> None:
+    ### traverse private method ########################################################################################
+    def _traverse(self, traverseNode:Dict[str,Any]=None) -> None:
         """
-        Prints all values stored in the binary search tree.
+        Collects all values stored in the binary search tree level-wise into lists.
 
         Args:
-        - printNode : Dict[str,Any] | None, node to be printed, defaults to None
+        - traverseNode : Dict[str,Any] | None, node to be collected, defaults to None
         
         Returns:
         - None
@@ -46,18 +48,21 @@ class BinarySearchTree:
 
         ### handling empty node > returning none -----------------------------------------------------------------------
 
-        if printNode is None: return
+        if traverseNode is None: return
 
-        ### verifying printNode argument -------------------------------------------------------------------------------
+        ### incrementing level counter ---------------------------------------------------------------------------------
 
-        if type(printNode) is not dict or not all(key in ["left", "value", "right"] for key in printNode.keys()):
-            sys.exit("Cannot print: Invalid node...\n")
+        self.level += 1
         
-        ### recursive printing of nodes > returning none ---------------------------------------------------------------
+        ### traversing tree to collect values --------------------------------------------------------------------------
 
-        self.print(printNode["left"])
-        print(printNode["value"], end=" ")
-        self.print(printNode["right"])
+        self._traverse(traverseNode=traverseNode["left"])
+        self.values[self.level].append(traverseNode["value"])
+        self._traverse(traverseNode=traverseNode["right"])
+
+        ### decrementing level counter > returning none ----------------------------------------------------------------
+
+        self.level -= 1
         return
     
     ### insert method ##################################################################################################

@@ -34,23 +34,6 @@ class BinarySearchTree:
         self.values: List[List[Any]] = list()
         return
     
-    ### str dunder method ##############################################################################################
-    def __str__(self) -> str:
-        """
-        Returns a string representation of the binary search tree.
-
-        Args:
-        - None
-
-        Returns:
-        - str, string representation of binary search tree
-        """
-
-        self.level = int(0)
-        self.values = list()
-        self._traverse(traverseNode=self.root)
-        return "\n".join(" ".join(str(value) for value in level) for level in self.values) + "\n"
-    
     ### traverse private method ########################################################################################
     def _traverse(self, traverseNode:Dict[str,Any]=None) -> None:
         """
@@ -82,6 +65,28 @@ class BinarySearchTree:
 
         self.level -= 1
         return
+    
+    ### str dunder method ##############################################################################################
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the binary search tree.
+
+        Args:
+        - None
+
+        Returns:
+        - str, string representation of binary search tree
+        """
+
+        ### empty tree > returning empty message -----------------------------------------------------------------------
+
+        if self.root is None: return "Empty Tree"
+
+        ### tree not empty > returning string representation of tree ---------------------------------------------------
+
+        self.level, self.values = int(0), list()
+        self._traverse(traverseNode=self.root)
+        return "\n".join(" ".join(str(value) for value in level) for level in self.values) + "\n"
     
     ### insert method ##################################################################################################
     def insert(self, insertValue:Any=None) -> bool:
@@ -118,13 +123,13 @@ class BinarySearchTree:
         else: parent_node["right"] = new_node
         return True
     
-    ### search method ##################################################################################################
-    def search(self, searchValue:Any=None) -> bool:
+    ### search private method ##########################################################################################
+    def _search(self, searchValue:Any) -> bool:
         """
         Searches the binary search tree for a node containing the specified value.
 
         Args:
-        - searchValue : int | float | None, value to be searched, defaults to None
+        - searchValue : int | float, value to be searched for
 
         Returns:
         - bool, True = value is found | False = value is not found
@@ -132,7 +137,7 @@ class BinarySearchTree:
 
         ### invalid search value | empty tree > returning false --------------------------------------------------------
 
-        if searchValue is None or not isinstance(searchValue, (int, float)) or self.root is None: return False
+        if not isinstance(searchValue, (int, float)) or self.root is None: return False
 
         ### setting initial conditions ---------------------------------------------------------------------------------
 
@@ -147,6 +152,20 @@ class BinarySearchTree:
         ### search value not found > returning false -------------------------------------------------------------------
 
         return False
+    
+    ### contains dunder method #########################################################################################
+    def __contains__(self, containsValue:Any) -> bool:
+        """
+        Defines the "in" operator for the binary search tree.
+
+        Args:
+        - containsValue : Any, value to be searched for
+
+        Returns:
+        - bool, True = value is found | False = value is not found
+        """
+
+        return self._search(searchValue=containsValue)
     
     ### delete method ##################################################################################################
     def delete(self, deleteValue:Any=None) -> bool:
@@ -216,25 +235,30 @@ class BinarySearchTree:
 ### testing code
 ########################################################################################################################
 
-print()
 my_bst = BinarySearchTree()
+print()
 print(my_bst)
-print("Insert(9):", my_bst.insert(insertValue=9), "\n")
+print("Find(6):", 6 in my_bst, "\n")
+
+print("Insert(9):", my_bst.insert(insertValue=9))
 print(my_bst)
-print("Insert(4):", my_bst.insert(insertValue=4), "\n")
+
+print("Insert(4):", my_bst.insert(insertValue=4))
+print("Insert(20):", my_bst.insert(insertValue=20))
 print(my_bst)
-print("Insert(20):", my_bst.insert(insertValue=20), "\n")
+
+print("Insert(1):", my_bst.insert(insertValue=1))
+print("Insert(6):", my_bst.insert(insertValue=6))
+print("Insert(15):", my_bst.insert(insertValue=15))
+print("Insert(170):", my_bst.insert(insertValue=170))
 print(my_bst)
-print("Insert(1):", my_bst.insert(insertValue=1), "\n")
+
+print("Insert(16):", my_bst.insert(insertValue=16))
 print(my_bst)
-print("Insert(6):", my_bst.insert(insertValue=6), "\n")
-print(my_bst)
-print("Insert(15):", my_bst.insert(insertValue=15), "\n")
-print(my_bst)
-print("Insert(170):", my_bst.insert(insertValue=170), "\n")
-print(my_bst)
-print("Insert(16):", my_bst.insert(insertValue=16), "\n")
-print(my_bst)
+
+print("Find('6'):", '6' in my_bst)
+print("Find(6):", 6 in my_bst)
+print("Find(85):", 85 in my_bst, "\n")
 
 ### 9
 ### 4 20

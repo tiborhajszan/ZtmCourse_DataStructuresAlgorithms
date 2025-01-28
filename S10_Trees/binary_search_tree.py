@@ -137,7 +137,7 @@ class BinarySearchTree:
 
         ### invalid search value | empty tree > returning false --------------------------------------------------------
 
-        if not isinstance(searchValue, (int, float)) or self.root is None: return False
+        if self.root is None or not isinstance(searchValue, (int, float)): return False
 
         ### setting initial conditions ---------------------------------------------------------------------------------
 
@@ -176,12 +176,12 @@ class BinarySearchTree:
         - deleteValue : int | float | None, value of node to be deleted, defaults to None
 
         Returns:
-        - bool, True = node is deleted | False = node is not found
+        - bool, True = node is deleted | False = node is not deleted
         """
 
         ### invalid delete value | empty tree > returning false --------------------------------------------------------
 
-        if deleteValue is None or not isinstance(deleteValue, (int, float)) or self.root is None: return False
+        if self.root is None or deleteValue is None or not isinstance(deleteValue, (int, float)): return False
 
         ### setting initial conditions ---------------------------------------------------------------------------------
 
@@ -238,7 +238,8 @@ class BinarySearchTree:
 my_bst = BinarySearchTree()
 print()
 print(my_bst)
-print("Find(6):", 6 in my_bst, "\n")
+print("Find(6):", 6 in my_bst)
+print("Delete(6):", my_bst.delete(deleteValue=6), "\n")
 
 print("Insert():", my_bst.insert())
 print("Insert('9'):", my_bst.insert(insertValue='9'))
@@ -255,6 +256,8 @@ print("Insert(15):", my_bst.insert(insertValue=15))
 print("Insert(170):", my_bst.insert(insertValue=170))
 print(my_bst)
 
+print("Insert(14.0):", my_bst.insert(insertValue=14.0))
+print("Insert(14.1):", my_bst.insert(insertValue=14.1))
 print("Insert(15.0):", my_bst.insert(insertValue=15.0))
 print(my_bst.root)
 print(my_bst)
@@ -264,7 +267,37 @@ print("Find(6):", 6 in my_bst)
 print("Find(6.0):", 6.0 in my_bst)
 print("Find(85.02):", 85.02 in my_bst, "\n")
 
+print("Delete():", my_bst.delete())
+print("Delete('6'):", my_bst.delete(deleteValue='6'))
+print("Delete(85.02):", my_bst.delete(deleteValue=85.02))
+print("Delete(1):", my_bst.delete(deleteValue=1))
+print("Delete(170.0):", my_bst.delete(deleteValue=170.0))
+print(my_bst)
+
+print("Delete(4):", my_bst.delete(deleteValue=4))
+print("Delete(20):", my_bst.delete(deleteValue=20))
+print(my_bst)
+
+print("Delete(9):", my_bst.delete(deleteValue=9))
+print(my_bst)
+
+print("Delete(14.0):", my_bst.delete(deleteValue=14.0))
+print(my_bst)
+
+print("Delete(14.1):", my_bst.delete(deleteValue=14.1))
+print(my_bst)
+
+print("Delete(15):", my_bst.delete(deleteValue=15))
+print(my_bst)
+
+print("Delete(15.0):", my_bst.delete(deleteValue=15.0))
+print(my_bst)
+
+print("Delete(6):", my_bst.delete(deleteValue=6))
+print(my_bst)
+
 ### 9
 ### 4 20
 ### 1 6 15 170
-### 15.0
+### 14.0 15.0
+### 14.1

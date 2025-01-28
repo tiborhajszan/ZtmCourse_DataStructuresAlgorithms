@@ -240,6 +240,8 @@ print()
 print(my_bst)
 print("Find(6):", 6 in my_bst, "\n")
 
+print("Insert():", my_bst.insert())
+print("Insert('9'):", my_bst.insert(insertValue='9'))
 print("Insert(9):", my_bst.insert(insertValue=9))
 print(my_bst)
 
@@ -253,14 +255,16 @@ print("Insert(15):", my_bst.insert(insertValue=15))
 print("Insert(170):", my_bst.insert(insertValue=170))
 print(my_bst)
 
-print("Insert(16):", my_bst.insert(insertValue=16))
+print("Insert(15.0):", my_bst.insert(insertValue=15.0))
+print(my_bst.root)
 print(my_bst)
 
 print("Find('6'):", '6' in my_bst)
 print("Find(6):", 6 in my_bst)
-print("Find(85):", 85 in my_bst, "\n")
+print("Find(6.0):", 6.0 in my_bst)
+print("Find(85.02):", 85.02 in my_bst, "\n")
 
 ### 9
 ### 4 20
 ### 1 6 15 170
-### 16
+### 15.0

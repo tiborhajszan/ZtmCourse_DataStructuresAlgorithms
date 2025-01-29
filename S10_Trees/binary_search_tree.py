@@ -55,7 +55,7 @@ class BinarySearchTree:
         self.level += 1
         if len(self.values) < self.level: self.values.append(list())
         
-        ### traversing tree to collect values --------------------------------------------------------------------------
+        ### traversing tree recursively to collect values --------------------------------------------------------------
 
         self._traverse(traverseNode=traverseNode["left"])
         self.values[self.level-1].append(traverseNode["value"])
@@ -123,40 +123,10 @@ class BinarySearchTree:
         else: parent_node["right"] = new_node
         return True
     
-    ### search private method ##########################################################################################
-    def _search(self, searchValue:Any) -> bool:
-        """
-        Searches the binary search tree for a node containing the specified value.
-
-        Args:
-        - searchValue : int | float, value to be searched for
-
-        Returns:
-        - bool, True = value is found | False = value is not found
-        """
-
-        ### invalid search value | empty tree > returning false --------------------------------------------------------
-
-        if self.root is None or not isinstance(searchValue, (int, float)): return False
-
-        ### setting initial conditions ---------------------------------------------------------------------------------
-
-        search_node: Dict[str,Any] = self.root
-
-        ### traversing tree to find search value > returning true if found ---------------------------------------------
-        
-        while search_node is not None:
-            if search_node["value"] == searchValue: return True
-            search_node = search_node["left"] if searchValue < search_node["value"] else search_node["right"]
-        
-        ### search value not found > returning false -------------------------------------------------------------------
-
-        return False
-    
     ### contains dunder method #########################################################################################
     def __contains__(self, containsValue:Any) -> bool:
         """
-        Defines the "in" operator for the binary search tree.
+        Defines the "in" operator for the Binary Search Tree class.
 
         Args:
         - containsValue : Any, value to be searched for
@@ -165,7 +135,23 @@ class BinarySearchTree:
         - bool, True = value is found | False = value is not found
         """
 
-        return self._search(searchValue=containsValue)
+        ### empty tree | invalid contains value > returning false ------------------------------------------------------
+
+        if self.root is None or not isinstance(containsValue, (int, float)): return False
+
+        ### setting initial conditions ---------------------------------------------------------------------------------
+
+        search_node: Dict[str,Any] = self.root
+
+        ### traversing tree to find contains value > returning true if found -------------------------------------------
+        
+        while search_node is not None:
+            if search_node["value"] == containsValue: return True
+            search_node = search_node["left"] if containsValue < search_node["value"] else search_node["right"]
+        
+        ### contains value not found > returning false -----------------------------------------------------------------
+
+        return False
     
     ### delete method ##################################################################################################
     def delete(self, deleteValue:Any=None) -> bool:
@@ -179,7 +165,7 @@ class BinarySearchTree:
         - bool, True = node is deleted | False = node is not deleted
         """
 
-        ### invalid delete value | empty tree > returning false --------------------------------------------------------
+        ### empty tree | invalid delete value > returning false --------------------------------------------------------
 
         if self.root is None or deleteValue is None or not isinstance(deleteValue, (int, float)): return False
 

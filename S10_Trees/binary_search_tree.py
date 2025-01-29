@@ -80,7 +80,7 @@ class BinarySearchTree:
 
         ### empty tree > returning empty message -----------------------------------------------------------------------
 
-        if self.root is None: return "Empty Tree"
+        if self.root is None: return "Empty Tree" + "\n"
 
         ### tree not empty > returning string representation of tree ---------------------------------------------------
 

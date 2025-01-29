@@ -4,12 +4,12 @@
 ########################################################################################################################
 
 ### imports
-from typing import Any
+from typing import Dict, Any
 
 ########################################################################################################################
 ### MyArray Class
 ########################################################################################################################
-class MyArray:
+class Array:
     """
     Implements a basic one-dimensional array data structure.
 
@@ -21,20 +21,33 @@ class MyArray:
     ### constructor method #############################################################################################
     def __init__(self) -> None:
         """
-        Initializes the attributes of a new MyArray object.
+        Initializes a new empty Array object.
+
+        Args:
+        - None
+
+        Attributes:
+        - data : Dict[int,Any], container to store array data, defaults to empty dictionary
+        - length : int, length of array, defaults to 0
+
+        Returns:
+        - None
         """
 
-        self.length = int()
-        self.data = dict()
+        self.data: Dict[int,Any] = dict()
+        self.length: int = int(0)
         return
     
     ### str dunder method ##############################################################################################
     def __str__(self) -> str:
         """
-        Defines the string representation of MyArray objects.
+        Defines the string representation for the Array class.
+
+        Args:
+        - None
 
         Returns:
-        - str, contents of array
+        - str, string representation of Array class
         """
 
         return str(list(self.data.values()))
@@ -226,7 +239,7 @@ class MyArray:
 ########################################################################################################################
 
 # creating instance of MyArray
-new_array = MyArray()
+new_array = Array()
 print("\nInit: ", new_array, "\n")
 
 # pushing items into array

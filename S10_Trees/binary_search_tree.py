@@ -5,7 +5,6 @@
 
 ### imports ------------------------------------------------------------------------------------------------------------
 
-import sys
 from typing import List, Dict, Any
 
 ########################################################################################################################
@@ -13,6 +12,17 @@ from typing import List, Dict, Any
 ########################################################################################################################
 
 class BinarySearchTree:
+    """
+    Implements a simple binary search tree data structure.
+
+    Methods:
+    - __init__() : initializes new Binary Search Tree object
+    - _traverse() : collects all values stored in binary search tree
+    - __str__() : defines string representation for the class
+    - insert() : adds new node containing specified value to binary search tree
+    - __contains__() : defines "in" operator for the class
+    - delete() : removes node containing specified value from binary search tree
+    """
 
     ### constructor method #############################################################################################
     def __init__(self) -> None:

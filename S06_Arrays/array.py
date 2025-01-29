@@ -3,7 +3,9 @@
 ### Lesson: Implementing An Array
 ########################################################################################################################
 
-### imports
+### imports ------------------------------------------------------------------------------------------------------------
+
+import sys
 from typing import Dict, Any
 
 ########################################################################################################################
@@ -50,29 +52,23 @@ class Array:
         - str, string representation of Array class
         """
 
-        return str(list(self.data.values()))
+        return str(list(self.data.values())) + " " + str(self.length)
 
-    ### index verification method ######################################################################################
-    def _checkIndex(self, checkIndex=int()) -> int:
+    ### index verification private method ##############################################################################
+    def _checkIndex(self, checkIndex:int) -> None:
         """
-        Ensures the provided index is within the valid range of the array:
-        - returns 0 if the index is negative;
-        - returns the last index if the index exceeds the higher limit;
-        - returns the index unchanged if the index is valid.
+        Validates the provided array index.
 
         Args:
-        - checkIndex: int, index to check, defaults to 0
+        - checkIndex : int, array index to check
 
         Returns:
-        - int, valid index
+        - None
         """
 
-        # negative index > returning 0
-        if checkIndex < 0: return 0
-        # index exceeds higher limit > returning last index 
-        if self.length <= checkIndex: return self.length - 1
-        # valid index > returning index unchanged
-        return checkIndex
+        if type(checkIndex) is not int or checkIndex < 0 or self.length <= checkIndex:
+            sys.exit("Invalid index...\n")
+        return
     
     ### item access method #############################################################################################
     def get(self, getIndex=None) -> Any:
@@ -235,36 +231,20 @@ class Array:
         return self.delete()
 
 ########################################################################################################################
-### testing the class
+### testing code
 ########################################################################################################################
 
-# creating instance of MyArray
-new_array = Array()
-print("\nInit: ", new_array, "\n")
+my_array = Array()
+print("\nInit:", my_array, "\n")
+
+# print("Check('0'): ", my_array._checkIndex(checkIndex='0'), "\n")
+# print("Check(-1): ", my_array._checkIndex(checkIndex=-1), "\n")
+print("Check(0): ", my_array._checkIndex(checkIndex=0), "\n")
 
 # pushing items into array
-new_array.push('Hey')
-new_array.push('there')
-new_array.push('sweet')
-new_array.push(16)
-new_array.push('!')
-print("Push: ", new_array, "\n")
-
-# testing insert method
-new_array.insert(insertItem="Ho", insertIndex=1)
-print("Insert(1): ", new_array, "\n")
-
-# testing get method
-print("Get(2): ", new_array.get(getIndex=2), "\n")
-
-# testing set method
-new_array.set(setItem=23, setIndex=4)
-print("Set(4): ", new_array, "\n")
-
-# testing delete method
-new_array.delete(deleteIndex=1)
-print("Delete(1): ", new_array, "\n")
-
-# testing pop method
-new_array.pop()
-print("Pop: ", new_array, "\n")
+# new_array.push('Hey')
+# new_array.push('there')
+# new_array.push('sweet')
+# new_array.push(16)
+# new_array.push('!')
+# print("Push: ", new_array, "\n")

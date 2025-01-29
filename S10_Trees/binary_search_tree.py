@@ -23,7 +23,9 @@ class BinarySearchTree:
         - None
 
         Attributes:
-        - root : Dict[str,Any], root of binary search tree (first node), defaults to None
+        - root : Dict[str,Any] | None, root of binary search tree (first node), defaults to None
+        - level : int, level index of binary search tree, defaults to 0
+        - values : List[List[Any]], level-wise container for binary search tree values, defaults to empty list
 
         Returns:
         - None
@@ -35,20 +37,16 @@ class BinarySearchTree:
         return
     
     ### traverse private method ########################################################################################
-    def _traverse(self, traverseNode:Dict[str,Any]=None) -> None:
+    def _traverse(self, traverseNode:Dict[str,Any]) -> None:
         """
-        Collects all values stored in the binary search tree level-wise into lists.
+        Collects all values stored in the Binary Search Tree object into a level-wise container.
 
         Args:
-        - traverseNode : Dict[str,Any] | None, node to be collected, defaults to None
+        - traverseNode : Dict[str,Any], node to be collected
         
         Returns:
         - None
         """
-
-        ### handling empty node > returning none -----------------------------------------------------------------------
-
-        if traverseNode is None: return
 
         ### incrementing level counter and values list -----------------------------------------------------------------
 
@@ -57,9 +55,9 @@ class BinarySearchTree:
         
         ### traversing tree recursively to collect values --------------------------------------------------------------
 
-        self._traverse(traverseNode=traverseNode["left"])
+        if traverseNode["left"] is not None: self._traverse(traverseNode=traverseNode["left"])
         self.values[self.level-1].append(traverseNode["value"])
-        self._traverse(traverseNode=traverseNode["right"])
+        if traverseNode["right"] is not None: self._traverse(traverseNode=traverseNode["right"])
 
         ### decrementing level counter > returning none ----------------------------------------------------------------
 
@@ -69,13 +67,13 @@ class BinarySearchTree:
     ### str dunder method ##############################################################################################
     def __str__(self) -> str:
         """
-        Returns a string representation of the binary search tree.
+        Defines the string representation for the Binary Search Tree class.
 
         Args:
         - None
 
         Returns:
-        - str, string representation of binary search tree
+        - str, string representation of Binary Search Tree class
         """
 
         ### empty tree > returning empty message -----------------------------------------------------------------------
@@ -91,7 +89,7 @@ class BinarySearchTree:
     ### insert method ##################################################################################################
     def insert(self, insertValue:Any=None) -> bool:
         """
-        Adds a new node containing the specified value to the binary search tree.
+        Adds a new node containing the specified value to the Binary Search Tree object.
 
         Args:
         - insertValue : int | float | None, value of node to be inserted, defaults to None
@@ -156,7 +154,7 @@ class BinarySearchTree:
     ### delete method ##################################################################################################
     def delete(self, deleteValue:Any=None) -> bool:
         """
-        Removes a node containing the specified value from the binary search tree.
+        Removes a node containing the specified value from the Binary Search Tree object.
 
         Args:
         - deleteValue : int | float | None, value of node to be deleted, defaults to None

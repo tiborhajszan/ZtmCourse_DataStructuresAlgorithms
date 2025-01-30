@@ -5,7 +5,7 @@
 
 ### imports ------------------------------------------------------------------------------------------------------------
 
-from typing import Dict, Any
+from typing import List, Dict, Any
 
 ########################################################################################################################
 ### Graph Class
@@ -29,7 +29,7 @@ class Graph:
         - None
         """
 
-        self.nodes: Dict[Any,Any] = dict()
+        self.nodes: Dict[Any,List[Any]] = dict()
         self.size: int = int(0)
         return
     
@@ -78,12 +78,39 @@ class Graph:
 
         ### node already exists > returning false ----------------------------------------------------------------------
 
-        if nodeValue in self.nodes: return False
+        if nodeValue in self.nodes.keys(): return False
 
         ### adding node to graph > incrementing size > returning true --------------------------------------------------
 
         self.nodes[nodeValue] = list()
         self.size += 1
+        return True
+    
+    ### add edge method ################################################################################################
+    def add_edge(self, nodeValue1:Any, nodeValue2:Any) -> bool:
+        """
+        Adds a new edge between specified nodes to the Graph object.
+
+        Args:
+        - nodeValue1 : Any, value of first node in edge
+        - nodeValue2 : Any, value of second node in edge
+
+        Returns:
+        - bool, True = edge is added | False = edge is not added
+        """
+
+        ### nonexistent nodes > returning false ------------------------------------------------------------------------
+
+        if nodeValue1 not in self.nodes.keys() or nodeValue2 not in self.nodes.keys(): return False
+
+        ### edge already exists > returning false ----------------------------------------------------------------------
+
+        if nodeValue1 in self.nodes[nodeValue2]: return False
+
+        ### adding edge to graph > returning true ----------------------------------------------------------------------
+
+        self.nodes[nodeValue1].append(nodeValue2)
+        self.nodes[nodeValue2].append(nodeValue1)
         return True
 
 ########################################################################################################################
@@ -98,7 +125,6 @@ print(my_graph)
 print("Add Node 0:", my_graph.add_node(nodeValue=0))
 print("Add Node 1:", my_graph.add_node(nodeValue=1))
 print("Add Node 2:", my_graph.add_node(nodeValue=2))
-print(my_graph)
 print("Add Node 3:", my_graph.add_node(nodeValue=3))
 print("Add Node 4:", my_graph.add_node(nodeValue=4))
 print("Add Node 5:", my_graph.add_node(nodeValue=5))
@@ -106,4 +132,17 @@ print(my_graph)
 print("Add Node 6:", my_graph.add_node(nodeValue=6))
 print("Add Node ():", my_graph.add_node())
 print("Add Node 3:", my_graph.add_node(nodeValue=3))
+print(my_graph)
+
+print("Add Edge 3-1:", my_graph.add_edge(nodeValue1=3, nodeValue2=1))
+print("Add Edge 3-4:", my_graph.add_edge(nodeValue1=3, nodeValue2=4))
+print("Add Edge 4-2:", my_graph.add_edge(nodeValue1=4, nodeValue2=2))
+print("Add Edge 4-5:", my_graph.add_edge(nodeValue1=4, nodeValue2=5))
+print("Add Edge 1-2:", my_graph.add_edge(nodeValue1=1, nodeValue2=2))
+print("Add Edge 1-0:", my_graph.add_edge(nodeValue1=1, nodeValue2=0))
+print("Add Edge 0-2:", my_graph.add_edge(nodeValue1=0, nodeValue2=2))
+print("Add Edge 6-5:", my_graph.add_edge(nodeValue1=6, nodeValue2=5))
+print("Add Edge 5-6:", my_graph.add_edge(nodeValue1=5, nodeValue2=6))
+print("Add Edge 'xyz'-6:", my_graph.add_edge(nodeValue1="xyz", nodeValue2=6))
+print("Add Edge 6-20:", my_graph.add_edge(nodeValue1=6, nodeValue2=20))
 print(my_graph)

@@ -66,29 +66,53 @@ class Array:
         - None
         """
 
-        if type(checkIndex) is not int or checkIndex < 0 or self.length <= checkIndex:
-            sys.exit("Invalid index...\n")
-        return
+        if checkIndex is None or (type(checkIndex) is int and 0 <= checkIndex < self.length): return
+        sys.exit("Invalid index...\n")
     
-    ### item access method #############################################################################################
-    def get(self, getIndex=None) -> Any:
+    ### insert method ##################################################################################################
+    def insert(self, insertItem:Any=None, insertIndex:int=None) -> None:
         """
-        Returns the item from the specified position.
-        If the position is not specified, the last item is returned.
+        Adds a new item to the Array object at the specified position.
 
         Args:
-        - getIndex: int|None, position of item to be returned, defaults to None
+        - insertItem : Any | None, item to be inserted, defaults to None
+        - insertIndex : int | None, position where item is inserted, defaults to None
 
         Returns:
-        - Any, selected item from array
+        - None
         """
 
-        # index not specified > assigning last index
-        if getIndex == None: getIndex = self.length - 1
-        # index specified > fixing out of range index
-        else: getIndex = self._checkIndex(checkIndex=getIndex)
-        # returning item from array
-        return self.data[getIndex]
+        ### validating insert index ------------------------------------------------------------------------------------
+
+        self._checkIndex(checkIndex=insertIndex)
+        if insertIndex is None: insertIndex = self.length
+
+        ### insert position occupied > shifting items right ------------------------------------------------------------
+
+        if insertIndex < self.length:
+            for index in range(self.length, insertIndex, -1):
+                self.data[index] = self.data[index-1]
+        
+        ### inserting item > updating array length > returning none ----------------------------------------------------
+
+        self.data[insertIndex] = insertItem
+        self.length += 1
+        return
+    
+    ### push method ####################################################################################################
+    def push(self, pushItem=None) -> int:
+        """
+        Appends a new item to the end of the array.
+
+        Args:
+        - pushItem: Any, item to be appended, defaults to None
+
+        Returns:
+        - int, new length of array
+        """
+
+        # inserting item > returning new array length
+        return self.insert(insertItem=pushItem)
     
     ### item set method ################################################################################################
     def set(self, setItem=None, setIndex=None) -> Any:
@@ -113,65 +137,25 @@ class Array:
         # returning new item from array
         return self.data[setIndex]
     
-    ### right shift method #############################################################################################
-    def _shiftRight(self, rightIndex=int()) -> None:
+    ### item access method #############################################################################################
+    def get(self, getIndex=None) -> Any:
         """
-        Moves items one position to the right, starting from the specified position up to the end of the array.
-        It is used internally to make space for inserting a new item into the array.
+        Returns the item from the specified position.
+        If the position is not specified, the last item is returned.
 
         Args:
-        - rightIndex: int, position from where items are shifted, defaults to 0
-        """
-
-        # iterating through items to be shifted
-        for index in range(self.length, rightIndex, -1):
-            # shifting item
-            self.data[index] = self.data[index-1]
-        # returning none
-        return
-    
-    ### insert method ##################################################################################################
-    def insert(self, insertItem=None, insertIndex=None) -> int:
-
-        """
-        Inserts a new item into the array at the specified position.
-        If the position is not specified, the new item is appended to the end of the array.
-
-        Args:
-        - insertItem: Any, item to be inserted, defaults to None
-        - insertIndex: int|None, position where item is inserted, defaults to None
+        - getIndex: int|None, position of item to be returned, defaults to None
 
         Returns:
-        - int, new length of array
+        - Any, selected item from array
         """
 
-        # index not specified > assigning array length
-        if insertIndex == None: insertIndex = self.length
+        # index not specified > assigning last index
+        if getIndex == None: getIndex = self.length - 1
         # index specified > fixing out of range index
-        else: insertIndex = self._checkIndex(checkIndex=insertIndex)
-        # insert position occupied > shifting items right
-        if insertIndex < self.length: self._shiftRight(rightIndex=insertIndex)
-        # inserting item
-        self.data[insertIndex] = insertItem
-        # updating array length
-        self.length += 1
-        # returning new array length
-        return self.length
-    
-    ### push method ####################################################################################################
-    def push(self, pushItem=None) -> int:
-        """
-        Appends a new item to the end of the array.
-
-        Args:
-        - pushItem: Any, item to be appended, defaults to None
-
-        Returns:
-        - int, new length of array
-        """
-
-        # inserting item > returning new array length
-        return self.insert(insertItem=pushItem)
+        else: getIndex = self._checkIndex(checkIndex=getIndex)
+        # returning item from array
+        return self.data[getIndex]
     
     ### left shift method ##############################################################################################
     def _shiftLeft(self, leftIndex=int()) -> None:
@@ -237,9 +221,26 @@ class Array:
 my_array = Array()
 print("\nInit:", my_array, "\n")
 
-# print("Check('0'): ", my_array._checkIndex(checkIndex='0'), "\n")
-# print("Check(-1): ", my_array._checkIndex(checkIndex=-1), "\n")
-print("Check(0): ", my_array._checkIndex(checkIndex=0), "\n")
+print("Check(None):"); my_array._checkIndex(checkIndex=None)
+# print("Check('0'):"); my_array._checkIndex(checkIndex='0')
+# print("Check(-1):"); my_array._checkIndex(checkIndex=-1)
+# print("Check(0):"); my_array._checkIndex(checkIndex=0)
+print("Index OK...\n")
+
+my_array.insert()
+print("Insert():", my_array, "\n")
+my_array.insert(insertItem="Tail")
+print("Insert('Tail'):", my_array, "\n")
+my_array.insert(insertItem="sweet", insertIndex=0)
+print("Insert('sweet', 0):", my_array, "\n")
+my_array.insert(insertItem="there", insertIndex=0)
+print("Insert('there', 0):", my_array, "\n")
+my_array.insert(insertItem="Hey", insertIndex=0)
+print("Insert('Hey', 0):", my_array, "\n")
+my_array.insert(insertItem=16, insertIndex=3)
+print("Insert(16, 3):", my_array, "\n")
+my_array.insert(insertItem="!", insertIndex=4)
+print("Insert('!', 4):", my_array, "\n")
 
 # pushing items into array
 # new_array.push('Hey')

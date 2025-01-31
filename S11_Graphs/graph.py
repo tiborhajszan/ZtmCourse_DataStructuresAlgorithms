@@ -1,6 +1,6 @@
 ########################################################################################################################
 ### Data Structures and Algorithms :: Section 11
-### Graph Implementation Using Dictionary as Adjacency / Node List
+### Graph Implementation Using Dictionary as Node List
 ########################################################################################################################
 
 ### imports ------------------------------------------------------------------------------------------------------------
@@ -12,6 +12,16 @@ from typing import List, Dict, Any
 ########################################################################################################################
 
 class Graph:
+    """
+    Implements a simple graph data structure using a dictionary for storing the node list.
+
+    Methods:
+    - __init__() : initializes a new Graph object
+    - __str__() : defines string representation for the class
+    - insert_node() : adds a new node to the graph
+    - insert_edge() : adds a new edge between nodes in the graph
+    - delete_node() : removes a node from the graph
+    """
 
     ### constructor method #############################################################################################
     def __init__(self) -> None:

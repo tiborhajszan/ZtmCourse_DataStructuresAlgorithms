@@ -131,24 +131,19 @@ class Array:
         self.data[setIndex] = setItem
         return
     
-    ### item access method #############################################################################################
-    def get(self, getIndex=None) -> Any:
+    ### getitem dunder method ##########################################################################################
+    def __getitem__(self, getIndex:int) -> Any:
         """
-        Returns the item from the specified position.
-        If the position is not specified, the last item is returned.
+        Defines the [] operator (access) for the Array class.
 
         Args:
-        - getIndex: int|None, position of item to be returned, defaults to None
+        - getIndex: int, index of item to be returned
 
         Returns:
-        - Any, selected item from array
+        - Any, value of selected item
         """
 
-        # index not specified > assigning last index
-        if getIndex == None: getIndex = self.length - 1
-        # index specified > fixing out of range index
-        else: getIndex = self._checkIndex(checkIndex=getIndex)
-        # returning item from array
+        self._checkIndex(checkIndex=getIndex)
         return self.data[getIndex]
     
     ### left shift method ##############################################################################################
@@ -222,21 +217,25 @@ print("Check(None):"); my_array._checkIndex(checkIndex=None)
 print("Index OK...\n")
 
 my_array.insert()
-print("Insert():", my_array, "\n")
+print("Insert():", my_array)
 my_array.insert(insertItem="Tail")
-print("Insert('Tail'):", my_array, "\n")
+print("Insert('Tail'):", my_array)
 my_array.insert(insertIndex=0, insertItem="there")
-print("Insert(0,'there'):", my_array, "\n")
+print("Insert(0,'there'):", my_array)
 my_array.insert(insertIndex=0, insertItem="Hey")
-print("Insert(0,'Hey'):", my_array, "\n")
+print("Insert(0,'Hey'):", my_array)
 my_array.insert(insertIndex=2, insertItem="sweet")
 print("Insert(2,'sweet'):", my_array, "\n")
 
 my_array.push(pushItem=16)
-print("Push(16):", my_array, "\n")
+print("Push(16):", my_array)
 my_array.push(pushItem='!')
 print("Push('!'):", my_array, "\n")
 
 my_array[3] = "Joe"
-print("Set(3,'Joe')", my_array, "\n")
-my_array[15] = "Hi"
+print("Set[3] 'Joe'", my_array, "\n")
+# my_array[15] = "Hi"
+
+print("Get[1]:", my_array[1])
+print("Get[3]:", my_array[3])
+print("Get[15]:", my_array[15], "\n")

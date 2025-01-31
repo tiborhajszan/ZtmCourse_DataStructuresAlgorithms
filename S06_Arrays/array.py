@@ -67,16 +67,16 @@ class Array:
         """
 
         if checkIndex is None or (type(checkIndex) is int and 0 <= checkIndex < self.length): return
-        sys.exit("Invalid index...\n")
+        sys.exit(f"{[checkIndex]} Invalid index...\n")
     
     ### insert method ##################################################################################################
-    def insert(self, insertItem:Any=None, insertIndex:int=None) -> None:
+    def insert(self, insertIndex:int=None, insertItem:Any=None) -> None:
         """
         Adds a new item to the Array object at the specified position.
 
         Args:
-        - insertItem : Any | None, item to be inserted, defaults to None
         - insertIndex : int | None, position where item is inserted, defaults to None
+        - insertItem : Any | None, item to be inserted, defaults to None
 
         Returns:
         - None
@@ -114,28 +114,22 @@ class Array:
         self.insert(insertItem=pushItem)
         return
     
-    ### item set method ################################################################################################
-    def set(self, setItem=None, setIndex=None) -> Any:
+    ### setitem dunder method ##########################################################################################
+    def __setitem__(self, setIndex:int, setItem:Any=None) -> None:
         """
-        Sets the item at the specified position.
-        If the position is not specified, the last item is set.
+        Defines the [] operator (assignment) for the Array class.
 
         Args:
-        - setItem: Any, item to be set, defaults to None
-        - setIndex: int|None, position where item is set, defaults to None
+        - setIndex : int, index of item to be updated
+        - setItem : Any | None, update item, defaults to None
 
         Returns:
-        - Any, new item from array
+        - None
         """
 
-        # index not specified > assigning last index
-        if setIndex == None: setIndex = self.length - 1
-        # index specified > fixing out of range index
-        else: setIndex = self._checkIndex(checkIndex=setIndex)
-        # setting item
+        self._checkIndex(checkIndex=setIndex)
         self.data[setIndex] = setItem
-        # returning new item from array
-        return self.data[setIndex]
+        return
     
     ### item access method #############################################################################################
     def get(self, getIndex=None) -> Any:
@@ -231,14 +225,18 @@ my_array.insert()
 print("Insert():", my_array, "\n")
 my_array.insert(insertItem="Tail")
 print("Insert('Tail'):", my_array, "\n")
-my_array.insert(insertItem="there", insertIndex=0)
-print("Insert('there', 0):", my_array, "\n")
-my_array.insert(insertItem="Hey", insertIndex=0)
-print("Insert('Hey', 0):", my_array, "\n")
-my_array.insert(insertItem="sweet", insertIndex=2)
-print("Insert('sweet', 2):", my_array, "\n")
+my_array.insert(insertIndex=0, insertItem="there")
+print("Insert(0,'there'):", my_array, "\n")
+my_array.insert(insertIndex=0, insertItem="Hey")
+print("Insert(0,'Hey'):", my_array, "\n")
+my_array.insert(insertIndex=2, insertItem="sweet")
+print("Insert(2,'sweet'):", my_array, "\n")
 
 my_array.push(pushItem=16)
 print("Push(16):", my_array, "\n")
 my_array.push(pushItem='!')
 print("Push('!'):", my_array, "\n")
+
+my_array[3] = "Joe"
+print("Set(3,'Joe')", my_array, "\n")
+my_array[15] = "Hi"

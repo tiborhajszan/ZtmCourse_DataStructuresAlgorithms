@@ -100,19 +100,19 @@ class Array:
         return
     
     ### push method ####################################################################################################
-    def push(self, pushItem=None) -> int:
+    def push(self, pushItem:Any=None) -> None:
         """
-        Appends a new item to the end of the array.
+        Appends a new item to the end of the Array object.
 
         Args:
-        - pushItem: Any, item to be appended, defaults to None
+        - pushItem: Any | None, item to be appended, defaults to None
 
         Returns:
-        - int, new length of array
+        - None
         """
 
-        # inserting item > returning new array length
-        return self.insert(insertItem=pushItem)
+        self.insert(insertItem=pushItem)
+        return
     
     ### item set method ################################################################################################
     def set(self, setItem=None, setIndex=None) -> Any:
@@ -231,21 +231,14 @@ my_array.insert()
 print("Insert():", my_array, "\n")
 my_array.insert(insertItem="Tail")
 print("Insert('Tail'):", my_array, "\n")
-my_array.insert(insertItem="sweet", insertIndex=0)
-print("Insert('sweet', 0):", my_array, "\n")
 my_array.insert(insertItem="there", insertIndex=0)
 print("Insert('there', 0):", my_array, "\n")
 my_array.insert(insertItem="Hey", insertIndex=0)
 print("Insert('Hey', 0):", my_array, "\n")
-my_array.insert(insertItem=16, insertIndex=3)
-print("Insert(16, 3):", my_array, "\n")
-my_array.insert(insertItem="!", insertIndex=4)
-print("Insert('!', 4):", my_array, "\n")
+my_array.insert(insertItem="sweet", insertIndex=2)
+print("Insert('sweet', 2):", my_array, "\n")
 
-# pushing items into array
-# new_array.push('Hey')
-# new_array.push('there')
-# new_array.push('sweet')
-# new_array.push(16)
-# new_array.push('!')
-# print("Push: ", new_array, "\n")
+my_array.push(pushItem=16)
+print("Push(16):", my_array, "\n")
+my_array.push(pushItem='!')
+print("Push('!'):", my_array, "\n")

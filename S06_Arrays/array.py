@@ -111,11 +111,10 @@ class Array:
         - pushItem: Any | None, item to be appended, defaults to None
 
         Returns:
-        - None
+        - self.insert(), result of insert method
         """
 
-        self.insert(insertItem=pushItem)
-        return
+        return self.insert(insertItem=pushItem)
     
     ### setitem dunder method ##########################################################################################
     def __setitem__(self, setIndex:int, setItem:Any=None) -> None:
@@ -158,20 +157,21 @@ class Array:
         - deleteIndex: int | None, index of item to be deleted, defaults to None
 
         Returns:
-        - deleted_item: Any, value of deleted item
+        - deleted_item: Any, value of deleted item | "Empty array...", if array is empty
         """
+
+        ### empty array > returning none -------------------------------------------------------------------------------
+
+        if self.length == 0: return "Empty array..."
 
         ### validating delete index ------------------------------------------------------------------------------------
 
         self._checkIndex(checkIndex=deleteIndex)
         if deleteIndex == None: deleteIndex = self.length - 1
 
-        ### recording deleted item -------------------------------------------------------------------------------------
+        ### recording deleted item > shifting items left ---------------------------------------------------------------
 
         deleted_item: Any = self.data[deleteIndex]
-
-        ### shifting items left ----------------------------------------------------------------------------------------
-
         for index in range(deleteIndex, self.length-1):
             self.data[index] = self.data[index+1]
 
@@ -182,15 +182,17 @@ class Array:
         return deleted_item
 
     ### pop method #####################################################################################################
-    def pop(self) -> int:
+    def pop(self) -> Any:
         """
-        Deletes the last item in the array.
+        Removes the last item from the Array object.
+
+        Args:
+        - None
 
         Returns:
-        - int, new length of array
+        - self.delete(), result of delete method
         """
 
-        # deleting item > returning new array length
         return self.delete()
 
 ########################################################################################################################
@@ -232,4 +234,14 @@ print("Get[3]:", my_array[3], "\n")
 print("Delete():", my_array.delete(), my_array)
 print("Delete(0):", my_array.delete(deleteIndex=0), my_array)
 print("Delete(3):", my_array.delete(deleteIndex=3), my_array, "\n")
-print("Delete(15):", my_array.delete(deleteIndex=15), my_array, "\n")
+# print("Delete(15):", my_array.delete(deleteIndex=15), my_array, "\n")
+
+print("Pop():", my_array.pop(), my_array)
+print("Pop():", my_array.pop(), my_array)
+print("Pop():", my_array.pop(), my_array)
+print("Pop():", my_array.pop(), my_array)
+print("Pop():", my_array.pop(), my_array, "\n")
+
+# my_array[0] = "Hey"
+print("Set[0] 'Hey':", my_array)
+print("Get[0]:", my_array[0], "\n")

@@ -19,15 +19,15 @@ def factorial_iterative(number:int=None) -> int:
     - factorial : int, factorial of given number | None, if number is invalid
     """
 
-    ### validating arguments -------------------------------------------------------------------------------------------
+    ### invalid arguments > returning none -----------------------------------------------------------------------------
 
     if type(number) is not int or number < 0: return None
 
-    ### base case > returning number -----------------------------------------------------------------------------------
+    ### number = 0,1,2 > returning number ------------------------------------------------------------------------------
 
     if number < 3: return number
 
-    ### iterative case > returning factorial ---------------------------------------------------------------------------
+    ### number = 2+ > calculating and returning factorial --------------------------------------------------------------
 
     factorial: int = number
     for integer in range(number-1, 1, -1): factorial *= integer
@@ -45,19 +45,17 @@ def factorial_recursive(number:int=None) -> int:
     - int, factorial of given number | None, if number is invalid
     """
 
-
-    ### validating arguments -------------------------------------------------------------------------------------------
+    ### invalid arguments > returning none -----------------------------------------------------------------------------
 
     if type(number) is not int or number < 0: return None
 
-    ### base case ------------------------------------------------------------------------------------------------------
+    ### base case > returning number -----------------------------------------------------------------------------------
 
     if number < 3: return number
 
-    ### recursive case -------------------------------------------------------------------------------------------------
+    ### recursive case > returning factorial ---------------------------------------------------------------------------
 
     return number * factorial_recursive(number-1)
-
 
 ########################################################################################################################
 ### Code Tests

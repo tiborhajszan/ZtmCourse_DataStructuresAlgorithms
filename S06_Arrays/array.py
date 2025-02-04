@@ -52,10 +52,10 @@ class Array:
         - str, string representation of Array class
         """
 
-        return str(list(self.data.values())) + " " + str(self.length)
+        return f"{list(self.data.values())} {self.length}"
 
     ### index verification private method ##############################################################################
-    def _checkIndex(self, checkIndex:int) -> str:
+    def _checkIndex(self, checkIndex:int) -> bool:
         """
         Validates the provided array index.
 
@@ -63,11 +63,11 @@ class Array:
         - checkIndex : int | None, array index to check
 
         Returns:
-        - str, "" if index is valid | "Invalid index..." if index is invalid
+        - bool, True = valid index | False = invalid index
         """
 
-        if checkIndex is None or (type(checkIndex) is int and 0 <= checkIndex < self.length): return ""
-        return f"{[checkIndex]} Invalid index..."
+        if checkIndex is None or (type(checkIndex) is int and 0 <= checkIndex < self.length): return True
+        return False
     
     ### insert method ##################################################################################################
     def insert(self, insertIndex:int=None, insertItem:Any=None) -> str:
@@ -218,13 +218,18 @@ class Array:
 ### testing code
 ########################################################################################################################
 
+### testing constructor method -----------------------------------------------------------------------------------------
+
 my_array = Array()
 print("\nInit:", my_array, "\n")
+
+### testing _checkIndex method -----------------------------------------------------------------------------------------
 
 print("Check(None):", my_array._checkIndex(checkIndex=None))
 print("Check('0'):", my_array._checkIndex(checkIndex="0"))
 print("Check(-1):", my_array._checkIndex(checkIndex=-1))
 print("Check(0):", my_array._checkIndex(checkIndex=0), "\n")
+sys.exit()
 
 print("Insert():", my_array.insert(), my_array)
 print("Insert('Append'):", my_array.insert(insertItem="Append"), my_array)

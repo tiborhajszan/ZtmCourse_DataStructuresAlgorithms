@@ -55,25 +55,22 @@ class Array:
         return str(list(self.data.values())) + " " + str(self.length)
 
     ### index verification private method ##############################################################################
-    def _checkIndex(self, checkIndex:int) -> None:
+    def _checkIndex(self, checkIndex:int) -> str:
         """
         Validates the provided array index.
 
         Args:
         - checkIndex : int | None, array index to check
 
-        Raises:
-        - system exit, if array index is invalid
-
         Returns:
-        - None
+        - str, "" if index is valid | "Invalid index..." if index is invalid
         """
 
-        if checkIndex is None or (type(checkIndex) is int and 0 <= checkIndex < self.length): return
-        sys.exit(f"{[checkIndex]} Invalid index...\n")
+        if checkIndex is None or (type(checkIndex) is int and 0 <= checkIndex < self.length): return ""
+        return f"{[checkIndex]} Invalid index..."
     
     ### insert method ##################################################################################################
-    def insert(self, insertIndex:int=None, insertItem:Any=None) -> None:
+    def insert(self, insertIndex:int=None, insertItem:Any=None) -> str:
         """
         Adds a new item to the Array object at the specified position.
 
@@ -82,12 +79,16 @@ class Array:
         - insertItem : Any | None, item to be inserted, defaults to None
 
         Returns:
-        - None
+        - str, "OK" if insert successful | str, result of _checkIndex() method if invalid index
         """
 
-        ### validating insert index ------------------------------------------------------------------------------------
+        ### invalid insert index > returning error message -------------------------------------------------------------
 
-        self._checkIndex(checkIndex=insertIndex)
+        check_result: str = self._checkIndex(checkIndex=insertIndex)
+        if 0 < len(check_result): return check_result
+
+        ### insert index not provided > appending to end of array ------------------------------------------------------
+
         if insertIndex is None: insertIndex = self.length
 
         ### insert position occupied > shifting items right ------------------------------------------------------------
@@ -96,22 +97,22 @@ class Array:
             for index in range(self.length, insertIndex, -1):
                 self.data[index] = self.data[index-1]
         
-        ### inserting item > updating array length > returning none ----------------------------------------------------
+        ### inserting item > updating array length > returning OK ------------------------------------------------------
 
         self.data[insertIndex] = insertItem
         self.length += 1
-        return
+        return "OK"
     
     ### push method ####################################################################################################
-    def push(self, pushItem:Any=None) -> None:
+    def push(self, pushItem:Any=None) -> str:
         """
         Appends a new item to the end of the Array object.
 
         Args:
-        - pushItem: Any | None, item to be appended, defaults to None
+        - pushItem : Any | None, item to be appended, defaults to None
 
         Returns:
-        - self.insert(), result of insert method
+        - str, result of insert() method
         """
 
         return self.insert(insertItem=pushItem)
@@ -129,7 +130,15 @@ class Array:
         - None
         """
 
-        self._checkIndex(checkIndex=setIndex)
+        ### invalid set index > printing error message > returning none ------------------------------------------------
+
+        check_result: str = self._checkIndex(checkIndex=setIndex)
+        if 0 < len(check_result):
+            print(check_result)
+            return
+
+        ### updating item > returning none -----------------------------------------------------------------------------
+
         self.data[setIndex] = setItem
         return
     
@@ -139,13 +148,19 @@ class Array:
         Defines the [] operator (access) for the Array class.
 
         Args:
-        - getIndex: int, index of item to be returned
+        - getIndex : int, index of item to be returned
 
         Returns:
-        - Any, value of selected item
+        - Any, selected item | str, result of _checkIndex() method if invalid index
         """
 
-        self._checkIndex(checkIndex=getIndex)
+        ### invalid get index > returning error message ----------------------------------------------------------------
+
+        check_result: str = self._checkIndex(checkIndex=getIndex)
+        if 0 < len(check_result): return check_result
+
+        ### returning selected item ------------------------------------------------------------------------------------
+
         return self.data[getIndex]
     
     ### delete method ##################################################################################################
@@ -154,19 +169,23 @@ class Array:
         Removes an item from the Array object at the specified position.
 
         Args:
-        - deleteIndex: int | None, index of item to be deleted, defaults to None
+        - deleteIndex : int | None, index of item to be deleted, defaults to None
 
         Returns:
-        - deleted_item: Any, value of deleted item | "Empty array...", if array is empty
+        - deleted_item : Any, deleted item | str, if empty array or invalid index
         """
 
-        ### empty array > returning none -------------------------------------------------------------------------------
+        ### empty array > returning error message ----------------------------------------------------------------------
 
         if self.length == 0: return "Empty array..."
 
-        ### validating delete index ------------------------------------------------------------------------------------
+        ### invalid delete index > returning error message -------------------------------------------------------------
 
-        self._checkIndex(checkIndex=deleteIndex)
+        check_result: str = self._checkIndex(checkIndex=deleteIndex)
+        if 0 < len(check_result): return check_result
+
+        ### delete index not provided > deleting last item -------------------------------------------------------------
+
         if deleteIndex == None: deleteIndex = self.length - 1
 
         ### recording deleted item > shifting items left ---------------------------------------------------------------
@@ -190,7 +209,7 @@ class Array:
         - None
 
         Returns:
-        - self.delete(), result of delete method
+        - Any | str, result of delete() method
         """
 
         return self.delete()
@@ -202,39 +221,43 @@ class Array:
 my_array = Array()
 print("\nInit:", my_array, "\n")
 
-# print("Check(None):"); my_array._checkIndex(checkIndex=None)
-# print("Check('0'):"); my_array._checkIndex(checkIndex='0')
-# print("Check(-1):"); my_array._checkIndex(checkIndex=-1)
-# print("Check(0):"); my_array._checkIndex(checkIndex=0)
-# print("Index OK...\n")
+print("Check(None):", my_array._checkIndex(checkIndex=None))
+print("Check('0'):", my_array._checkIndex(checkIndex="0"))
+print("Check(-1):", my_array._checkIndex(checkIndex=-1))
+print("Check(0):", my_array._checkIndex(checkIndex=0), "\n")
 
 print("Insert():", my_array.insert(), my_array)
-print("Insert('Tail'):", my_array.insert(insertItem="Tail"), my_array)
+print("Insert('Append'):", my_array.insert(insertItem="Append"), my_array)
 print("Insert(0,'there'):", my_array.insert(insertIndex=0, insertItem="there"), my_array)
 print("Insert(0,'Hello'):", my_array.insert(insertIndex=0, insertItem="Hello"), my_array)
-print("Insert(2,'sweet'):", my_array.insert(insertIndex=2, insertItem="sweet"), my_array, "\n")
-# print("Insert('test','test')", my_array.insert(insertIndex="test", insertItem="test"), my_array, "\n")
+print("Insert(2,'sweet'):", my_array.insert(insertIndex=2, insertItem="sweet"), my_array)
+print("Insert('test','test')", my_array.insert(insertIndex="test", insertItem="test"), my_array, "\n")
 
 print("Push(16):", my_array.push(pushItem=16), my_array)
 print("Push('?'):", my_array.push(pushItem="?"), my_array, "\n")
 
+print("Set[6] '!':")
 my_array[6] = "!"
-print("Set[6] '!':", my_array)
+print(my_array)
+print("Set[0] 'Hey':")
 my_array[0] = "Hey"
-print("Set[0] 'Hey':", my_array)
+print(my_array)
+print("Set[3] 'Joe':")
 my_array[3] = "Joe"
-print("Set[3] 'Joe':", my_array, "\n")
-# my_array[-3] = "Hi"
+print(my_array)
+print("Set[-3] 'Hi':")
+my_array[-3] = "Hi"
+print(my_array, "\n")
 
 print("Get[6]:", my_array[6])
 print("Get[0]:", my_array[0])
-print("Get[3]:", my_array[3], "\n")
-# print("Get[15]:", my_array[15], "\n")
+print("Get[3]:", my_array[3])
+print("Get[15]:", my_array[15], "\n")
 
 print("Delete():", my_array.delete(), my_array)
 print("Delete(0):", my_array.delete(deleteIndex=0), my_array)
-print("Delete(3):", my_array.delete(deleteIndex=3), my_array, "\n")
-# print("Delete(15):", my_array.delete(deleteIndex=15), my_array, "\n")
+print("Delete(3):", my_array.delete(deleteIndex=3), my_array)
+print("Delete(15):", my_array.delete(deleteIndex=15), my_array, "\n")
 
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
@@ -242,6 +265,7 @@ print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array, "\n")
 
-# my_array[0] = "Hey"
-print("Set[0] 'Hey':", my_array)
+print("Set[0] 'Hey':")
+my_array[0] = "Hey"
+print(my_array)
 print("Get[0]:", my_array[0], "\n")

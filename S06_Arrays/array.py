@@ -85,7 +85,7 @@ class Array:
         ### invalid insert index > printing error message > returning none ---------------------------------------------
 
         if not self._checkIndex(checkIndex=insertIndex):
-            print(f"Invalid index: {[insertIndex]}")
+            print(f"Index Error - {repr(insertIndex)} is invalid...")
             return
 
         ### insert index not provided > appending to end of array ------------------------------------------------------
@@ -105,18 +105,19 @@ class Array:
         return
     
     ### push method ####################################################################################################
-    def push(self, pushItem:Any=None) -> str:
+    def push(self, pushItem:Any=None) -> None:
         """
         Appends a new item to the end of the Array object.
 
         Args:
-        - pushItem : Any | None, item to be appended, defaults to None
+        - pushItem : Any, item to be appended, defaults to None
 
         Returns:
-        - str, result of insert() method
+        - None
         """
 
-        return self.insert(insertItem=pushItem)
+        self.insert(insertItem=pushItem)
+        return
     
     ### setitem dunder method ##########################################################################################
     def __setitem__(self, setIndex:int, setItem:Any=None) -> None:
@@ -224,14 +225,14 @@ class Array:
 my_array = Array()
 print("\nInit:", my_array, "\n")
 
-### testing _checkIndex method -----------------------------------------------------------------------------------------
+### testing _checkIndex() method ---------------------------------------------------------------------------------------
 
 print("Check(None):", my_array._checkIndex(checkIndex=None))
 print("Check('0'):", my_array._checkIndex(checkIndex="0"))
 print("Check(-1):", my_array._checkIndex(checkIndex=-1))
 print("Check(0):", my_array._checkIndex(checkIndex=0), "\n")
 
-### testing insert method ----------------------------------------------------------------------------------------------
+### testing insert() method --------------------------------------------------------------------------------------------
 
 print("Insert():", end=" "); my_array.insert(); print(my_array)
 print("Insert('Append'):", end=" "); my_array.insert(insertItem="Append"); print(my_array)
@@ -239,10 +240,12 @@ print("Insert(0,'there'):", end=" "); my_array.insert(insertIndex=0, insertItem=
 print("Insert(0,'Hello'):", end=" "); my_array.insert(insertIndex=0, insertItem="Hello"); print(my_array)
 print("Insert(2,'sweet'):", end=" "); my_array.insert(insertIndex=2, insertItem="sweet"); print(my_array)
 print("Insert('test','test'):", end=" "); my_array.insert(insertIndex="test", insertItem="test"); print(my_array, "\n")
-sys.exit(0)
 
-print("Push(16):", my_array.push(pushItem=16), my_array)
-print("Push('?'):", my_array.push(pushItem="?"), my_array, "\n")
+### testing push() method ----------------------------------------------------------------------------------------------
+
+print("Push(16):", end=" "); my_array.push(pushItem=16); print(my_array)
+print("Push('?'):", end=" "); my_array.push(pushItem="?"); print(my_array, "\n")
+sys.exit()
 
 print("Set[6] '!':")
 my_array[6] = "!"

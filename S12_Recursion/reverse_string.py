@@ -3,40 +3,40 @@
 ### Reversing a String: Iterative and Recursive Implementations
 ########################################################################################################################
 
-### imports ------------------------------------------------------------------------------------------------------------
-
-from typing import List
-
 ########################################################################################################################
 ### Solution Functions
 ########################################################################################################################
 
 ### iterative solution #################################################################################################
-def fibonacci_iterative(fibIndex:int=None) -> int:
+def reverse_iterative(forwardString:str=str()) -> str:
     """
-    Calculates a value, specified by the given index, in the Fibonacci sequence using iteration.
+    Reverses the given string using an iterative algorithm.
 
     Args:
-    - fibIndex : int | None, index of Fibonacci sequence, defaults to None
+    - forwardString : str, string to reverse, defaults to empty string
 
     Returns:
-    - int, specified Fibonacci value | None, if index is invalid
+    - str, reversed string
     """
 
-    ### invalid arguments > returning none -----------------------------------------------------------------------------
+    ### invalid arguments > returning error message --------------------------------------------------------------------
 
-    if type(fibIndex) is not int or fibIndex < 0: return None
+    if type(forwardString) is not str: return f"Error: {forwardString} is not a string..."
 
-    ### sequence init > extending sequence > returning value -----------------------------------------------------------
+    ### no need to reverse > returning forward string ------------------------------------------------------------------
 
-    fib_sequence: List[int] = [0, 1]
-    for index in range(2, fibIndex+1): fib_sequence.append(fib_sequence[index-1] + fib_sequence[index-2])
-    return fib_sequence[fibIndex]
+    if len(forwardString) < 2: return forwardString
+
+    ### reversing string > returning reversed string -------------------------------------------------------------------
+
+    reverse_string: str = str()
+    for char in forwardString[::-1]: reverse_string += char
+    return reverse_string
 
 ### recursive solution #################################################################################################
 def reverse_recursive(forwardString:str=str()) -> str:
     """
-    Reverses the given string using recursion.
+    Reverses the given string using a recursive algorithm.
 
     Args:
     - forwardString : str, string to reverse, defaults to empty string
@@ -63,16 +63,14 @@ def reverse_recursive(forwardString:str=str()) -> str:
 
 print()
 
-# print("Iterative()", fibonacci_iterative())
-# print("Iterative('test')", fibonacci_iterative(fibIndex="test"))
-# print("Iterative(-1)", fibonacci_iterative(fibIndex=-1))
-# print("Iterative(0)", fibonacci_iterative(fibIndex=0))
-# print("Iterative(1)", fibonacci_iterative(fibIndex=1))
-# print("Iterative(2)", fibonacci_iterative(fibIndex=2))
-# print("Iterative(8)", fibonacci_iterative(fibIndex=8))
-# print(f"Iterative(35): {fibonacci_iterative(fibIndex=35):,}\n")
+### testing reverse_iterative() function -------------------------------------------------------------------------------
 
-### testing reverse_recursive() ----------------------------------------------------------------------------------------
+print("Iterative():", repr(reverse_iterative()))
+print("Iterative(42):", reverse_iterative(forwardString=42))
+print("Iterative('X'):", repr(reverse_iterative(forwardString="X")))
+print("Iterative('yoyo master'):", repr(reverse_iterative(forwardString="yoyo master")), "\n")
+
+### testing reverse_recursive() function -------------------------------------------------------------------------------
 
 print("Recursive():", repr(reverse_recursive()))
 print("Recursive(42):", reverse_recursive(forwardString=42))

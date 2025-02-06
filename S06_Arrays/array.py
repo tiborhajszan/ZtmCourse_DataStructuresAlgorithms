@@ -173,12 +173,12 @@ class Array:
         return self.data[getIndex]
     
     ### delete method ##################################################################################################
-    def delete(self, deleteIndex:int=None) -> Any:
+    def delete(self, deleteIndex:int=-1) -> Any:
         """
         Removes an item from the Array object at the specified position.
 
         Args:
-        - deleteIndex : int | None, index of item to be deleted, defaults to None
+        - deleteIndex : int, index of item to be deleted, defaults to -1
 
         Returns:
         - deleted_item : Any, deleted item | str, if empty array or invalid index
@@ -190,12 +190,12 @@ class Array:
 
         ### invalid delete index > returning error message -------------------------------------------------------------
 
-        check_result: str = self._checkIndex(checkIndex=deleteIndex)
-        if 0 < len(check_result): return check_result
+        if not self._checkIndex(checkIndex=deleteIndex):
+            return f"Index Error, {repr(deleteIndex)} is invalid..."
 
-        ### delete index not provided > deleting last item -------------------------------------------------------------
+        ### delete index not provided | -1 > selecting last item -------------------------------------------------------
 
-        if deleteIndex == None: deleteIndex = self.length - 1
+        if deleteIndex == -1: deleteIndex = self.length - 1
 
         ### recording deleted item > shifting items left ---------------------------------------------------------------
 
@@ -203,7 +203,7 @@ class Array:
         for index in range(deleteIndex, self.length-1):
             self.data[index] = self.data[index+1]
 
-        ### deleting item > updating array length > returning deleted value --------------------------------------------
+        ### deleting item > updating array length > returning deleted item ---------------------------------------------
 
         del self.data[self.length-1]
         self.length -= 1
@@ -265,12 +265,14 @@ print("Get[-1]:", my_array[-1])
 print("Get[0]:", my_array[0])
 print("Get[3]:", my_array[3])
 print("Get[15]:", my_array[15], "\n")
-sys.exit()
+
+### testing delete() method --------------------------------------------------------------------------------------------
 
 print("Delete():", my_array.delete(), my_array)
 print("Delete(0):", my_array.delete(deleteIndex=0), my_array)
 print("Delete(3):", my_array.delete(deleteIndex=3), my_array)
 print("Delete(15):", my_array.delete(deleteIndex=15), my_array, "\n")
+sys.exit(0)
 
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)

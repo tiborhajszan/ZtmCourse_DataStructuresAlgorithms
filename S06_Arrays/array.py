@@ -88,7 +88,7 @@ class Array:
             print(f"Index Error - {repr(insertIndex)} is invalid...")
             return
 
-        ### insert index not provided > appending to end of array ------------------------------------------------------
+        ### insert index not provided | -1 > appending to end of array -------------------------------------------------
 
         if insertIndex == -1: insertIndex = self.length
 
@@ -120,13 +120,13 @@ class Array:
         return
     
     ### setitem dunder method ##########################################################################################
-    def __setitem__(self, setIndex:int, setItem:Any=None) -> None:
+    def __setitem__(self, setIndex:int, setItem:Any) -> None:
         """
-        Defines the [] operator (assignment) for the Array class.
+        Defines the assignment [] operator for the Array class.
 
         Args:
         - setIndex : int, index of item to be updated
-        - setItem : Any | None, update item, defaults to None
+        - setItem : Any, new item
 
         Returns:
         - None
@@ -134,10 +134,13 @@ class Array:
 
         ### invalid set index > printing error message > returning none ------------------------------------------------
 
-        check_result: str = self._checkIndex(checkIndex=setIndex)
-        if 0 < len(check_result):
-            print(check_result)
+        if not self._checkIndex(checkIndex=setIndex):
+            print(f"Index Error - {repr(setIndex)} is invalid...")
             return
+        
+        ### insert index -1 > updating last item -----------------------------------------------------------------------
+
+        if setIndex == -1: setIndex = self.length - 1
 
         ### updating item > returning none -----------------------------------------------------------------------------
 
@@ -222,8 +225,7 @@ class Array:
 
 ### testing constructor method -----------------------------------------------------------------------------------------
 
-my_array = Array()
-print("\nInit:", my_array, "\n")
+print("\nInit:", end=" "); my_array = Array(); print(my_array, "\n")
 
 ### testing _checkIndex() method ---------------------------------------------------------------------------------------
 
@@ -245,20 +247,14 @@ print("Insert('test','test'):", end=" "); my_array.insert(insertIndex="test", in
 
 print("Push(16):", end=" "); my_array.push(pushItem=16); print(my_array)
 print("Push('?'):", end=" "); my_array.push(pushItem="?"); print(my_array, "\n")
-sys.exit()
 
-print("Set[6] '!':")
-my_array[6] = "!"
-print(my_array)
-print("Set[0] 'Hey':")
-my_array[0] = "Hey"
-print(my_array)
-print("Set[3] 'Joe':")
-my_array[3] = "Joe"
-print(my_array)
-print("Set[-3] 'Hi':")
-my_array[-3] = "Hi"
-print(my_array, "\n")
+### testing setitem() method -------------------------------------------------------------------------------------------
+
+print("Set[-1] '!':", end=" "); my_array[6] = "!"; print(my_array)
+print("Set[0] 'Hey':", end=" "); my_array[0] = "Hey"; print(my_array)
+print("Set[3] 'Joe':", end=" "); my_array[3] = "Joe"; print(my_array)
+print("Set[-3] 'Hi':", end=" "); my_array[-3] = "Hi"; print(my_array, "\n")
+sys.exit(0)
 
 print("Get[6]:", my_array[6])
 print("Get[0]:", my_array[0])

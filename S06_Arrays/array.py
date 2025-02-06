@@ -85,10 +85,10 @@ class Array:
         ### invalid insert index > printing error message > returning none ---------------------------------------------
 
         if not self._checkIndex(checkIndex=insertIndex):
-            print(f"Index Error - {repr(insertIndex)} is invalid...")
+            print(f"Index Error, {repr(insertIndex)} is invalid...")
             return
 
-        ### insert index not provided | -1 > appending to end of array -------------------------------------------------
+        ### insert index not provided | -1 > selecting end of array ----------------------------------------------------
 
         if insertIndex == -1: insertIndex = self.length
 
@@ -135,10 +135,10 @@ class Array:
         ### invalid set index > printing error message > returning none ------------------------------------------------
 
         if not self._checkIndex(checkIndex=setIndex):
-            print(f"Index Error - {repr(setIndex)} is invalid...")
+            print(f"Index Error, {repr(setIndex)} is invalid...")
             return
         
-        ### insert index -1 > updating last item -----------------------------------------------------------------------
+        ### insert index -1 > selecting last item ----------------------------------------------------------------------
 
         if setIndex == -1: setIndex = self.length - 1
 
@@ -150,19 +150,23 @@ class Array:
     ### getitem dunder method ##########################################################################################
     def __getitem__(self, getIndex:int) -> Any:
         """
-        Defines the [] operator (access) for the Array class.
+        Defines the access [] operator for the Array class.
 
         Args:
         - getIndex : int, index of item to be returned
 
         Returns:
-        - Any, selected item | str, result of _checkIndex() method if invalid index
+        - Any, selected item | str, if invalid index
         """
 
         ### invalid get index > returning error message ----------------------------------------------------------------
 
-        check_result: str = self._checkIndex(checkIndex=getIndex)
-        if 0 < len(check_result): return check_result
+        if not self._checkIndex(checkIndex=getIndex):
+            return f"Index Error, {repr(getIndex)} is invalid..."
+        
+        ### get index -1 > selecting last item -------------------------------------------------------------------------
+
+        if getIndex == -1: getIndex = self.length - 1
 
         ### returning selected item ------------------------------------------------------------------------------------
 
@@ -223,7 +227,7 @@ class Array:
 ### testing code
 ########################################################################################################################
 
-### testing constructor method -----------------------------------------------------------------------------------------
+### testing __init__() method ------------------------------------------------------------------------------------------
 
 print("\nInit:", end=" "); my_array = Array(); print(my_array, "\n")
 
@@ -248,18 +252,20 @@ print("Insert('test','test'):", end=" "); my_array.insert(insertIndex="test", in
 print("Push(16):", end=" "); my_array.push(pushItem=16); print(my_array)
 print("Push('?'):", end=" "); my_array.push(pushItem="?"); print(my_array, "\n")
 
-### testing setitem() method -------------------------------------------------------------------------------------------
+### testing __setitem__() method ---------------------------------------------------------------------------------------
 
-print("Set[-1] '!':", end=" "); my_array[6] = "!"; print(my_array)
+print("Set[-1] '!':", end=" "); my_array[-1] = "!"; print(my_array)
 print("Set[0] 'Hey':", end=" "); my_array[0] = "Hey"; print(my_array)
 print("Set[3] 'Joe':", end=" "); my_array[3] = "Joe"; print(my_array)
 print("Set[-3] 'Hi':", end=" "); my_array[-3] = "Hi"; print(my_array, "\n")
-sys.exit(0)
 
-print("Get[6]:", my_array[6])
+### testing __getitem__() method ---------------------------------------------------------------------------------------
+
+print("Get[-1]:", my_array[-1])
 print("Get[0]:", my_array[0])
 print("Get[3]:", my_array[3])
 print("Get[15]:", my_array[15], "\n")
+sys.exit()
 
 print("Delete():", my_array.delete(), my_array)
 print("Delete(0):", my_array.delete(deleteIndex=0), my_array)

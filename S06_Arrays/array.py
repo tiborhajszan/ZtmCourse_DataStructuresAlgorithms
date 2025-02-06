@@ -84,11 +84,11 @@ class Array:
 
         ### invalid insert index > printing error message > returning none ---------------------------------------------
 
-        if not self._checkIndex(checkIndex=insertIndex):
+        if type(insertIndex) is not int or insertIndex < -1 or self.length < insertIndex:
             print(f"Index Error, {repr(insertIndex)} is invalid...")
             return
 
-        ### insert index not provided | -1 > selecting end of array ----------------------------------------------------
+        ### insert index is -1 > selecting end of array ----------------------------------------------------------------
 
         if insertIndex == -1: insertIndex = self.length
 
@@ -233,14 +233,13 @@ print("\nInit:", end=" "); my_array = Array(); print(my_array, "\n")
 
 ### testing _checkIndex() method ---------------------------------------------------------------------------------------
 
-print("Check(None):", my_array._checkIndex(checkIndex=None))
 print("Check('0'):", my_array._checkIndex(checkIndex="0"))
 print("Check(-1):", my_array._checkIndex(checkIndex=-1))
 print("Check(0):", my_array._checkIndex(checkIndex=0), "\n")
 
 ### testing insert() method --------------------------------------------------------------------------------------------
 
-print("Insert():", end=" "); my_array.insert(); print(my_array)
+print("Insert(0):", end=" "); my_array.insert(insertIndex=0); print(my_array)
 print("Insert('Append'):", end=" "); my_array.insert(insertItem="Append"); print(my_array)
 print("Insert(0,'there'):", end=" "); my_array.insert(insertIndex=0, insertItem="there"); print(my_array)
 print("Insert(0,'Hello'):", end=" "); my_array.insert(insertIndex=0, insertItem="Hello"); print(my_array)
@@ -251,6 +250,7 @@ print("Insert('test','test'):", end=" "); my_array.insert(insertIndex="test", in
 
 print("Push(16):", end=" "); my_array.push(pushItem=16); print(my_array)
 print("Push('?'):", end=" "); my_array.push(pushItem="?"); print(my_array, "\n")
+sys.exit()
 
 ### testing __setitem__() method ---------------------------------------------------------------------------------------
 
@@ -272,13 +272,15 @@ print("Delete():", my_array.delete(), my_array)
 print("Delete(0):", my_array.delete(deleteIndex=0), my_array)
 print("Delete(3):", my_array.delete(deleteIndex=3), my_array)
 print("Delete(15):", my_array.delete(deleteIndex=15), my_array, "\n")
-sys.exit(0)
+
+### testing pop() method -----------------------------------------------------------------------------------------------
 
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array, "\n")
+sys.exit()
 
 print("Set[0] 'Hey':")
 my_array[0] = "Hey"

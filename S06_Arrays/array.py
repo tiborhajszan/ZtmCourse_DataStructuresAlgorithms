@@ -184,16 +184,12 @@ class Array:
         - deleted_item : Any, deleted item | str, if empty array or invalid index
         """
 
-        ### empty array > returning error message ----------------------------------------------------------------------
+        ### empty array | invalid delete index > returning error message -----------------------------------------------
 
-        if self.length == 0: return "Empty array..."
+        if self.length == 0 or type(deleteIndex) is not int or deleteIndex < -1 or self.length <= deleteIndex:
+            return f"Empty Array or Index Error, {repr(deleteIndex)} is invalid..."
 
-        ### invalid delete index > returning error message -------------------------------------------------------------
-
-        if not self._checkIndex(checkIndex=deleteIndex):
-            return f"Index Error, {repr(deleteIndex)} is invalid..."
-
-        ### delete index not provided | -1 > selecting last item -------------------------------------------------------
+        ### delete index is -1 > selecting last item -------------------------------------------------------------------
 
         if deleteIndex == -1: deleteIndex = self.length - 1
 
@@ -250,7 +246,6 @@ print("Insert('test','test'):", end=" "); my_array.insert(insertIndex="test", in
 
 print("Push(16):", end=" "); my_array.push(pushItem=16); print(my_array)
 print("Push('?'):", end=" "); my_array.push(pushItem="?"); print(my_array, "\n")
-sys.exit()
 
 ### testing __setitem__() method ---------------------------------------------------------------------------------------
 

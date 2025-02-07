@@ -158,13 +158,15 @@ class Array:
         - deleteIndex : int, index of item to be deleted, defaults to -1
 
         Returns:
-        - deleted_item : Any, deleted item | str, if empty array or invalid index
+        - deleted_item : Any, value of deleted item | str, if empty array or invalid index
         """
 
         ### empty array | invalid delete index > returning error message -----------------------------------------------
 
-        if self.length == 0 or type(deleteIndex) is not int or deleteIndex < -1 or self.length <= deleteIndex:
-            return f"Empty Array or Index Error, {repr(deleteIndex)} is invalid..."
+        if self.length == 0:
+            return "Empty array..."
+        if type(deleteIndex) is not int or deleteIndex < -1 or self.length <= deleteIndex:
+            return f"Index Error, {repr(deleteIndex)} is invalid..."
 
         ### delete index is -1 > selecting last item -------------------------------------------------------------------
 
@@ -197,7 +199,7 @@ class Array:
         return self.delete()
 
 ########################################################################################################################
-### testing code
+### Testing Code
 ########################################################################################################################
 
 ### testing __init__() method ------------------------------------------------------------------------------------------
@@ -236,19 +238,19 @@ print("Get[6]:", my_array[6])
 print("Get[0]:", my_array[0])
 print("Get[3]:", my_array[3])
 print("Get[5]:", my_array[5], "\n")
-sys.exit()
 
 ### testing delete() method --------------------------------------------------------------------------------------------
 
 print("Delete():", my_array.delete(), my_array)
+print("Delete('error'):", my_array.delete(deleteIndex="error"))
+print("Delete(-3):", my_array.delete(deleteIndex=-3))
+print("Delete(5):", my_array.delete(deleteIndex=5))
 print("Delete(0):", my_array.delete(deleteIndex=0), my_array)
-print("Delete(3):", my_array.delete(deleteIndex=3), my_array)
-print("Delete(15):", my_array.delete(deleteIndex=15), my_array, "\n")
+print("Delete(2):", my_array.delete(deleteIndex=2), my_array)
+print("Delete(2):", my_array.delete(deleteIndex=2), my_array, "\n")
 
 ### testing pop() method -----------------------------------------------------------------------------------------------
 
-print("Pop():", my_array.pop(), my_array)
-print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array, "\n")

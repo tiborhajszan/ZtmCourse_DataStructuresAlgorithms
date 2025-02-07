@@ -137,19 +137,15 @@ class Array:
         - getIndex : int, index of item to be returned
 
         Returns:
-        - Any, selected item | str, if invalid index
+        - Any, value of selected item | str, if invalid index
         """
 
         ### invalid get index > returning error message ----------------------------------------------------------------
 
-        if not self._checkIndex(checkIndex=getIndex):
+        if type(getIndex) is not int or getIndex < 0 or self.length <= getIndex:
             return f"Index Error, {repr(getIndex)} is invalid..."
-        
-        ### get index -1 > selecting last item -------------------------------------------------------------------------
 
-        if getIndex == -1: getIndex = self.length - 1
-
-        ### returning selected item ------------------------------------------------------------------------------------
+        ### returning value of selected item ---------------------------------------------------------------------------
 
         return self.data[getIndex]
     
@@ -211,9 +207,9 @@ print("\nInit:", end=" "); my_array = Array(); print(my_array, "\n")
 ### testing insert() method --------------------------------------------------------------------------------------------
 
 print("Insert():", end=" "); my_array.insert(); print(my_array)
-print("Insert('error','error'):", end=" "); my_array.insert(insertIndex="error", insertValue="error"); print(my_array)
-print("Insert(-3,'error'):", end=" "); my_array.insert(insertIndex=-3, insertValue="error"); print(my_array)
-print("Insert(1,'error'):", end=" "); my_array.insert(insertIndex=1, insertValue="error"); print(my_array)
+print("Insert('error','error'):", end=" "); my_array.insert(insertIndex="error", insertValue="error")
+print("Insert(-3,'error'):", end=" "); my_array.insert(insertIndex=-3, insertValue="error")
+print("Insert(1,'error'):", end=" "); my_array.insert(insertIndex=1, insertValue="error")
 print("Insert(0,'there'):", end=" "); my_array.insert(insertIndex=0, insertValue="there"); print(my_array)
 print("Insert(0,'Hello'):", end=" "); my_array.insert(insertIndex=0, insertValue="Hello"); print(my_array)
 print("Insert(2,'sweet'):", end=" "); my_array.insert(insertIndex=2, insertValue="sweet"); print(my_array, "\n")
@@ -225,20 +221,22 @@ print("Push('?'):", end=" "); my_array.push(pushValue="?"); print(my_array, "\n"
 
 ### testing __setitem__() method ---------------------------------------------------------------------------------------
 
-print("Set['error']='error':", end=" "); my_array["error"] = "error"; print(my_array)
-print("Set[-1]='error':", end=" "); my_array[-1] = "error"; print(my_array)
-print("Set[6]='error':", end=" "); my_array[6] = "error"; print(my_array)
+print("Set['error']='error':", end=" "); my_array["error"] = "error"
+print("Set[-1]='error':", end=" "); my_array[-1] = "error"
+print("Set[6]='error':", end=" "); my_array[6] = "error"
 print("Set[0]='Hey':", end=" "); my_array[0] = "Hey"; print(my_array)
 print("Set[3]=42:", end=" "); my_array[3] = 42; print(my_array)
 print("Set[5]='!':", end=" "); my_array[5] = "!"; print(my_array, "\n")
-sys.exit()
 
 ### testing __getitem__() method ---------------------------------------------------------------------------------------
 
+print("Get['error']:", my_array["error"])
 print("Get[-1]:", my_array[-1])
+print("Get[6]:", my_array[6])
 print("Get[0]:", my_array[0])
 print("Get[3]:", my_array[3])
-print("Get[15]:", my_array[15], "\n")
+print("Get[5]:", my_array[5], "\n")
+sys.exit()
 
 ### testing delete() method --------------------------------------------------------------------------------------------
 

@@ -53,21 +53,6 @@ class Array:
         """
 
         return f"{list(self.data.values())} {self.length}"
-
-    ### index verification private method ##############################################################################
-    def _checkIndex(self, checkIndex:int) -> bool:
-        """
-        Validates the provided array index.
-
-        Args:
-        - checkIndex : int, array index to check
-
-        Returns:
-        - bool, True = valid index | False = invalid index
-        """
-
-        if type(checkIndex) is not int or checkIndex < -1 or self.length <= checkIndex: return False
-        return True
     
     ### insert method ##################################################################################################
     def insert(self, insertIndex:int=-1, insertItem:Any=None) -> None:
@@ -226,12 +211,7 @@ class Array:
 ### testing __init__() method ------------------------------------------------------------------------------------------
 
 print("\nInit:", end=" "); my_array = Array(); print(my_array, "\n")
-
-### testing _checkIndex() method ---------------------------------------------------------------------------------------
-
-print("Check('0'):", my_array._checkIndex(checkIndex="0"))
-print("Check(-1):", my_array._checkIndex(checkIndex=-1))
-print("Check(0):", my_array._checkIndex(checkIndex=0), "\n")
+sys.exit()
 
 ### testing insert() method --------------------------------------------------------------------------------------------
 

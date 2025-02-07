@@ -105,13 +105,13 @@ class Array:
         return
     
     ### setitem dunder method ##########################################################################################
-    def __setitem__(self, setIndex:int, setItem:Any) -> None:
+    def __setitem__(self, setIndex:int, setValue:Any) -> None:
         """
         Defines the assignment [] operator for the Array class.
 
-        Args:
+        Args (signature):
         - setIndex : int, index of item to be updated
-        - setItem : Any, new item
+        - setValue : Any, new value of updated item
 
         Returns:
         - None
@@ -119,17 +119,13 @@ class Array:
 
         ### invalid set index > printing error message > returning none ------------------------------------------------
 
-        if not self._checkIndex(checkIndex=setIndex):
+        if type(setIndex) is not int or setIndex < 0 or self.length <= setIndex:
             print(f"Index Error, {repr(setIndex)} is invalid...")
             return
-        
-        ### insert index -1 > selecting last item ----------------------------------------------------------------------
-
-        if setIndex == -1: setIndex = self.length - 1
 
         ### updating item > returning none -----------------------------------------------------------------------------
 
-        self.data[setIndex] = setItem
+        self.data[setIndex] = setValue
         return
     
     ### getitem dunder method ##########################################################################################
@@ -226,14 +222,16 @@ print("Insert(2,'sweet'):", end=" "); my_array.insert(insertIndex=2, insertValue
 
 print("Push(16):", end=" "); my_array.push(pushValue=16); print(my_array)
 print("Push('?'):", end=" "); my_array.push(pushValue="?"); print(my_array, "\n")
-sys.exit()
 
 ### testing __setitem__() method ---------------------------------------------------------------------------------------
 
-print("Set[-1] '!':", end=" "); my_array[-1] = "!"; print(my_array)
-print("Set[0] 'Hey':", end=" "); my_array[0] = "Hey"; print(my_array)
-print("Set[3] 'Joe':", end=" "); my_array[3] = "Joe"; print(my_array)
-print("Set[-3] 'Hi':", end=" "); my_array[-3] = "Hi"; print(my_array, "\n")
+print("Set['error']='error':", end=" "); my_array["error"] = "error"; print(my_array)
+print("Set[-1]='error':", end=" "); my_array[-1] = "error"; print(my_array)
+print("Set[6]='error':", end=" "); my_array[6] = "error"; print(my_array)
+print("Set[0]='Hey':", end=" "); my_array[0] = "Hey"; print(my_array)
+print("Set[3]=42:", end=" "); my_array[3] = 42; print(my_array)
+print("Set[5]='!':", end=" "); my_array[5] = "!"; print(my_array, "\n")
+sys.exit()
 
 ### testing __getitem__() method ---------------------------------------------------------------------------------------
 

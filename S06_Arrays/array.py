@@ -1,23 +1,29 @@
 ########################################################################################################################
 ### Data Structures and Algorithms :: Section 06
-### Lesson: Implementing An Array
+### Array Implementation Using Dictionary
 ########################################################################################################################
 
 ### imports ------------------------------------------------------------------------------------------------------------
 
-import sys
 from typing import Dict, Any
 
 ########################################################################################################################
-### MyArray Class
+### Array Class
 ########################################################################################################################
 class Array:
     """
-    Implements a basic one-dimensional array data structure.
+    Implements a simple one-dimensional array data structure.
+    Uses a Python dictionary for data storage: keys for index, values for data.
 
-    Attributes:
-    - length: int, length of array
-    - data: dict, container to store array data
+    Methods:
+    - __init__() : initializes new Array object
+    - __str__() : defines string representation
+    - insert() : adds new item to array
+    - push() : adds new item to end of array
+    - __setitem__() : defines assignment [] operator
+    - __getitem__() : defines access [] operator
+    - delete() : removes item from array
+    - pop() : removes last item from array
     """
 
     ### constructor method #############################################################################################
@@ -254,9 +260,8 @@ print("Delete(2):", my_array.delete(deleteIndex=2), my_array, "\n")
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array)
 print("Pop():", my_array.pop(), my_array, "\n")
-sys.exit()
 
-print("Set[0] 'Hey':")
-my_array[0] = "Hey"
-print(my_array)
+### tests on empty array -----------------------------------------------------------------------------------------------
+
+print("Set[0]='Hey':", end=" "); my_array[0] = "Hey"
 print("Get[0]:", my_array[0], "\n")

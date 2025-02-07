@@ -55,13 +55,13 @@ class Array:
         return f"{list(self.data.values())} {self.length}"
     
     ### insert method ##################################################################################################
-    def insert(self, insertIndex:int=-1, insertItem:Any=None) -> None:
+    def insert(self, insertIndex:int=-1, insertValue:Any=None) -> None:
         """
         Adds a new item to the Array object at the specified position.
 
         Args:
         - insertIndex : int, position where item is inserted, defaults to -1
-        - insertItem : Any, item to be inserted, defaults to None
+        - insertValue : Any, value of inserted item, defaults to None
 
         Returns:
         - None
@@ -69,7 +69,7 @@ class Array:
 
         ### invalid insert index > printing error message > returning none ---------------------------------------------
 
-        if type(insertIndex) is not int or insertIndex < -1 or self.length < insertIndex:
+        if type(insertIndex) is not int or insertIndex < -1 or self.length <= insertIndex:
             print(f"Index Error, {repr(insertIndex)} is invalid...")
             return
 
@@ -85,23 +85,23 @@ class Array:
         
         ### inserting item > updating array length > returning none ----------------------------------------------------
 
-        self.data[insertIndex] = insertItem
+        self.data[insertIndex] = insertValue
         self.length += 1
         return
     
     ### push method ####################################################################################################
-    def push(self, pushItem:Any=None) -> None:
+    def push(self, pushValue:Any=None) -> None:
         """
         Appends a new item to the end of the Array object.
 
         Args:
-        - pushItem : Any, item to be appended, defaults to None
+        - pushValue : Any, value of appended item, defaults to None
 
         Returns:
         - None
         """
 
-        self.insert(insertItem=pushItem)
+        self.insert(insertValue=pushValue)
         return
     
     ### setitem dunder method ##########################################################################################
@@ -211,21 +211,22 @@ class Array:
 ### testing __init__() method ------------------------------------------------------------------------------------------
 
 print("\nInit:", end=" "); my_array = Array(); print(my_array, "\n")
-sys.exit()
 
 ### testing insert() method --------------------------------------------------------------------------------------------
 
-print("Insert(0):", end=" "); my_array.insert(insertIndex=0); print(my_array)
-print("Insert('Append'):", end=" "); my_array.insert(insertItem="Append"); print(my_array)
-print("Insert(0,'there'):", end=" "); my_array.insert(insertIndex=0, insertItem="there"); print(my_array)
-print("Insert(0,'Hello'):", end=" "); my_array.insert(insertIndex=0, insertItem="Hello"); print(my_array)
-print("Insert(2,'sweet'):", end=" "); my_array.insert(insertIndex=2, insertItem="sweet"); print(my_array)
-print("Insert('test','test'):", end=" "); my_array.insert(insertIndex="test", insertItem="test"); print(my_array, "\n")
+print("Insert():", end=" "); my_array.insert(); print(my_array)
+print("Insert('error','error'):", end=" "); my_array.insert(insertIndex="error", insertValue="error"); print(my_array)
+print("Insert(-3,'error'):", end=" "); my_array.insert(insertIndex=-3, insertValue="error"); print(my_array)
+print("Insert(1,'error'):", end=" "); my_array.insert(insertIndex=1, insertValue="error"); print(my_array)
+print("Insert(0,'there'):", end=" "); my_array.insert(insertIndex=0, insertValue="there"); print(my_array)
+print("Insert(0,'Hello'):", end=" "); my_array.insert(insertIndex=0, insertValue="Hello"); print(my_array)
+print("Insert(2,'sweet'):", end=" "); my_array.insert(insertIndex=2, insertValue="sweet"); print(my_array, "\n")
 
 ### testing push() method ----------------------------------------------------------------------------------------------
 
-print("Push(16):", end=" "); my_array.push(pushItem=16); print(my_array)
-print("Push('?'):", end=" "); my_array.push(pushItem="?"); print(my_array, "\n")
+print("Push(16):", end=" "); my_array.push(pushValue=16); print(my_array)
+print("Push('?'):", end=" "); my_array.push(pushValue="?"); print(my_array, "\n")
+sys.exit()
 
 ### testing __setitem__() method ---------------------------------------------------------------------------------------
 

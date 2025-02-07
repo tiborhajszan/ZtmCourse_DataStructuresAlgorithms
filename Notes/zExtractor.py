@@ -11,14 +11,14 @@ def clean_subtitle(content):
     return cleaned_content
 
 # Read the subtitle file
-with open('./Notes_DataStructuresAlgorithms/Névtelen videó.srt', 'r') as file:
+with open('./Notes/Névtelen videó.srt', 'r') as file:
     content = file.read()
 
 # Extract the cleaned text
 extracted_text = clean_subtitle(content)
 
 # Optionally, save to a new text file
-with open('./Notes_DataStructuresAlgorithms/extracted_text.txt', 'w') as output_file:
+with open('./Notes/extracted_text.txt', 'w') as output_file:
     output_file.write(extracted_text)
 
 # Print the extracted text

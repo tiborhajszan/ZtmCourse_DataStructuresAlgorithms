@@ -1,37 +1,35 @@
 ########################################################################################################################
-### Data Structures and Algorithms :: Section 13
-### Bubble Sort Implementation
+### Data Structures and Algorithms
+### Section 13 | Bubble Sort Implementation
 ########################################################################################################################
-
-### imports ------------------------------------------------------------------------------------------------------------
 
 from typing import List
 
-########################################################################################################################
-### Solution
-########################################################################################################################
+### bubble sort function ###############################################################################################
 
-def bubble_sort(sortArray:List[int]=list()) -> List[int]:
+def bubbleSort(inputArray:List[int]=list()) -> None:
     """
-    Sorts an array of integers using the Bubble Sort algorithm.
+    Sorts an array of integers in ascending order using the Bubble Sort algorithm.
 
     Args:
-    - sortArray : List[int], array of integers to be sorted, defaults to empty list
+    - inputArray : List[int], array of integers to be sorted, defaults to empty list
 
     Returns:
-    - sortArray : List[int], sorted array
+    - None
     """
 
-    for counter in range(1, len(sortArray)):
-        for index in range(0, len(sortArray)-counter):
-            if sortArray[index] > sortArray[index+1]:
-                sortArray[index], sortArray[index+1] = sortArray[index+1], sortArray[index]
-    return sortArray
+    for counter in range(1, len(inputArray)):
+        for index in range(0, len(inputArray)-counter):
+            if inputArray[index] > inputArray[index+1]:
+                inputArray[index], inputArray[index+1] = inputArray[index+1], inputArray[index]
+    return
 
 ########################################################################################################################
 ### Testing Code
 ########################################################################################################################
 
 print()
-print("Unsorted:", [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0], "\n")
-print("Bubble Sort:", bubble_sort(sortArray=[99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]), "\n")
+intArray: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
+print("Unsorted:", intArray, "\n")
+bubbleSort(inputArray=intArray)
+print("Bubble Sort:", intArray, "\n")

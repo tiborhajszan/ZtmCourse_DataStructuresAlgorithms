@@ -1,49 +1,55 @@
 ########################################################################################################################
-### Data Structures and Algorithms :: Section 13
-### Selection Sort Implementation
+### Data Structures and Algorithms
+### Section 13 | Selection Sort Implementation
 ########################################################################################################################
-
-### imports ------------------------------------------------------------------------------------------------------------
 
 from typing import List
 
-########################################################################################################################
-### Solution Function
-########################################################################################################################
+### selection sort function ############################################################################################
 
-def selection_sort(sortArray:List[int]=list()) -> List[int]:
+def selectionSort(inputArray:List[int]=list()) -> None:
     """
-    Sorts an array of integers using the Selection Sort algorithm.
+    Sorts an array of integers in ascending order using the Selection Sort algorithm.
 
     Args:
-    - sortArray : List[int], array of integers to be sorted, defaults to empty list
+    - inputArray : List[int], array of integers to be sorted, defaults to empty list
 
     Returns:
-    - sortArray : List[int], sorted array
+    - 0, sort success | -1, sort failure
     """
 
-    ### invalid input > returning invalid input ------------------------------------------------------------------------
+    ### invalid input > returning -1 -----------------------------------------------------------------------------------
 
-    if type(sortArray) is not list or len(sortArray) < 2: return sortArray
-    if any(type(item) is not int for item in sortArray): return sortArray
+    if type(inputArray) is not list or len(inputArray) < 2: return -1
+    if any(type(item) is not int for item in inputArray): return -1
 
-    ### sorting array > returning sorted array -------------------------------------------------------------------------
+    ### sorting input array --------------------------------------------------------------------------------------------
 
-    for sorted_index in range(0, len(sortArray)-1):
+    for sorted_index in range(0, len(inputArray)-1):
         min_index = sorted_index
-        for index in range(sorted_index+1, len(sortArray)):
-            if sortArray[index] < sortArray[min_index]: min_index = index
-        sortArray[sorted_index], sortArray[min_index] = sortArray[min_index], sortArray[sorted_index]
-    return sortArray
+        for index in range(sorted_index+1, len(inputArray)):
+            if inputArray[index] < inputArray[min_index]: min_index = index
+        inputArray[sorted_index], inputArray[min_index] = inputArray[min_index], inputArray[sorted_index]
+    
+    ### returning 0 ----------------------------------------------------------------------------------------------------
+
+    return 0
 
 ########################################################################################################################
 ### Testing Code
 ########################################################################################################################
 
 print()
-print("Sort():", selection_sort())
-print("Sort('test'):", repr(selection_sort(sortArray="test")))
-print("Sort([42]):", selection_sort(sortArray=[42]))
-print("Sort([99, 'test', 42]):", selection_sort(sortArray=[99, "test", 42]))
-unsorted: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
-print("Sort([99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]):", selection_sort(sortArray=unsorted), "\n")
+intArray: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
+print("Unsorted:", intArray)
+selectionSort(inputArray=intArray)
+print("Sorted:", selectionSort(inputArray=intArray), intArray)
+print()
+print("Sort():", selectionSort())
+intArray = "test"
+print("Sort('test'):", selectionSort(inputArray=intArray), repr(intArray))
+intArray = [42]
+print("Sort([42]):", selectionSort(inputArray=intArray), intArray)
+intArray = [99, "test", 42]
+print("Sort([99, 'test', 42]):", selectionSort(inputArray=intArray), intArray)
+print()

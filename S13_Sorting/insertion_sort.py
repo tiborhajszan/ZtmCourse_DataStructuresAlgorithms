@@ -1,40 +1,39 @@
 ########################################################################################################################
-### Data Structures and Algorithms :: Section 13
-### Insertion Sort Implementation
+### Data Structures and Algorithms
+### Section 13 | Insertion Sort Implementation
 ########################################################################################################################
-
-### imports ------------------------------------------------------------------------------------------------------------
 
 from typing import List
 
-########################################################################################################################
-### Solution Function
-########################################################################################################################
+### insertion sort function ############################################################################################
 
-def insertion_sort(sortArray:List[int]=list()) -> List[int]:
+def insertionSort(inputArray:List[int]=list()) -> int:
     """
-    Sorts an array of integers using the Insertion Sort algorithm.
+    Sorts an array of integers in ascending order using the Insertion Sort algorithm.
 
     Args:
-    - sortArray : List[int], array of integers to be sorted, defaults to empty list
+    - inputArray : List[int], array of integers to be sorted, defaults to empty list
 
     Returns:
-    - sortArray : List[int], sorted array
+    - 0, sort success | -1, sort failure
     """
 
-    ### invalid input > returning invalid input ------------------------------------------------------------------------
+    ### invalid input > returning -1 -----------------------------------------------------------------------------------
 
-    if type(sortArray) is not list or len(sortArray) < 2: return sortArray
-    if any(type(item) is not int for item in sortArray): return sortArray
+    if type(inputArray) is not list or len(inputArray) < 2: return -1
+    if any(type(item) is not int for item in inputArray): return -1
 
-    ### sorting array > returning sorted array -------------------------------------------------------------------------
+    ### sorting input array --------------------------------------------------------------------------------------------
 
-    for item_index in range(1, len(sortArray)):
-        for index in range(item_index, 0, -1):
-            if sortArray[index-1] > sortArray[index]:
-                sortArray[index-1], sortArray[index] = sortArray[index], sortArray[index-1]
+    for current_index in range(1, len(inputArray)):
+        for sort_index in range(current_index, 0, -1):
+            if inputArray[sort_index-1] > inputArray[sort_index]:
+                inputArray[sort_index-1], inputArray[sort_index] = inputArray[sort_index], inputArray[sort_index-1]
             else: break
-    return sortArray
+    
+    ### returning 0 ----------------------------------------------------------------------------------------------------
+
+    return 0
 
 ########################################################################################################################
 ### Testing Code

@@ -40,9 +40,15 @@ def insertionSort(inputArray:List[int]=list()) -> int:
 ########################################################################################################################
 
 print()
-print("Sort():", insertion_sort())
-print("Sort('test'):", repr(insertion_sort(sortArray="test")))
-print("Sort([42]):", insertion_sort(sortArray=[42]))
-print("Sort([99, 'test', 42]):", insertion_sort(sortArray=[99, "test", 42]))
-unsorted: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
-print("Sort([99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]):", insertion_sort(sortArray=unsorted), "\n")
+intArray: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
+print("Unsorted:", intArray)
+print("Sorted:", insertionSort(inputArray=intArray), intArray)
+print()
+print("Sort():", insertionSort())
+intArray = "test"
+print("Sort('test'):", insertionSort(inputArray=intArray), repr(intArray))
+intArray = [42]
+print("Sort([42]):", insertionSort(inputArray=intArray), intArray)
+intArray = [99, "test", 42]
+print("Sort([99, 'test', 42]):", insertionSort(inputArray=intArray), intArray)
+print()

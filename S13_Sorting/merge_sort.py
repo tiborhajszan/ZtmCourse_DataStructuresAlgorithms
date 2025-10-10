@@ -1,30 +1,25 @@
 ########################################################################################################################
-### Data Structures and Algorithms :: Section 13
-### Merge Sort Implementation
+### Data Structures and Algorithms
+### Section 13 | Merge Sort Implementation
 ########################################################################################################################
-
-### imports ------------------------------------------------------------------------------------------------------------
 
 from typing import List
 
-########################################################################################################################
-### Solution Functions
-########################################################################################################################
+### merge array function ###############################################################################################
 
-### merge function #####################################################################################################
-def merge(leftArray:List[int], rightArray:List[int]) -> List[int]:
+def mergeArray(leftArray:List[int]=list(), rightArray:List[int]=list()) -> List[int]:
     """
     Merges two sorted arrays of integers into a single sorted array.
 
     Args:
-    - leftArray : List[int], left sorted array
-    - rightArray : List[int], right sorted array
+    - leftArray : List[int], left sorted array, defaults to empty list
+    - rightArray : List[int], right sorted array, defaults to empty list
 
     Returns:
     - merged_array : List[int], merged sorted array
     """
 
-    ### initializing merged array --------------------------------------------------------------------------------------
+    ### function init --------------------------------------------------------------------------------------------------
 
     merged_array: List[int] = list()
 

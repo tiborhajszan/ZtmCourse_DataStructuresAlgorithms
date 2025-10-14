@@ -37,44 +37,47 @@ def mergeArray(leftArray:List[int]=list(), rightArray:List[int]=list()) -> List[
     return merged_array
 
 ### merge sort function ################################################################################################
-def merge_sort(sortArray:List[int]=list()) -> List[int]:
+
+def mergeSort(inputArray:List[int]=list()) -> List[int]:
     """
-    Sorts an array of integers using the Merge Sort algorithm.
+    Sorts an array of integers in ascending order using the Merge Sort algorithm.
 
     Args:
-    - sortArray : List[int], array of integers to be sorted, defaults to empty list
+    - inputArray : List[int], array of integers to be sorted, defaults to empty list
 
     Returns:
-    - sortArray : List[int], sorted array
+    - sorted_array : List[int], sorted array
     """
 
-    ### invalid input > returning invalid input ------------------------------------------------------------------------
+    ### invalid input | base case > returning input array --------------------------------------------------------------
 
-    if type(sortArray) is not list or len(sortArray) < 2: return sortArray
-    if any(type(item) is not int for item in sortArray): return sortArray
+    if type(inputArray) is not list or len(inputArray) < 2: return inputArray
+    if any(type(item) is not int for item in inputArray): return inputArray
 
-    ### base case > returning sorted array -----------------------------------------------------------------------------
+    ### splitting input array ------------------------------------------------------------------------------------------
 
-    if len(sortArray) == 1: return sortArray
-
-    ### splitting array ------------------------------------------------------------------------------------------------
-
-    middle_index: int = len(sortArray) // 2
-    left_array: List[int] = sortArray[:middle_index]
-    right_array: List[int] = sortArray[middle_index:]
+    middle_index: int = len(inputArray) // 2
+    left_array: List[int] = inputArray[:middle_index]
+    right_array: List[int] = inputArray[middle_index:]
 
     ### recursive case > returning sorted array ------------------------------------------------------------------------
 
-    return merge(leftArray=merge_sort(sortArray=left_array), rightArray=merge_sort(sortArray=right_array))
+    return mergeArray(leftArray=mergeSort(inputArray=left_array), rightArray=mergeSort(inputArray=right_array))
 
 ########################################################################################################################
 ### Testing Code
 ########################################################################################################################
 
 print()
-print("Sort():", merge_sort())
-print("Sort('test'):", repr(merge_sort(sortArray="test")))
-print("Sort([42]):", merge_sort(sortArray=[42]))
-print("Sort([99, 'test', 42]):", merge_sort(sortArray=[99, "test", 42]))
-unsorted: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
-print("Sort([99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]):", merge_sort(sortArray=unsorted), "\n")
+intArray: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
+print("Unsorted:", intArray)
+print("Sorted:", mergeSort(inputArray=intArray))
+print()
+print("Sort():", mergeSort())
+intArray = "test"
+print("Sort('test'):", repr(mergeSort(inputArray=intArray)))
+intArray = [42]
+print("Sort([42]):", mergeSort(inputArray=intArray))
+intArray = [99, "test", 42]
+print("Sort([99, 'test', 42]):", mergeSort(inputArray=intArray))
+print()

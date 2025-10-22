@@ -23,7 +23,7 @@ def bubbleSort(inputArray:List[int]=list()) -> None:
     if type(inputArray) is not list or len(inputArray) < 2: return
     if any(type(item) is not int for item in inputArray): return
 
-    ### sorting array --------------------------------------------------------------------------------------------------
+    ### sorting input array --------------------------------------------------------------------------------------------
 
     for size in range(len(inputArray)-1, 1, -1):
         for index in range(0, size):

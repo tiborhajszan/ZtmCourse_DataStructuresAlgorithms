@@ -7,7 +7,7 @@ from typing import List
 
 ### insertion sort function ############################################################################################
 
-def insertionSort(inputArray:List[int]=list()) -> int:
+def insertionSort(inputArray:List[int]=list()) -> None:
     """
     Sorts an array of integers in ascending order using the Insertion Sort algorithm.
 
@@ -15,13 +15,13 @@ def insertionSort(inputArray:List[int]=list()) -> int:
     - inputArray : List[int], array of integers to be sorted, defaults to empty list
 
     Returns:
-    - 0, sort success | -1, sort failure
+    - None
     """
 
-    ### invalid input > returning -1 -----------------------------------------------------------------------------------
+    ### function init --------------------------------------------------------------------------------------------------
 
-    if type(inputArray) is not list or len(inputArray) < 2: return -1
-    if any(type(item) is not int for item in inputArray): return -1
+    if type(inputArray) is not list or len(inputArray) < 2: return
+    if any(type(item) is not int for item in inputArray): return
 
     ### sorting input array --------------------------------------------------------------------------------------------
 
@@ -31,24 +31,37 @@ def insertionSort(inputArray:List[int]=list()) -> int:
                 inputArray[sort_index-1], inputArray[sort_index] = inputArray[sort_index], inputArray[sort_index-1]
             else: break
     
-    ### returning 0 ----------------------------------------------------------------------------------------------------
+    ### function ends --------------------------------------------------------------------------------------------------
 
-    return 0
+    return
 
 ########################################################################################################################
 ### Testing Code
 ########################################################################################################################
 
 print()
-intArray: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
-print("Unsorted:", intArray)
-print("Sorted:", insertionSort(inputArray=intArray), intArray)
+
+int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+print("Unsorted:", int_array)
+insertionSort(inputArray=int_array)
+print("Sorted:", int_array)
+
 print()
-print("Sort():", insertionSort())
-intArray = "test"
-print("Sort('test'):", insertionSort(inputArray=intArray), repr(intArray))
-intArray = [42]
-print("Sort([42]):", insertionSort(inputArray=intArray), intArray)
-intArray = [99, "test", 42]
-print("Sort([99, 'test', 42]):", insertionSort(inputArray=intArray), intArray)
+
+int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+insertionSort()
+print("Sort():", int_array)
+
+int_array = "test"
+insertionSort(inputArray=int_array)
+print("Sort('test'):", repr(int_array))
+
+int_array = [42]
+insertionSort(inputArray=int_array)
+print("Sort([42]):", int_array)
+
+int_array = [99, "test", 42]
+insertionSort(inputArray=int_array)
+print("Sort([99, 'test', 42]):", int_array)
+
 print()

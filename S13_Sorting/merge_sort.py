@@ -5,15 +5,15 @@
 
 from typing import List
 
-### merge array function ###############################################################################################
+### merge arrays function ##############################################################################################
 
-def mergeArray(leftArray:List[int]=list(), rightArray:List[int]=list()) -> List[int]:
+def mergeArrays(leftArray:List[int]=list(), rightArray:List[int]=list()) -> List[int]:
     """
     Merges two sorted arrays of integers into a single sorted array.
 
     Args:
-    - leftArray : List[int], left sorted array, defaults to empty list
-    - rightArray : List[int], right sorted array, defaults to empty list
+    - leftArray : List[int], left sorted array to merge, defaults to empty list
+    - rightArray : List[int], right sorted array to merge, defaults to empty list
 
     Returns:
     - merged_array : List[int], merged sorted array
@@ -62,22 +62,29 @@ def mergeSort(inputArray:List[int]=list()) -> List[int]:
 
     ### recursive case > returning sorted array ------------------------------------------------------------------------
 
-    return mergeArray(leftArray=mergeSort(inputArray=left_array), rightArray=mergeSort(inputArray=right_array))
+    return mergeArrays(leftArray=mergeSort(inputArray=left_array), rightArray=mergeSort(inputArray=right_array))
 
 ########################################################################################################################
 ### Testing Code
 ########################################################################################################################
 
 print()
-intArray: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
-print("Unsorted:", intArray)
-print("Sorted:", mergeSort(inputArray=intArray))
+
+int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+print("Unsorted:", int_array)
+print("Sorted:", mergeSort(inputArray=int_array))
+
 print()
+
 print("Sort():", mergeSort())
-intArray = "test"
-print("Sort('test'):", repr(mergeSort(inputArray=intArray)))
-intArray = [42]
-print("Sort([42]):", mergeSort(inputArray=intArray))
-intArray = [99, "test", 42]
-print("Sort([99, 'test', 42]):", mergeSort(inputArray=intArray))
+
+int_array = "test"
+print("Sort('test'):", repr(mergeSort(inputArray=int_array)))
+
+int_array = [42]
+print("Sort([42]):", mergeSort(inputArray=int_array))
+
+int_array = [99, "test", 42]
+print("Sort([99, 'test', 42]):", mergeSort(inputArray=int_array))
+
 print()

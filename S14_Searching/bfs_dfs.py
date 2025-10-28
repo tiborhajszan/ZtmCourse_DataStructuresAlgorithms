@@ -16,6 +16,7 @@ class BinarySearchTree:
     Methods:
     - __init__() : initializes new Binary Search Tree object
     - _bfsLinear() : performs linear Breadth First Search
+    - _bfsRecursive() : performs recursive Breadth First Search
     - _traverse() : collects all values stored in Binary Search Tree
     - __str__() : defines string representation
     - insert() : adds new node
@@ -37,16 +38,18 @@ class BinarySearchTree:
         - root : Dict[str,Any], root of Binary Search Tree (first node), defaults to empty node
         - level : int, level index of Binary Search Tree, defaults to 0
         - value_list : List[Any], list of Binary Search Tree values, defaults to empty list
+        - recursive_list : List[Any], recursive list of Binary Search Tree values, defaults to empty list
         - values : List[List[Any]], level-wise list of Binary Search Tree values, defaults to empty list
 
         Returns:
         - None
         """
 
-        self.empty_node: Dict[str,Any] = {"left": None, "value": None, "right": None}
+        self.empty_node: Dict[str,Any] = {"left": {}, "value": None, "right": {}}
         self.root: Dict[str,Any] = self.empty_node
-        self.level: int = int(0)
+        # self.level: int = int(0)
         self.value_list: List[Any] = list()
+        self.recursive_list: List[Any] = list()
         return
     
     ### linear breadth first search method #############################################################################
@@ -81,6 +84,35 @@ class BinarySearchTree:
 
         return
     
+    ### recursive breadth first search method ##########################################################################
+
+    def _bfsRecursive(self, nodeQueue:List[Dict[str,Any]], valueList:List[Any]) -> List[Any]:
+        """
+        Performs a recursive Breadth First Search on the Binary Search Tree.
+
+        Args:
+        - nodeQueue : List[Dict[str,Any]], queue of nodes to be searched
+        - valueList : List[Any], list of Binary Search Tree values
+
+        Returns:
+        - List[Any], list of Binary Search Tree values
+        """
+
+        ### base case --------------------------------------------------------------------------------------------------
+
+        if len(nodeQueue) == 0: return valueList
+
+        ### method main logic ------------------------------------------------------------------------------------------
+
+        current_node: Dict[str,Any] = nodeQueue.pop(0)
+        valueList.append(current_node["value"])
+        if len(current_node["left"]) != 0: nodeQueue.append(current_node["left"])
+        if len(current_node["right"]) != 0: nodeQueue.append(current_node["right"])
+        
+        ### recursive case ---------------------------------------------------------------------------------------------
+
+        return self._bfsRecursive(nodeQueue=nodeQueue, valueList=valueList)
+
     ### traverse private method ########################################################################################
     def _traverse(self, traverseNode:Dict[str,Any]) -> None:
         """
@@ -128,9 +160,9 @@ class BinarySearchTree:
 
         ### tree not empty > returning string representation of tree ---------------------------------------------------
 
-        self._bfsLinear()
-        value_str: str = ", ".join(str(value) for value in self.value_list)
-        return "\nBFS: " + value_str + "\n"
+        self.recursive_list = self._bfsRecursive(nodeQueue=[self.root], valueList=list())
+        recursive_str: str = ", ".join(str(value) for value in self.recursive_list)
+        return "\nRecursive BFS: " + recursive_str + "\n"
         # self._traverse(traverseNode=self.root)
         # return "\n".join(" ".join(str(value) for value in level) for level in self.values) + "\n"
     
@@ -138,7 +170,7 @@ class BinarySearchTree:
 
     def insert(self, insertValue:Any=None) -> bool:
         """
-        Adds a new node to the Binary Search Tree object.
+        Adds a new node to the Binary Search Tree.
 
         Args:
         - insertValue : int | float | None, value of node to be inserted, defaults to None
@@ -151,24 +183,35 @@ class BinarySearchTree:
 
         if insertValue is None or not isinstance(insertValue, (int, float)): return False
 
-        ### setting initial conditions ---------------------------------------------------------------------------------
+        ### inserting into root node > returning true ------------------------------------------------------------------
+
+        if self.root["value"] is None:
+            self.root["value"] = insertValue
+            return True
+
+        ### traversal initial conditions -------------------------------------------------------------------------------
 
         parent_node: Dict[str,Any] = self.empty_node
-        insert_node: Dict[str,Any] = self.root
-        new_node: Dict[str,Any] = {"left": None, "value": insertValue, "right": None}
+        child_node: Dict[str,Any] = self.root
+        new_node: Dict[str,Any] = {"left": {}, "value": insertValue, "right": {}}
 
-        ### traversing tree to find insert node ------------------------------------------------------------------------
+        ### inserting into leaf node -----------------------------------------------------------------------------------
 
-        while insert_node["value"] is not None:
-            parent_node = insert_node
-            insert_node = parent_node["left"] if insertValue < parent_node["value"] else parent_node["right"]
-            if insert_node is None: insert_node = self.empty_node
+        while len(child_node) != 0:
+            parent_node = child_node
+
+            ### going left
+            if insertValue < parent_node["value"]:
+                if len(parent_node["left"]) == 0: parent_node["left"] = new_node; break
+                else: child_node = parent_node["left"]
+            
+            ### going right
+            else:
+                if len(parent_node["right"]) == 0: parent_node["right"] = new_node; break
+                else: child_node = parent_node["right"]
         
-        ### inserting new node > returning true ------------------------------------------------------------------------
+        ### returning true ---------------------------------------------------------------------------------------------
 
-        if self.root["value"] is None: self.root = new_node
-        elif insertValue < parent_node["value"]: parent_node["left"] = new_node
-        else: parent_node["right"] = new_node
         return True
     
     ### contains dunder method #########################################################################################

@@ -12,7 +12,7 @@
 ### 3 - Sorting sport scores on ESPN:
 # Quick Sort (good for large/random datasets, main concern is memory)
 
-### 4 - Sorting a massive database (does not fit into memory) of user data from last year:
+### 4 - Sorting a massive database of user data from last year (does not fit into memory):
 # Merge Sort (good for large/random datasets, main concern is performance)
 
 ### 5 - Adding 2 new reviews to update a presorted list of Udemy reviews:

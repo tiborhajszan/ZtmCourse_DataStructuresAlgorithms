@@ -7,13 +7,13 @@ from typing import List
 
 ### merge arrays function ##############################################################################################
 
-def mergeArrays(leftArray:List[int]=list(), rightArray:List[int]=list()) -> List[int]:
+def mergeArrays(leftArray:List[int], rightArray:List[int]) -> List[int]:
     """
     Merges two sorted arrays of integers into a single sorted array.
 
     Args:
-    - leftArray : List[int], left sorted array to merge, defaults to empty list
-    - rightArray : List[int], right sorted array to merge, defaults to empty list
+    - leftArray : List[int], left sorted array to merge
+    - rightArray : List[int], right sorted array to merge
 
     Returns:
     - merged_array : List[int], merged sorted array
@@ -46,7 +46,7 @@ def mergeSort(inputArray:List[int]=list()) -> List[int]:
     - inputArray : List[int], array of integers to be sorted, defaults to empty list
 
     Returns:
-    - sorted_array : List[int], sorted array
+    - List[int], sorted array
     """
 
     ### invalid input | base case > returning input array --------------------------------------------------------------

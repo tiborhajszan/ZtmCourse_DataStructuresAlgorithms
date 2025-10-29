@@ -5,39 +5,37 @@
 
 from typing import List
 
-### quick arrange function #############################################################################################
+### arrange array function #############################################################################################
 
-def quickArrange(inputArray:List[int], pivotIndex:int, leftIndex:int, rightIndex:int) -> int:
+def arrangeArray(inputArray:List[int], leftIndex:int, rightIndex:int) -> int:
     """
     Arranges smaller items to the left and larger items to the right of the pivot.
-    Determines the split index.
+    Determines the pivot index.
 
     Args:
     - inputArray : List[int], array of integers to be sorted
-    - pivotIndex : int, index of pivot item
     - leftIndex : int, index of first subarray item 
     - rightIndex : int, index of last subarray item
 
     Returns:
-    - split_index : int, new index of pivot
+    - pivot_index : int, index of pivot item
     """
 
     ### function init --------------------------------------------------------------------------------------------------
 
-    pivot_value: int = inputArray[pivotIndex]
-    split_index: int = leftIndex
+    pivot_index: int = leftIndex
 
-    ### rearranging array ----------------------------------------------------------------------------------------------
+    ### rearranging input array ----------------------------------------------------------------------------------------
 
     for index in range(leftIndex, rightIndex):
-        if inputArray[index] < pivot_value:
-            inputArray[split_index], inputArray[index] = inputArray[index], inputArray[split_index]
-            split_index += 1
+        if inputArray[index] < inputArray[rightIndex]:
+            inputArray[pivot_index], inputArray[index] = inputArray[index], inputArray[pivot_index]
+            pivot_index += 1
+    inputArray[pivot_index], inputArray[rightIndex] = inputArray[rightIndex], inputArray[pivot_index]
     
-    ### placing pivot > returning split index --------------------------------------------------------------------------
+    ### returning pivot index ------------------------------------------------------------------------------------------
 
-    inputArray[split_index], inputArray[pivotIndex] = inputArray[pivotIndex], inputArray[split_index]
-    return split_index
+    return pivot_index
 
 ### quick sort function ################################################################################################
 
@@ -58,18 +56,20 @@ def quickSort(inputArray:List[int]=list(), leftIndex:int=0, rightIndex:int=0) ->
 
     if type(inputArray) is not list or len(inputArray) < 2: return
     if any(type(item) is not int for item in inputArray): return
-    split_index: int = 0
+    pivot_index: int = 0
 
-    ### sorting array --------------------------------------------------------------------------------------------------
+    ### base case > returning  -----------------------------------------------------------------------------------------
 
-    if leftIndex < rightIndex:
-        split_index = quickArrange(
-            inputArray=inputArray,
-            pivotIndex=rightIndex,
-            leftIndex=leftIndex,
-            rightIndex=rightIndex)
-        quickSort(inputArray=inputArray, leftIndex=leftIndex, rightIndex=split_index-1)
-        quickSort(inputArray=inputArray, leftIndex=split_index+1, rightIndex=rightIndex)
+    if -1 < leftIndex - rightIndex: return
+
+    ### rearranging input array ----------------------------------------------------------------------------------------
+
+    pivot_index = arrangeArray(inputArray=inputArray, leftIndex=leftIndex, rightIndex=rightIndex)
+
+    ### recursive case > splitting input array -------------------------------------------------------------------------
+
+    quickSort(inputArray=inputArray, leftIndex=leftIndex, rightIndex=pivot_index-1)
+    quickSort(inputArray=inputArray, leftIndex=pivot_index+1, rightIndex=rightIndex)
     
     ### function ends --------------------------------------------------------------------------------------------------
 

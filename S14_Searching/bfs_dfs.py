@@ -1,6 +1,6 @@
 ########################################################################################################################
 ### Data Structures and Algorithms
-### Section 10 | Breadth First Search Implementation
+### Section 14 | Breadth/Depth First Search Implementations
 ########################################################################################################################
 
 from typing import List, Dict, Any
@@ -14,9 +14,12 @@ class BinarySearchTree:
     Implements a simple Binary Search Tree data structure.
 
     Methods:
-    - __init__() : initializes new Binary Search Tree object
-    - _bfsLinear() : performs linear Breadth First Search
+    - __init__() : initializes Binary Search Tree object
+    - _bfsIterative() : performs iterative Breadth First Search
     - _bfsRecursive() : performs recursive Breadth First Search
+    - _dfsPreOrder() : performs PreOrder Depth First Search
+    - _dfsInOrder() : performs InOrder Depth First Search
+    - _dfsPostOrder() : performs PostOrder Depth First Search
     - _traverse() : collects all values stored in Binary Search Tree
     - __str__() : defines string representation
     - insert() : adds new node
@@ -34,8 +37,9 @@ class BinarySearchTree:
         - None
 
         Attributes:
-        - empty_node : Dict[str,Any], empty node placeholder
-        - root : Dict[str,Any], root of Binary Search Tree (first node), defaults to empty node
+        - empty_node : Dict[str,Any], empty node template
+        - root_node : Dict[str,Any], root node of Binary Search Tree, defaults to empty node
+
         - level : int, level index of Binary Search Tree, defaults to 0
         - value_list : List[Any], list of Binary Search Tree values, defaults to empty list
         - recursive_list : List[Any], recursive list of Binary Search Tree values, defaults to empty list
@@ -46,10 +50,11 @@ class BinarySearchTree:
         """
 
         self.empty_node: Dict[str,Any] = {"left": {}, "value": None, "right": {}}
-        self.root: Dict[str,Any] = self.empty_node
+        self.root_node: Dict[str,Any] = self.empty_node
         # self.level: int = int(0)
-        self.value_list: List[Any] = list()
-        self.recursive_list: List[Any] = list()
+        # self.value_list: List[Any] = list()
+        # self.recursive_list: List[Any] = list()
+        # self.inorder_list: List[Any] = list()
         return
     
     ### linear breadth first search method #############################################################################
@@ -112,6 +117,64 @@ class BinarySearchTree:
         ### recursive case ---------------------------------------------------------------------------------------------
 
         return self._bfsRecursive(nodeQueue=nodeQueue, valueList=valueList)
+    
+    ### preorder depth first search private method #####################################################################
+
+    def _dfsPreOrder(self, currentNode:Dict[str,Any], valueList:List[Any]) -> List[Any]:
+        """
+        Performs a PreOrder Depth First Search in the Binary Search Tree.
+
+        Args:
+        - currentNode : Dict[str,Any], current node to be processed
+        - valueList : List[Any], list of Binary Search Tree values
+
+        Returns:
+        - List[Any], list of Binary Search Tree values
+        """
+
+        valueList.append(currentNode["value"])
+        if len(currentNode["left"]) != 0: self._dfsPreOrder(currentNode=currentNode["left"], valueList=valueList)
+        if len(currentNode["right"]) != 0: self._dfsPreOrder(currentNode=currentNode["right"], valueList=valueList)
+        return valueList
+    
+    ### inorder depth first search private method ######################################################################
+
+    def _dfsInOrder(self, currentNode:Dict[str,Any], valueList:List[Any]) -> List[Any]:
+        """
+        Performs an InOrder Depth First Search in the Binary Search Tree.
+
+        Args:
+        - currentNode : Dict[str,Any], current node to be processed
+        - valueList : List[Any], list of Binary Search Tree values
+
+        Returns:
+        - List[Any], list of Binary Search Tree values
+        """
+
+        if len(currentNode["left"]) != 0: self._dfsInOrder(currentNode=currentNode["left"], valueList=valueList)
+        valueList.append(currentNode["value"])
+        if len(currentNode["right"]) != 0: self._dfsInOrder(currentNode=currentNode["right"], valueList=valueList)
+        return valueList
+    
+    ### postorder depth first search private method ####################################################################
+
+    def _dfsPostOrder(self, currentNode:Dict[str,Any], valueList:List[Any]) -> List[Any]:
+        """
+        Performs a PostOrder Depth First Search in the Binary Search Tree.
+
+        Args:
+        - currentNode : Dict[str,Any], current node to be processed
+        - valueList : List[Any], list of Binary Search Tree values
+
+        Returns:
+        - List[Any], list of Binary Search Tree values
+        """
+
+        if len(currentNode["left"]) != 0: self._dfsPostOrder(currentNode=currentNode["left"], valueList=valueList)
+        if len(currentNode["right"]) != 0: self._dfsPostOrder(currentNode=currentNode["right"], valueList=valueList)
+        valueList.append(currentNode["value"])
+        return valueList
+
 
     ### traverse private method ########################################################################################
     def _traverse(self, traverseNode:Dict[str,Any]) -> None:
@@ -145,26 +208,28 @@ class BinarySearchTree:
 
     def __str__(self) -> str:
         """
-        Defines the string representation for the Binary Search Tree class.
+        Defines string representation for the Binary Search Tree.
 
         Args:
         - None
 
         Returns:
-        - str, string representation of Binary Search Tree class
+        - str, string representation of Binary Search Tree
         """
 
         ### tree empty > returning empty message -----------------------------------------------------------------------
 
-        if self.root["value"] is None: return "\nEmpty Tree\n"
+        if self.root_node["value"] is None: return "\nEmpty Tree\n"
 
-        ### tree not empty > returning string representation of tree ---------------------------------------------------
+        ### tree not empty > returning string representation -----------------------------------------------------------
 
-        self.recursive_list = self._bfsRecursive(nodeQueue=[self.root], valueList=list())
-        recursive_str: str = ", ".join(str(value) for value in self.recursive_list)
-        return "\nRecursive BFS: " + recursive_str + "\n"
-        # self._traverse(traverseNode=self.root)
-        # return "\n".join(" ".join(str(value) for value in level) for level in self.values) + "\n"
+        preorder_str: str = str(self._dfsPreOrder(currentNode=self.root_node, valueList=list()))
+        tree_str: str = "PreOrder DFS: " + preorder_str + "\n"
+        inorder_str: str = str(self._dfsInOrder(currentNode=self.root_node, valueList=list()))
+        tree_str += "InOrder DFS: " + inorder_str + "\n"
+        postorder_str: str = str(self._dfsPostOrder(currentNode=self.root_node, valueList=list()))
+        tree_str += "PostOrder DFS: " + postorder_str + "\n"
+        return tree_str
     
     ### insert method ##################################################################################################
 
@@ -185,30 +250,28 @@ class BinarySearchTree:
 
         ### inserting into root node > returning true ------------------------------------------------------------------
 
-        if self.root["value"] is None:
-            self.root["value"] = insertValue
+        if self.root_node["value"] is None:
+            self.root_node["value"] = insertValue
             return True
 
-        ### traversal initial conditions -------------------------------------------------------------------------------
+        ### traversal init ---------------------------------------------------------------------------------------------
 
-        parent_node: Dict[str,Any] = self.empty_node
-        child_node: Dict[str,Any] = self.root
+        current_node: Dict[str,Any] = self.root_node
         new_node: Dict[str,Any] = {"left": {}, "value": insertValue, "right": {}}
 
-        ### inserting into leaf node -----------------------------------------------------------------------------------
+        ### traversal > inserting into leaf node -----------------------------------------------------------------------
 
-        while len(child_node) != 0:
-            parent_node = child_node
+        while len(current_node) != 0:
 
             ### going left
-            if insertValue < parent_node["value"]:
-                if len(parent_node["left"]) == 0: parent_node["left"] = new_node; break
-                else: child_node = parent_node["left"]
+            if insertValue < current_node["value"]:
+                if len(current_node["left"]) == 0: current_node["left"] = new_node; break
+                else: current_node = current_node["left"]; continue
             
             ### going right
             else:
-                if len(parent_node["right"]) == 0: parent_node["right"] = new_node; break
-                else: child_node = parent_node["right"]
+                if len(current_node["right"]) == 0: current_node["right"] = new_node; break
+                else: current_node = current_node["right"]; continue
         
         ### returning true ---------------------------------------------------------------------------------------------
 

@@ -18,17 +18,17 @@ def bubbleSort(inputArray:List[int]=list()) -> None:
     - None
     """
 
-    ### function init --------------------------------------------------------------------------------------------------
+    ### invalid input > function ends ----------------------------------------------------------------------------------
 
     if type(inputArray) is not list or len(inputArray) < 2: return
     if any(type(item) is not int for item in inputArray): return
 
     ### sorting input array --------------------------------------------------------------------------------------------
 
-    for size in range(len(inputArray)-1, 1, -1):
-        for index in range(0, size):
-            if inputArray[index] > inputArray[index+1]:
-                inputArray[index], inputArray[index+1] = inputArray[index+1], inputArray[index]
+    for sort_index in range(0, len(inputArray)-1):
+        for current_index in range(sort_index+1, len(inputArray)):
+            if inputArray[sort_index] > inputArray[current_index]:
+                inputArray[sort_index], inputArray[current_index] = inputArray[current_index], inputArray[sort_index]
     
     ### function ends --------------------------------------------------------------------------------------------------
 

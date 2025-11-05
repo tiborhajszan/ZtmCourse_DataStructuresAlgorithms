@@ -1,6 +1,6 @@
 ########################################################################################################################
 ### Data Structures and Algorithms
-### Section 14 | Breadth/Depth First Search Implementations
+### Section 14 | Validate, Breadth First Search, Depth First Search Implementations
 ########################################################################################################################
 
 from typing import List, Dict, Any
@@ -14,7 +14,10 @@ class BinarySearchTree:
     Implements a simple Binary Search Tree data structure.
 
     Methods:
-    - __init__() : initializes Binary Search Tree object
+    - __init__() : initializes new Binary Search Tree
+    - insert() : adds new node
+    - valid() : validates Binary Search Tree
+
     - _bfsIterative() : performs iterative Breadth First Search
     - _bfsRecursive() : performs recursive Breadth First Search
     - _dfsPreOrder() : performs PreOrder Depth First Search
@@ -22,7 +25,6 @@ class BinarySearchTree:
     - _dfsPostOrder() : performs PostOrder Depth First Search
     - _traverse() : collects all values stored in Binary Search Tree
     - __str__() : defines string representation
-    - insert() : adds new node
     - __contains__() : defines "in" operator
     - delete() : removes node
     """
@@ -31,7 +33,7 @@ class BinarySearchTree:
 
     def __init__(self) -> None:
         """
-        Initializes a new Binary Search Tree object with an empty root node.
+        Initializes a new Binary Search Tree with an empty root node.
 
         Args:
         - None
@@ -56,6 +58,93 @@ class BinarySearchTree:
         # self.recursive_list: List[Any] = list()
         # self.inorder_list: List[Any] = list()
         return
+    
+    ### insert method ##################################################################################################
+
+    def insert(self, insertValue:Any=None) -> bool:
+        """
+        Adds a new node to the Binary Search Tree.
+
+        Args:
+        - insertValue : int | float | None, value of node to be inserted, defaults to None
+
+        Returns:
+        - bool, True = insert success | False = insert failure
+        """
+
+        ### invalid insert value > returning false ---------------------------------------------------------------------
+
+        if insertValue is None or not isinstance(insertValue, (int, float)): return False
+
+        ### inserting into root node > returning true ------------------------------------------------------------------
+
+        if self.root_node["value"] is None:
+            self.root_node["value"] = insertValue
+            return True
+
+        ### traversal init ---------------------------------------------------------------------------------------------
+
+        current_node: Dict[str,Any] = self.root_node
+        new_node: Dict[str,Any] = {"left": {}, "value": insertValue, "right": {}}
+
+        ### traversal to appropriate leaf node -------------------------------------------------------------------------
+
+        while len(current_node) != 0:
+
+            ### left child empty > inserting new node | left child not empty > going left
+            if insertValue < current_node["value"]:
+                if len(current_node["left"]) == 0: current_node["left"] = new_node; break
+                else: current_node = current_node["left"]; continue
+            
+            ### right child empty > inserting new node | right child not empty > going right
+            else:
+                if len(current_node["right"]) == 0: current_node["right"] = new_node; break
+                else: current_node = current_node["right"]; continue
+        
+        ### returning true ---------------------------------------------------------------------------------------------
+
+        return True
+    
+    ### validate method ################################################################################################
+
+    def valid(self) -> bool:
+        """
+        Validates the Binary Search Tree.
+
+        Args:
+        - None
+
+        Returns:
+        - bool, True = tree is valid | False = tree is invalid
+        """
+
+        ### method init ------------------------------------------------------------------------------------------------
+
+        current_node: Dict[str,Any] = self.empty_node
+        node_queue: List[Dict[str,Any]] = [self.root_node]
+
+        ### empty tree > returning false -------------------------------------------------------------------------------
+
+        if self.root_node["value"] is None: return False
+
+        ### breadth first search for violation -------------------------------------------------------------------------
+
+        while 0 < len(node_queue):
+            current_node = node_queue.pop(0)
+
+            ### left violation > returning false | no left violation > adding left child to queue
+            if len(current_node["left"]) != 0:
+                if current_node["left"]["value"] > current_node["value"]: return False
+                node_queue.append(current_node["left"])
+            
+            ### right violation > returning false | no right violation > adding right child to queue
+            if len(current_node["right"]) != 0:
+                if current_node["value"] > current_node["right"]["value"]: return False
+                node_queue.append(current_node["right"])
+        
+        ### no violation > returning true ------------------------------------------------------------------------------
+
+        return True
     
     ### linear breadth first search method #############################################################################
 
@@ -219,7 +308,7 @@ class BinarySearchTree:
 
         ### tree empty > returning empty message -----------------------------------------------------------------------
 
-        if self.root_node["value"] is None: return "\nEmpty Tree\n"
+        if self.root_node["value"] is None: return "\nEmpty Tree"
 
         ### tree not empty > returning string representation -----------------------------------------------------------
 
@@ -228,54 +317,8 @@ class BinarySearchTree:
         inorder_str: str = str(self._dfsInOrder(currentNode=self.root_node, valueList=list()))
         tree_str += "InOrder DFS: " + inorder_str + "\n"
         postorder_str: str = str(self._dfsPostOrder(currentNode=self.root_node, valueList=list()))
-        tree_str += "PostOrder DFS: " + postorder_str + "\n"
+        tree_str += "PostOrder DFS: " + postorder_str
         return tree_str
-    
-    ### insert method ##################################################################################################
-
-    def insert(self, insertValue:Any=None) -> bool:
-        """
-        Adds a new node to the Binary Search Tree.
-
-        Args:
-        - insertValue : int | float | None, value of node to be inserted, defaults to None
-
-        Returns:
-        - bool, True = insert success | False = insert failure
-        """
-
-        ### invalid insert value > returning false ---------------------------------------------------------------------
-
-        if insertValue is None or not isinstance(insertValue, (int, float)): return False
-
-        ### inserting into root node > returning true ------------------------------------------------------------------
-
-        if self.root_node["value"] is None:
-            self.root_node["value"] = insertValue
-            return True
-
-        ### traversal init ---------------------------------------------------------------------------------------------
-
-        current_node: Dict[str,Any] = self.root_node
-        new_node: Dict[str,Any] = {"left": {}, "value": insertValue, "right": {}}
-
-        ### traversal > inserting into leaf node -----------------------------------------------------------------------
-
-        while len(current_node) != 0:
-
-            ### going left
-            if insertValue < current_node["value"]:
-                if len(current_node["left"]) == 0: current_node["left"] = new_node; break
-                else: current_node = current_node["left"]; continue
-            
-            ### going right
-            else:
-                if len(current_node["right"]) == 0: current_node["right"] = new_node; break
-                else: current_node = current_node["right"]; continue
-        
-        ### returning true ---------------------------------------------------------------------------------------------
-
-        return True
     
     ### contains dunder method #########################################################################################
     def __contains__(self, containsValue:Any) -> bool:
@@ -377,6 +420,8 @@ class BinarySearchTree:
 
 my_bst = BinarySearchTree()
 print(my_bst)
+print(my_bst.valid())
+print()
 
 print("Insert(9):", my_bst.insert(insertValue=9))
 print("Insert(4):", my_bst.insert(insertValue=4))
@@ -389,6 +434,8 @@ print("Insert(14.0):", my_bst.insert(insertValue=14.0))
 print("Insert(14.1):", my_bst.insert(insertValue=14.1))
 print("Insert(15.0):", my_bst.insert(insertValue=15.0))
 print(my_bst)
+print(my_bst.valid())
+print()
 
 # print("Find(6):", 6 in my_bst)
 # print("Delete(6):", my_bst.delete(deleteValue=6), "\n")

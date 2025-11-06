@@ -25,10 +25,10 @@ def bubbleSort(inputArray:List[int]=list()) -> None:
 
     ### sorting input array --------------------------------------------------------------------------------------------
 
-    for sort_index in range(0, len(inputArray)-1):
-        for current_index in range(sort_index+1, len(inputArray)):
-            if inputArray[sort_index] > inputArray[current_index]:
-                inputArray[sort_index], inputArray[current_index] = inputArray[current_index], inputArray[sort_index]
+    for sort in range(0, len(inputArray)-1):
+        for bubble in range(len(inputArray)-1, sort, -1):
+            if inputArray[bubble-1] > inputArray[bubble]:
+                inputArray[bubble-1], inputArray[bubble] = inputArray[bubble], inputArray[bubble-1]
     
     ### function ends --------------------------------------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 ########################################################################################################################
-### Data Structures and Algorithms
+### Data Structures And Algorithms
 ### Section 13 | Insertion Sort Implementation
 ########################################################################################################################
 
@@ -18,17 +18,17 @@ def insertionSort(inputArray:List[int]=list()) -> None:
     - None
     """
 
-    ### function init --------------------------------------------------------------------------------------------------
+    ### invalid input > function ends ----------------------------------------------------------------------------------
 
     if type(inputArray) is not list or len(inputArray) < 2: return
     if any(type(item) is not int for item in inputArray): return
 
     ### sorting input array --------------------------------------------------------------------------------------------
 
-    for current_index in range(1, len(inputArray)):
-        for sort_index in range(current_index, 0, -1):
-            if inputArray[sort_index-1] > inputArray[sort_index]:
-                inputArray[sort_index-1], inputArray[sort_index] = inputArray[sort_index], inputArray[sort_index-1]
+    for current in range(1, len(inputArray)):
+        for bubble in range(current, 0, -1):
+            if inputArray[bubble-1] > inputArray[bubble]:
+                inputArray[bubble-1], inputArray[bubble] = inputArray[bubble], inputArray[bubble-1]
             else: break
     
     ### function ends --------------------------------------------------------------------------------------------------

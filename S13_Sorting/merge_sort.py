@@ -1,5 +1,5 @@
 ########################################################################################################################
-### Data Structures and Algorithms
+### Data Structures And Algorithms
 ### Section 13 | Merge Sort Implementation
 ########################################################################################################################
 
@@ -16,7 +16,7 @@ def mergeArrays(leftArray:List[int], rightArray:List[int]) -> List[int]:
     - rightArray : List[int], right sorted array to merge
 
     Returns:
-    - merged_array : List[int], merged sorted array
+    - List[int], merged sorted array
     """
 
     ### function init --------------------------------------------------------------------------------------------------
@@ -54,15 +54,15 @@ def mergeSort(inputArray:List[int]=list()) -> List[int]:
     if type(inputArray) is not list or len(inputArray) < 2: return inputArray
     if any(type(item) is not int for item in inputArray): return inputArray
 
-    ### splitting input array ------------------------------------------------------------------------------------------
+    ### recursive case > splitting input array -------------------------------------------------------------------------
 
     middle_index: int = len(inputArray) // 2
-    left_array: List[int] = inputArray[:middle_index]
-    right_array: List[int] = inputArray[middle_index:]
+    left_array: List[int] = mergeSort(inputArray[:middle_index])
+    right_array: List[int] = mergeSort(inputArray[middle_index:])
 
-    ### recursive case > returning sorted array ------------------------------------------------------------------------
+    ### returning merged sorted array ----------------------------------------------------------------------------------
 
-    return mergeArrays(leftArray=mergeSort(inputArray=left_array), rightArray=mergeSort(inputArray=right_array))
+    return mergeArrays(leftArray=left_array, rightArray=right_array)
 
 ########################################################################################################################
 ### Testing Code
@@ -70,7 +70,7 @@ def mergeSort(inputArray:List[int]=list()) -> List[int]:
 
 print()
 
-int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
 print("Unsorted:", int_array)
 print("Sorted:", mergeSort(inputArray=int_array))
 

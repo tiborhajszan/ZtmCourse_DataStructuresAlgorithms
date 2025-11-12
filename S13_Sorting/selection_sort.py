@@ -1,5 +1,5 @@
 ########################################################################################################################
-### Data Structures and Algorithms
+### Data Structures And Algorithms
 ### Section 13 | Selection Sort Implementation
 ########################################################################################################################
 
@@ -18,18 +18,22 @@ def selectionSort(inputArray:List[int]=list()) -> None:
     - None
     """
 
-    ### function init --------------------------------------------------------------------------------------------------
+    ### invalid input > function ends ----------------------------------------------------------------------------------
 
     if type(inputArray) is not list or len(inputArray) < 2: return
     if any(type(item) is not int for item in inputArray): return
 
+    ### function init --------------------------------------------------------------------------------------------------
+
+    min_index: int = int(0)
+
     ### sorting input array --------------------------------------------------------------------------------------------
 
-    for sort_index in range(0, len(inputArray)-1):
-        min_index = sort_index
-        for current_index in range(sort_index+1, len(inputArray)):
-            if inputArray[min_index] > inputArray[current_index]: min_index = current_index
-        inputArray[sort_index], inputArray[min_index] = inputArray[min_index], inputArray[sort_index]
+    for sort in range(0, len(inputArray)-1):
+        min_index = sort
+        for current in range(sort+1, len(inputArray)):
+            if inputArray[min_index] > inputArray[current]: min_index = current
+        inputArray[sort], inputArray[min_index] = inputArray[min_index], inputArray[sort]
     
     ### function ends --------------------------------------------------------------------------------------------------
 
@@ -41,14 +45,14 @@ def selectionSort(inputArray:List[int]=list()) -> None:
 
 print()
 
-int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
 print("Unsorted:", int_array)
 selectionSort(inputArray=int_array)
 print("Sorted:", int_array)
 
 print()
 
-int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
 selectionSort()
 print("Sort():", int_array)
 

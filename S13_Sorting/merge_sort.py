@@ -32,7 +32,7 @@ def mergeArrays(leftArray:List[int], rightArray:List[int]) -> List[int]:
         elif 0 < len(leftArray): merged_array.append(leftArray.pop(0))
         else: merged_array.append(rightArray.pop(0))
     
-    ### returning merged array -----------------------------------------------------------------------------------------
+    ### returning merged sorted array ----------------------------------------------------------------------------------
 
     return merged_array
 
@@ -76,6 +76,7 @@ print("Sorted:", mergeSort(inputArray=int_array))
 
 print()
 
+int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
 print("Sort():", mergeSort())
 
 int_array = "test"

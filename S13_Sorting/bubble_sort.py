@@ -40,7 +40,7 @@ def bubbleSort(inputArray:List[int]=list()) -> None:
 
 print()
 
-int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
 print("Unsorted:", int_array)
 bubbleSort(inputArray=int_array)
 print("Sorted:", int_array)

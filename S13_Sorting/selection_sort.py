@@ -31,8 +31,8 @@ def selectionSort(inputArray:List[int]=list()) -> None:
 
     for sort in range(0, len(inputArray)-1):
         min_index = sort
-        for current in range(sort+1, len(inputArray)):
-            if inputArray[min_index] > inputArray[current]: min_index = current
+        for select in range(sort+1, len(inputArray)):
+            if inputArray[min_index] > inputArray[select]: min_index = select
         inputArray[sort], inputArray[min_index] = inputArray[min_index], inputArray[sort]
     
     ### function ends --------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ print("Sorted:", int_array)
 
 print()
 
-int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
+int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
 selectionSort()
 print("Sort():", int_array)
 

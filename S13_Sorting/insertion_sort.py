@@ -25,8 +25,8 @@ def insertionSort(inputArray:List[int]=list()) -> None:
 
     ### sorting input array --------------------------------------------------------------------------------------------
 
-    for current in range(1, len(inputArray)):
-        for bubble in range(current, 0, -1):
+    for insert in range(1, len(inputArray)):
+        for bubble in range(insert, 0, -1):
             if inputArray[bubble-1] > inputArray[bubble]:
                 inputArray[bubble-1], inputArray[bubble] = inputArray[bubble], inputArray[bubble-1]
             else: break
@@ -41,7 +41,7 @@ def insertionSort(inputArray:List[int]=list()) -> None:
 
 print()
 
-int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
+int_array: List[int] = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
 print("Unsorted:", int_array)
 insertionSort(inputArray=int_array)
 print("Sorted:", int_array)

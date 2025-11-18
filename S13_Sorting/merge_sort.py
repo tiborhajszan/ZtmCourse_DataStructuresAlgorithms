@@ -76,7 +76,7 @@ print("Sorted:", mergeSort(inputArray=int_array))
 
 print()
 
-int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
+int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
 print("Sort():", mergeSort())
 
 int_array = "test"

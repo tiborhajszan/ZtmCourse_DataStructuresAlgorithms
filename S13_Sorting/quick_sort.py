@@ -55,7 +55,7 @@ def quickSort(inputArray:List[int]=list()) -> List[int]:
     if type(inputArray) is not list or len(inputArray) < 2: return inputArray
     if any(type(item) is not int for item in inputArray): return inputArray
 
-    ### recursive case > finding pivot and splitting input array -------------------------------------------------------
+    ### recursive case > finding pivot > splitting input array ---------------------------------------------------------
 
     pivot_index: int = arrangeArray(inputArray=inputArray)
     left_array: List[int] = quickSort(inputArray=inputArray[:pivot_index])
@@ -77,7 +77,7 @@ print("Sorted:", quickSort(inputArray=int_array))
 
 print()
 
-int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44, 44]
+int_array = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0, 77, 66, 44]
 print("Sort():", quickSort())
 
 int_array = "test"

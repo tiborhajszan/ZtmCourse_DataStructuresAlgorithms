@@ -15,7 +15,8 @@ def climbing_stairs():
     Uses dynamic programming, memoization, closure, recursion.
 
     ### Parameters
-    - stairNum : int, number of stairs, 1 <= stairNum <= 45, defaults to 0
+    - stairNum : int, number of stairs, defaults to 0  
+        1 <= stairNum <= 45
     ### Returns
     - int, number of ways to climb the stairs | -1, number of stairs is invalid
     """

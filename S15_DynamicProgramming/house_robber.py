@@ -8,37 +8,47 @@ import random
 
 ### house robber function ##############################################################################################
 
-def house_robber(plunderList:List[int]=list()) -> int:
+def house_robber(moneyList:List[int]=list()) -> int:
     """
-    Finds the optimized solution for the House Robber coding problem.
+    Finds the solution for the House Robber coding problem.  
+    https://leetcode.com/problems/house-robber/description/  
+    Uses iterative dynamic programming and memory optimization.
 
-    Args:
-    - plunderList : List[int], list of plunder values, defaults to empty list
-    Returns:
-    - int, maximum plunder value
+    ### Parameters:
+    - moneyList : List[int], list of money available at each house  
+        1 <= moneyList.length <= 100, 0 <= moneyList[i] <= 400  
+        defaults to empty list
+    ### Returns:
+    - int, maximum loot available
+    - -1, invalid argument
     """
 
     ### invalid argument > returning -1 > ------------------------------------------------------------------------------
 
-    if type(plunderList) is not list or len(plunderList) < 1 or 100 < len(plunderList): return -1
-    if any(type(plunder) is not int or plunder < 0 or 400 < plunder for plunder in plunderList): return -1
+    if type(moneyList) is not list or len(moneyList) < 1 or 100 < len(moneyList): return -1
+    if any(type(money) is not int or money < 0 or 400 < money for money in moneyList): return -1
 
-    ### base cases > returning maximum plunder value -------------------------------------------------------------------
+    ### base cases > returning maximum loot ----------------------------------------------------------------------------
 
-    if len(plunderList) == 1: return plunderList[0]
-    if len(plunderList) == 2: return max(plunderList)
+    if len(moneyList) == 1: return moneyList[0]
+    if len(moneyList) == 2: return max(moneyList)
 
-    ### calculating profit sequence ------------------------------------------------------------------------------------
+    ### registers init -------------------------------------------------------------------------------------------------
 
-    profit_sequence: List[int] = list()
-    profit_sequence.append(plunderList[0])
-    profit_sequence.append(max(plunderList[0], plunderList[1]))
-    for house in range(2, len(plunderList)):
-        profit_sequence.append(max(profit_sequence[house-1], profit_sequence[house-2]+plunderList[house]))
+    previous1: int = moneyList[0]
+    previous2: int = max(moneyList[0], moneyList[1])
+    max_loot: int = 0
+    
+    ### calculating maximum loot ---------------------------------------------------------------------------------------
 
-    ### returning maximum plunder value --------------------------------------------------------------------------------
+    for money in moneyList[2:]:
+        max_loot = max(previous2 + money, previous1)
+        previous2 = previous1
+        previous1 = max_loot
 
-    return profit_sequence.pop()
+    ### returning maximum loot -----------------------------------------------------------------------------------------
+
+    return max_loot
 
 ########################################################################################################################
 ### testing code
@@ -52,21 +62,20 @@ print()
 print("Robber() =", house_robber())
 print()
 
-print("Robber('test') =", house_robber(plunderList="test"))
-print("Robber([]) =", house_robber(plunderList=[]))
-print("Robber([1]*105) =", house_robber(plunderList=[1]*105))
+print("Robber('test') =", house_robber(moneyList="test"))
+print("Robber([]) =", house_robber(moneyList=[]))
+print("Robber([1]*105) =", house_robber(moneyList=[1]*105))
 print()
 
-print("Robber([300,'test',5]) =", house_robber(plunderList=[300,'test',5]))
-print("Robber([300,400,-5]) =", house_robber(plunderList=[300,400,-5]))
-print("Robber([300,400,500]) =", house_robber(plunderList=[300,400,500]))
+print("Robber([300,'test',5]) =", house_robber(moneyList=[300,'test',5]))
+print("Robber([300,400,-5]) =", house_robber(moneyList=[300,400,-5]))
+print("Robber([300,400,500]) =", house_robber(moneyList=[300,400,500]))
 print()
 
-print("Robber([5]) =", house_robber(plunderList=[5]))
-print("Robber([1,5]) =", house_robber(plunderList=[1,5]))
+print("Robber([5]) =", house_robber(moneyList=[5]))
+print("Robber([1,5]) =", house_robber(moneyList=[1,8]))
 print()
 
-plunder_list: List[int] = list()
-for _ in range(5): plunder_list.append(random.randint(0, 401))
-print(f"Robber({plunder_list}) =", house_robber(plunderList=plunder_list))
+money_list: List[int] = [random.randint(0, 400) for _ in range(100)]
+print(f"Robber({money_list}) = {house_robber(moneyList=money_list)}")
 print()

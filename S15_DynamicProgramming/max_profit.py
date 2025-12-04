@@ -20,15 +20,15 @@ def max_profit(prices:List[int]=list()) -> int:
         defaults to empty list
     ### Returns
     - int, maximum available profit
-    - -1, invalid input
+    - -1, invalid argument
     """
 
-    ### invalid input > returning -1 -----------------------------------------------------------------------------------
+    ### invalid argument > returning -1 --------------------------------------------------------------------------------
 
     if type(prices) is not list or len(prices) < 2 or 100000 < len(prices): return -1
     if any(type(price) is not int or price < 0 or 10000 < price for price in prices): return -1
 
-    ### register init --------------------------------------------------------------------------------------------------
+    ### registers init -------------------------------------------------------------------------------------------------
 
     buy_price: int = prices[0]
     max_profit: int = 0
@@ -52,20 +52,20 @@ print()
 print("Maximum Profit")
 print()
 
-print("Profit() =", max_profit())
+print(f"Profit() = {max_profit()}")
 print()
 
-print("Profit('test') =", max_profit(prices=["test"]))
-print("Profit([1]) =", max_profit(prices=[1]))
-print("Profit([1]*100005) =", max_profit(prices=[1]*100005))
+print(f"Profit('test') = {max_profit(prices=['test'])}")
+print(f"Profit([1]) = {max_profit(prices=[1])}")
+print(f"Profit([1]*100005) = {max_profit(prices=[1]*100005)}")
 print()
 
-print("Profit([1,'test',2) =", max_profit(prices=[1,"test",2]))
-print("Profit([1,-1,2) =", max_profit(prices=[1,-1,2]))
-print("Profit([1,15000,2) =", max_profit(prices=[1,15000,2]))
+print(f"Profit([1,'test',2]) = {max_profit(prices=[1,'test',2])}")
+print(f"Profit([1,-1,2]) = {max_profit(prices=[1,-1,2])}")
+print(f"Profit([1,15000,2]) = {max_profit(prices=[1,15000,2])}")
 print()
 
-price_list: List[int] = [random.randint(1, 10001) for _ in range(100)]
+price_list: List[int] = [random.randint(1, 10000) for _ in range(1000)]
 # price_list.sort(reverse=True)
 print(f"Profit({price_list}) = {max_profit(prices=price_list)}")
 print()

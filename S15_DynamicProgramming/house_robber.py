@@ -15,11 +15,11 @@ def house_robber(moneyList:List[int]=list()) -> int:
     Uses iterative dynamic programming and memory optimization.
 
     ### Parameters:
-    - moneyList : List[int], list of money available at each house  
+    - moneyList : List[int], amount of money stashed at each house  
         1 <= moneyList.length <= 100, 0 <= moneyList[i] <= 400  
         defaults to empty list
     ### Returns:
-    - int, maximum loot available
+    - int, maximum available loot
     - -1, invalid argument
     """
 
@@ -35,8 +35,8 @@ def house_robber(moneyList:List[int]=list()) -> int:
 
     ### registers init -------------------------------------------------------------------------------------------------
 
-    previous1: int = moneyList[0]
-    previous2: int = max(moneyList[0], moneyList[1])
+    previous2: int = moneyList[0]
+    previous1: int = max(moneyList[0], moneyList[1])
     max_loot: int = 0
     
     ### calculating maximum loot ---------------------------------------------------------------------------------------
@@ -59,21 +59,21 @@ print()
 print("House Robber")
 print()
 
-print("Robber() =", house_robber())
+print(f"Robber() = {house_robber()}")
 print()
 
-print("Robber('test') =", house_robber(moneyList="test"))
-print("Robber([]) =", house_robber(moneyList=[]))
-print("Robber([1]*105) =", house_robber(moneyList=[1]*105))
+print(f"Robber('test') = {house_robber(moneyList='test')}")
+print(f"Robber([]) = {house_robber(moneyList=[])}")
+print(f"Robber([1]*105) = {house_robber(moneyList=[1]*105)}")
 print()
 
-print("Robber([300,'test',5]) =", house_robber(moneyList=[300,'test',5]))
-print("Robber([300,400,-5]) =", house_robber(moneyList=[300,400,-5]))
-print("Robber([300,400,500]) =", house_robber(moneyList=[300,400,500]))
+print(f"Robber([300,'test',5]) = {house_robber(moneyList=[300,'test',5])}")
+print(f"Robber([300,400,-5]) = {house_robber(moneyList=[300,400,-5])}")
+print(f"Robber([300,400,500]) = {house_robber(moneyList=[300,400,500])}")
 print()
 
-print("Robber([5]) =", house_robber(moneyList=[5]))
-print("Robber([1,5]) =", house_robber(moneyList=[1,8]))
+print(f"Robber([5]) = {house_robber(moneyList=[5])}")
+print(f"Robber([1,8]) = {house_robber(moneyList=[1,8])}")
 print()
 
 money_list: List[int] = [random.randint(0, 400) for _ in range(100)]

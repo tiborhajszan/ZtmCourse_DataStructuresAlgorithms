@@ -12,13 +12,15 @@ def climbing_stairs():
     """
     Finds the solution for the Climbing Stairs coding problem:  
     https://leetcode.com/problems/climbing-stairs/description/  
-    Uses dynamic programming, memoization, closure, recursion.
+    Uses recursive dynamic programming, closure, and memoization.
 
     ### Parameters
-    - stairNum : int, number of stairs, defaults to 0  
-        1 <= stairNum <= 45
+    - stairNum : int, number of stairs  
+        1 <= stairNum <= 45  
+        defaults to 0
     ### Returns
-    - int, number of ways to climb the stairs | -1, number of stairs is invalid
+    - int, number of ways to climb the stairs
+    - -1, invalid argument
     """
 
     ### memoization init -----------------------------------------------------------------------------------------------
@@ -58,16 +60,16 @@ print()
 print("Stairs() =", climbing_stairs()())
 print()
 
-print("Stairs('test') =", climbing_stairs()(stairNum="test"))
-print("Stairs(-1) =", climbing_stairs()(stairNum=-1))
-print("Stairs(55) =", climbing_stairs()(stairNum=55))
+print(f"Stairs('test') = {climbing_stairs()(stairNum='test')}")
+print(f"Stairs(-1) = {climbing_stairs()(stairNum=-1)}")
+print(f"Stairs(55) = {climbing_stairs()(stairNum=55)}")
 print()
 
-print("Stairs(1) =", climbing_stairs()(stairNum=1))
-print("Stairs(2) =", climbing_stairs()(stairNum=2))
-print("Stairs(3) =", climbing_stairs()(stairNum=3))
+print(f"Stairs(1) = {climbing_stairs()(stairNum=1)}")
+print(f"Stairs(2) = {climbing_stairs()(stairNum=2)}")
+print(f"Stairs(3) = {climbing_stairs()(stairNum=3)}")
 print()
 
-stair_num: int = random.randint(1, 46)
-print(f"Stairs({stair_num}) =", climbing_stairs()(stairNum=stair_num))
+stair_num: int = random.randint(1, 45)
+print(f"Stairs({stair_num}) = {climbing_stairs()(stairNum=stair_num)}")
 print()

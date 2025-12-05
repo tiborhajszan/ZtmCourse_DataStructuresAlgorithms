@@ -14,11 +14,11 @@ def house_robber(moneyList:List[int]=list()) -> int:
     https://leetcode.com/problems/house-robber/description/  
     Uses iterative dynamic programming and memory optimization.
 
-    ### Parameters:
+    ### Parameters
     - moneyList : List[int], amount of money stashed at each house  
         1 <= moneyList.length <= 100, 0 <= moneyList[i] <= 400  
         defaults to empty list
-    ### Returns:
+    ### Returns
     - int, maximum available loot
     - -1, invalid argument
     """
@@ -28,7 +28,7 @@ def house_robber(moneyList:List[int]=list()) -> int:
     if type(moneyList) is not list or len(moneyList) < 1 or 100 < len(moneyList): return -1
     if any(type(money) is not int or money < 0 or 400 < money for money in moneyList): return -1
 
-    ### base cases > returning maximum loot ----------------------------------------------------------------------------
+    ### base cases > returning base loot -------------------------------------------------------------------------------
 
     if len(moneyList) == 1: return moneyList[0]
     if len(moneyList) == 2: return max(moneyList)

@@ -12,7 +12,7 @@ def climbing_stairs():
     """
     Finds the solution for the Climbing Stairs coding problem:  
     https://leetcode.com/problems/climbing-stairs/description/  
-    Uses recursive dynamic programming, closure, and memoization.
+    Uses memoization, closure, and recursive dynamic programming.
 
     ### Parameters
     - stairNum : int, number of stairs  

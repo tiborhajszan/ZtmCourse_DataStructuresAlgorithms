@@ -12,7 +12,7 @@ def max_profit(prices:List[int]=list()) -> int:
     """
     Finds the solution for the Maximum Profit coding problem:  
     https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/  
-    Uses iterative dynamic programming and memory optimization.
+    Uses memory optimization and iterative dynamic programming.
 
     ### Parameters
     - prices : List[int], series of stock prices  
@@ -35,7 +35,7 @@ def max_profit(prices:List[int]=list()) -> int:
 
     ### calculating maximum profit -------------------------------------------------------------------------------------
 
-    for price in prices:
+    for price in prices[1:]:
         max_profit = max(max_profit, price - buy_price)
         buy_price = min(buy_price, price)
 
@@ -52,20 +52,20 @@ print()
 print("Maximum Profit")
 print()
 
-print(f"Profit() = {max_profit()}")
+print(f"Maximum Profit() = {max_profit()}")
 print()
 
-print(f"Profit('test') = {max_profit(prices=['test'])}")
-print(f"Profit([1]) = {max_profit(prices=[1])}")
-print(f"Profit([1]*100005) = {max_profit(prices=[1]*100005)}")
+print(f"Maximum Profit('test') = {max_profit(prices=['test'])}")
+print(f"Maximum Profit([1]) = {max_profit(prices=[1])}")
+print(f"Maximum Profit([1]*100005) = {max_profit(prices=[1]*100005)}")
 print()
 
-print(f"Profit([1,'test',2]) = {max_profit(prices=[1,'test',2])}")
-print(f"Profit([1,-1,2]) = {max_profit(prices=[1,-1,2])}")
-print(f"Profit([1,15000,2]) = {max_profit(prices=[1,15000,2])}")
+print(f"Maximum Profit([1,'test',2]) = {max_profit(prices=[1,'test',2])}")
+print(f"Maximum Profit([1,-1,2]) = {max_profit(prices=[1,-1,2])}")
+print(f"Maximum Profit([1,15000,2]) = {max_profit(prices=[1,15000,2])}")
 print()
 
 price_list: List[int] = [random.randint(1, 10000) for _ in range(1000)]
 # price_list.sort(reverse=True)
-print(f"Profit({price_list}) = {max_profit(prices=price_list)}")
+print(f"Maximum Profit({price_list}) = {max_profit(prices=price_list)}")
 print()

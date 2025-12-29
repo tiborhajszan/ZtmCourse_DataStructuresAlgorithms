@@ -84,36 +84,27 @@ def square_closure():
 
 print()
 
-print("Memoized Square")
+print(f"Memoized Square() = {square_memoized()}")
+print(f"Memoized Square('test') = {square_memoized(inputInt='test')}")
+print(f"Memoized Square(-1001) = {square_memoized(inputInt=-1001)}")
+print(f"Memoized Square(1001) = {square_memoized(inputInt=1001)}")
 print()
 
-print("Memoized Square() =", square_memoized())
+print(f"Memoized Square(-1000) = {square_memoized(inputInt=-1000):,}")
+print(f"Memoized Square(0) = {square_memoized(inputInt=0)}")
+print(f"Memoized Square(1000) = {square_memoized(inputInt=1000):,}")
 print()
 
-print("Memoized Square('test') =", square_memoized(inputInt="test"))
-print("Memoized Square(-1001) =", square_memoized(inputInt=-1001))
-print("Memoized Square(1001) =", square_memoized(inputInt=1001))
+print("-" * 20)
 print()
 
-print("Memoized Square(-1000) =", square_memoized(inputInt=-1000))
-print("Memoized Square(0) =", square_memoized(inputInt=0))
-print("Memoized Square(1000) =", square_memoized(inputInt=1000))
-
+print(f"Closure Square() = {square_closure()()}")
+print(f"Closure Square('test') = {square_closure()(inputInt='test')}")
+print(f"Closure Square(-1001) = {square_closure()(inputInt=-1001)}")
+print(f"Closure Square(1001) = {square_closure()(inputInt=1001)}")
 print()
 
-print("Closure Square")
-print()
-
-print("Closure Square() =", square_closure()())
-print()
-
-print("Closure Square('test') =", square_closure()(inputInt="test"))
-print("Closure Square(-1001) =", square_closure()(inputInt=-1001))
-print("Closure Square(1001) =", square_closure()(inputInt=1001))
-print()
-
-print("Closure Square(-1000) =", square_closure()(inputInt=-1000))
-print("Closure Square(0) =", square_closure()(inputInt=0))
-print("Closure Square(1000) =", square_closure()(inputInt=1000))
-
+print(f"Closure Square(-1000) = {square_closure()(inputInt=-1000):,}")
+print(f"Closure Square(0) = {square_closure()(inputInt=0)}")
+print(f"Closure Square(1000) = {square_closure()(inputInt=1000):,}")
 print()
